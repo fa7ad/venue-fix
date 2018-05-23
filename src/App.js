@@ -7,6 +7,7 @@ import './App.css'
 const App = () => (
   <Switch>
     <Route exact path='/' component={Home} />
+    <Route path='/tips' render={p => <div> HI </div>} />
   </Switch>
 )
 

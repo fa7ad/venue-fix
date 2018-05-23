@@ -1,0 +1,6 @@
+.form__root .row {
+  justify-content: space-between;
+}
+.form__root .row > * {
+  flex-basis: 24%;
+}

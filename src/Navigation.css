@@ -1,0 +1,23 @@
+/* .nav__root {
+  width: 100vw;
+  height: 12vh;
+} */
+/* .nav__createEvent {
+  border: 1px solid;
+  border-radius: 25px;
+  padding: 0;
+  margin: 0;
+} */
+.nav__image {
+  max-height: 48px;
+}
+
+.nav__root .ml-auto .nav-item a,
+.nav__root .ml-auto .nav-item a:link {
+  color: #fff;
+}
+
+.nav__root,
+.nav__root a.navbar-brand {
+  color: #fff;
+}

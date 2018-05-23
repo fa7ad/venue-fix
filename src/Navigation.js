@@ -5,13 +5,32 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
+  NavItem as NItem,
   NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem
 } from 'reactstrap'
+
+import { Link } from 'react-router-dom'
+import logoImg from './images/logo.svg'
+import img from './images/img.jpg'
+
+import './Navigation.css'
+
+const category = [
+  'community/Party center',
+  'Conventun Hall',
+  'Catering Service'
+]
+const us = ['Contact Us', 'About Us']
+
+const NavItem = ({ to, children, ...p }) => (
+  <NItem className='nav-item-vf' {...p}>
+    <NavLink tag={pr => <Link to={to} {...pr}>{children}</Link>} />
+  </NItem>
+)
 
 class Navigation extends Component {
   state = {
@@ -24,41 +43,45 @@ class Navigation extends Component {
 
   render () {
     return (
-      <div>
-        <Navbar color='light' light expand='md'>
-          <NavbarBrand href='/'>reactstrap</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className='ml-auto' navbar>
-              <NavItem>
-                <NavLink href='/components/'>Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href='https://github.com/reactstrap/reactstrap'>
-                  GitHub
-                </NavLink>
-              </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
+      <Navbar color='transparent' dark expand='md' className='nav__root'>
+        <NavbarBrand>
+          <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
+        </NavbarBrand>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav className='ml-auto' navbar>
+            <NavItem to='/'>Home</NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Category
+              </DropdownToggle>
+              <DropdownMenu>
+                {category.map((el, ind) => (
+                  <DropdownItem key={ind}>
+                    {el}
                   </DropdownItem>
-                  <DropdownItem>
-                    Option 2
+                ))}
+              </DropdownMenu>
+            </UncontrolledDropdown>
+
+            <NavItem to='/tips'>Tips</NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Us
+              </DropdownToggle>
+              <DropdownMenu>
+                {us.map((el, ind) => (
+                  <DropdownItem key={ind}>
+                    {el}
                   </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
+                ))}
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            <NavItem to='/auth'>Login / Register</NavItem>
+            <NavItem to='/event'>Create Event</NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
     )
   }
 }
