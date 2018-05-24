@@ -14,8 +14,7 @@ import {
 } from 'reactstrap'
 
 import { Link } from 'react-router-dom'
-import logoImg from './images/logo.svg'
-import img from './images/img.jpg'
+import logoImg from '../images/logo.svg'
 
 import './Navigation.css'
 
@@ -63,7 +62,6 @@ class Navigation extends Component {
                 ))}
               </DropdownMenu>
             </UncontrolledDropdown>
-
             <NavItem to='/tips'>Tips</NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

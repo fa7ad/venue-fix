@@ -18,11 +18,21 @@ class SearchForm extends Component {
             name='location'
             type='select'
             placeholder='City'
-            className='col-sm-3'
+            className='col-sm-2'
           >
             <option>Dhaka</option>
             <option>Comilla</option>
             <option>Chittagong</option>
+          </Input>
+          <Input
+            name='event'
+            type='select'
+            placeholder='Type Of Event'
+            className='col-sm-2'
+          >
+            <option>Wedding</option>
+            <option>Conference</option>
+            <option>Meating</option>
           </Input>
           <Flatpickr
             value={this.state.date}
@@ -31,7 +41,7 @@ class SearchForm extends Component {
             }}
             className='col-sm-3'
           />
-          <Input name='guests' placeholder='Guests' className='col-sm-3' />
+          <Input name='guests' placeholder='Guests' className='col-sm-2' />
           <Button color='primary' className='form__button col-sm-3'>
             Search
           </Button>
