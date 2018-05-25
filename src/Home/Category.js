@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row } from 'reactstrap'
+import { Row, Container } from 'reactstrap'
 
 import image1 from '../images/hotel.jpg'
 import image2 from '../images/hotel2.jpg'
@@ -11,18 +11,27 @@ import css from './Category.module.css'
 class Category extends Component {
   render () {
     return (
-      <div className='container'>
-        <Row className={css.row}>
-          <PictureCard bgImg={image1} size='6' caption='Hotels'>
-            Cat 1
-          </PictureCard>
-          <PictureCard bgImg={image2} size='3' caption='Hotels' btn='danger'>
-            Cat 1
-          </PictureCard>
-          <PictureCard bgImg={image3} size='3' caption='Hotels'>
-            Cat 1
-          </PictureCard>
-        </Row>
+      <div className={css.root}>
+        <Container>
+          <div className={css.category__header_root}>
+            <h3>Featured Categories</h3>
+            <p>
+              Discover Bangladesh best things to do, restaurants, theatre, nightlife and more
+            </p>
+          </div>
+
+          <Row className={css.row}>
+            <PictureCard bgImg={image1} size='6' caption='Hotels'>
+              Cat 1
+            </PictureCard>
+            <PictureCard bgImg={image2} size='3' caption='Hotels' btn='danger'>
+              Cat 1
+            </PictureCard>
+            <PictureCard bgImg={image3} size='3' caption='Hotels'>
+              Cat 1
+            </PictureCard>
+          </Row>
+        </Container>
       </div>
     )
   }

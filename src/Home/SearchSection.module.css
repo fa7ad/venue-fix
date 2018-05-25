@@ -11,3 +11,9 @@
     max-width: 17%;
   }
 }
+.root {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+}

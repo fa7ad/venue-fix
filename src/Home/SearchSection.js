@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import React, { Component } from 'react'
 import Flatpickr from 'react-flatpickr'
-import { Button, Form, Input, Row } from 'reactstrap'
+import { Button, Form, Input, Container } from 'reactstrap'
 
 import 'flatpickr/dist/themes/material_blue.css'
 import css from './SearchSection.module.css'
@@ -13,8 +13,8 @@ class SearchSection extends Component {
 
   render () {
     return (
-      <Form className='form__root container'>
-        <Row className={css.jcsb}>
+      <Container className={css.root}>
+        <Form className={cx(css.jcsb, 'row')}>
           <Input
             name='location'
             type='select'
@@ -43,12 +43,16 @@ class SearchSection extends Component {
             }}
             className={cx('col-sm-3', css['form-control'], 'form-control')}
           />
-          <Input name='guests' placeholder='Guests' className={cx('col-sm-2', css['col-sm-2'])} />
+          <Input
+            name='guests'
+            placeholder='Guests'
+            className={cx('col-sm-2', css['col-sm-2'])}
+          />
           <Button color='primary' className='form__button col-sm-2'>
             Search
           </Button>
-        </Row>
-      </Form>
+        </Form>
+      </Container>
     )
   }
 }
