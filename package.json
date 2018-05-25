@@ -14,12 +14,14 @@
     "classnames": "^2.2.5",
     "express": "4.16.3",
     "flatpickr": "^4.5.0",
+    "prop-types": "^15.6.1",
     "razzle": "^0.8.14",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-flatpickr": "^3.6.4",
     "react-router-dom": "4.2.2",
-    "reactstrap": "^6.0.1"
+    "reactstrap": "^6.0.1",
+    "styled-components": "^3.3.0"
   },
   "devDependencies": {
     "cross-env": "^5.1.5"

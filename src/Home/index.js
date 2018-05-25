@@ -1,5 +1,8 @@
 import React from 'react'
+
 import SearchSection from './SearchSection'
+import Category from './Category'
+
 import './Home.css'
 
 class Home extends React.Component {
@@ -7,6 +10,7 @@ class Home extends React.Component {
     return (
       <div className='home__root'>
         <SearchSection />
+        <Category />
       </div>
     )
   }

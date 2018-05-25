@@ -12,7 +12,6 @@ class SearchSection extends Component {
   }
 
   render () {
-    console.log(css)
     return (
       <Form className='form__root container'>
         <Row className={css.jcsb}>
