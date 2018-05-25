@@ -26,7 +26,7 @@ const App = ({ location: { pathname } }) => {
   const [match] = routes.filter(r => r.path === pathname)
 
   return (
-    <div className={cx('page', match.key)}>
+    <div className={cx('page', match.key || 'home')}>
       <Navigation />
       <Switch>
         {routes.map(props => <Route {...props} />)}
