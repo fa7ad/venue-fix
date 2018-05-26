@@ -2,6 +2,7 @@ import React from 'react'
 
 import SearchSection from './SearchSection'
 import Category from './Category'
+import Footer from './Footer'
 
 import './Home.css'
 
@@ -11,6 +12,7 @@ class Home extends React.Component {
       <div className='home__root'>
         <SearchSection />
         <Category />
+        <Footer />
       </div>
     )
   }
