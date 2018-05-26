@@ -18,6 +18,10 @@
   color: #fff;
 }
 
+.nav__root .container {
+  padding: 0;
+}
+
 @media (max-width: 768px) {
   .nav-container > * {
     padding: 0 5px;

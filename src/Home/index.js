@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ScrollTrigger from 'react-scroll-trigger'
+
 import SearchSection from './SearchSection'
 import Category from './Category'
 import Footer from './Footer'
@@ -12,7 +14,10 @@ class Home extends React.Component {
       <div className='home__root'>
         <SearchSection />
         <Category />
-        <Footer />
+        <ScrollTrigger
+        >
+          <Footer />
+        </ScrollTrigger>
       </div>
     )
   }

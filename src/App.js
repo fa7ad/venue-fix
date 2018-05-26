@@ -22,18 +22,21 @@ const routes = [
   }
 ]
 
-const App = ({ location: { pathname } }) => {
-  const [match] = routes.filter(r => r.path === pathname)
+class App extends React.Component {
+  render () {
+    const { location: { pathname } } = this.props
+    const [match] = routes.filter(r => r.path === pathname)
 
-  return (
-    <div className={cx('page', match.key || 'home')}>
-      <Navigation />
-      <Switch>
-        {routes.map(props => <Route {...props} />)}
-      </Switch>
-    </div>
-  )
+    return (
+      <div className={cx('page', match.key || 'home')}>
+        <Navigation />
+        <Switch>
+          {routes.map(props => <Route {...props} />)}
+        </Switch>
+      </div>
+    )
+  }
 }
 
-export {routes}
+export { routes }
 export default withRouter(App)
