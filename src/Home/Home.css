@@ -1,4 +1,6 @@
 .page.home {
   background: url(../images/img.jpg);
-  background-size: cover;
+  background-size: 100% 60vmax;
+  background-position: center top;
+  background-repeat: no-repeat;
 }

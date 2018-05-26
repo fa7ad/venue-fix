@@ -1,7 +1,7 @@
 .nav__root {
   padding-left: 0;
   padding-right: 0;
-  padding: .5rem 0 !important;
+  padding: .5rem 0;
 }
 
 .nav__image {
@@ -16,4 +16,11 @@
 .nav__root,
 .nav__root a.navbar-brand {
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .nav-container > * {
+    padding: 0 5px;
+    background: rgba(0, 0, 0, 0.25);
+  }
 }

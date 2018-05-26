@@ -3,8 +3,6 @@ import BrowserRouter from 'react-router-dom/BrowserRouter'
 import React from 'react'
 import { hydrate } from 'react-dom'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 hydrate(
   <BrowserRouter>
     <App />

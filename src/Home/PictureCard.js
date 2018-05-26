@@ -25,11 +25,11 @@ NormalCard.propTypes = {
 
 const PictureCard = s(NormalCard)`
 width: 100%;
-background-color: transparent !important;
-background-image: ${p => `linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)), url(${p.bgImg})`} !important;
+background-color: transparent;
+background-image: ${p => `linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)), url(${p.bgImg})`};
 
 &:hover {
-  background-image: ${p => `linear-gradient(rgba(20,20,20, .75), rgba(20,20,20, .75)), url(${p.bgImg})`} !important;
+  background-image: ${p => `linear-gradient(rgba(20,20,20, .75), rgba(20,20,20, .75)), url(${p.bgImg})`};
 }
 `
 

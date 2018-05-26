@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import cx from 'classnames'
 import {
   Collapse,
   Navbar,
@@ -19,7 +20,7 @@ import logoImg from '../images/logo.svg'
 import './Navigation.css'
 
 const category = [
-  'community/Party center',
+  'Community/Party center',
   'Conventun Hall',
   'Catering Service'
 ]
@@ -48,7 +49,7 @@ class Navigation extends Component {
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className='ml-auto' navbar>
+          <Nav className={cx('nav-container', 'ml-auto')} navbar>
             <NavItem to='/'>Home</NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>

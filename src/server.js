@@ -12,7 +12,7 @@ server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
-    const sheet = new ServerStyleSheet()    
+    const sheet = new ServerStyleSheet()
     const context = {}
     const markup = renderToString(sheet.collectStyles(
       <StaticRouter context={context} location={req.url}>
@@ -32,6 +32,7 @@ server
         <meta charset="utf-8" />
         <title>Welcome to Razzle</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.1/cosmo/bootstrap.min.css" rel="stylesheet" />
         ${assets.client.css
     ? `<link rel="stylesheet" href="${assets.client.css}">`
     : ''}
