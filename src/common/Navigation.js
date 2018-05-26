@@ -43,7 +43,13 @@ class Navigation extends Component {
 
   render () {
     return (
-      <Navbar color='transparent' dark expand='md' className='nav__root container'>
+      <Navbar
+        fixed='top'
+        color='transparent'
+        dark
+        expand='md'
+        className='nav__root container'
+      >
         <NavbarBrand>
           <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
         </NavbarBrand>
