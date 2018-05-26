@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
 import cx from 'classnames'
+import React, { Component } from 'react'
 import {
   Collapse,
   Container,
@@ -15,9 +15,10 @@ import {
   DropdownItem
 } from 'reactstrap'
 
+import { injObser } from '../uiStore'
 import { Link } from 'react-router-dom'
-import logoImg from '../images/logo.svg'
 
+import logoImg from '../images/logo.svg'
 import './Navigation.css'
 
 const category = [
@@ -46,10 +47,10 @@ class Navigation extends Component {
     return (
       <Navbar
         fixed='top'
-        color={this.props.color}
+        color={this.props.ui.navColor}
         dark
         expand='md'
-        className='nav__root'
+        className={cx('nav__root', 'bg-' + this.props.ui.navColor)}
       >
         <Container>
           <NavbarBrand>
@@ -94,4 +95,4 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation
+export default injObser('ui')(Navigation)

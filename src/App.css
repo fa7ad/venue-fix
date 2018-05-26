@@ -17,10 +17,3 @@ body,html {
 .page {
   flex-basis: 100%;
 }
-/* .page.home {
-  background: url(./images/img.jpg);
-  background-size: cover;
-} */
-.page.tips {
-  background: black;
-}

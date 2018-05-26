@@ -5,8 +5,14 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import Navigation from './common/Navigation'
 import Home from './Home/'
 import Tips from './Tips/'
+import FourOhFour from './FourOhFour/'
+
+import { Provider } from 'mobx-react'
+import UiStore from './uiStore'
 
 import './App.css'
+
+const uiStore = new UiStore()
 
 const routes = [
   {
@@ -19,23 +25,27 @@ const routes = [
     key: 'tips',
     path: '/tips',
     component: Tips
+  },
+  {
+    key: 'E404',
+    path: '/*',
+    component: FourOhFour
   }
 ]
 
-class App extends React.Component {
-  render () {
-    const { location: { pathname } } = this.props
-    const [match] = routes.filter(r => r.path === pathname)
+const App = ({ location: { pathname } }) => {
+  const [match] = routes.filter(r => r.path === pathname)
 
-    return (
-      <div className={cx('page', match.key || 'home')}>
-        <Navigation />
+  return (
+    <Provider ui={uiStore}>
+      <div className={cx('page', (match && match.key) || 'E404')}>
+        {match && <Navigation />}
         <Switch>
           {routes.map(props => <Route {...props} />)}
         </Switch>
       </div>
-    )
-  }
+    </Provider>
+  )
 }
 
 export { routes }

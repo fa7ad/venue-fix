@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { inject } from 'mobx-react'
 import ScrollTrigger from 'react-scroll-trigger'
 
 import SearchSection from './SearchSection'
@@ -8,19 +8,17 @@ import Footer from './Footer'
 
 import './Home.css'
 
-class Home extends React.Component {
-  render () {
-    return (
-      <div className='home__root'>
-        <SearchSection />
-        <Category />
-        <ScrollTrigger
-        >
-          <Footer />
-        </ScrollTrigger>
-      </div>
-    )
-  }
-}
+const Home = ({ ui, ...p }) => (
+  <div className='root'>
+    <SearchSection />
+    <Category />
+    <ScrollTrigger
+      onEnter={e => ui.setOpaqueNav()}
+      onExit={e => ui.setTranspNav()}
+    >
+      <Footer />
+    </ScrollTrigger>
+  </div>
+)
 
-export default Home
+export default inject('ui')(Home)
