@@ -1,7 +1,7 @@
 import React from 'react'
 import t from 'prop-types'
 import cx from 'classnames'
-import s from 'styled-components'
+import styled from 'styled-components'
 import { Card, Button, CardTitle, Col } from 'reactstrap'
 
 import { card, wrapper } from './PictureCard.module.css'
@@ -23,7 +23,7 @@ NormalCard.propTypes = {
   btn: t.string
 }
 
-const PictureCard = s(NormalCard)`
+const PictureCard = styled(NormalCard)`
 width: 100%;
 background-color: transparent;
 background-image: ${p => `linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)), url(${p.bgImg})`};
