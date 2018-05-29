@@ -50,7 +50,7 @@ class Navigation extends Component {
         color={this.props.ui.navColor}
         dark
         expand='md'
-        className={cx('nav__root', 'bg-' + this.props.ui.navColor)}
+        className={cx('nav__root')}
       >
         <Container>
           <NavbarBrand>

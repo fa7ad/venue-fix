@@ -5,7 +5,6 @@ class UiStore {
   navColor = 'transparent'
 
   setNavColor = color => () => {
-    console.log(color)
     this.navColor = color
   }
 
