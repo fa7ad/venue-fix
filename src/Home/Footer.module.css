@@ -1,7 +1,6 @@
 .root {
   color: #fff;
   background-color:#1f1f1f;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,4 +14,8 @@
 
 .row {
   min-height: 25vh;
+}
+.contact {
+  display: flex;
+  flex-direction: column;
 }

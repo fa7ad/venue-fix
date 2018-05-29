@@ -1,0 +1,13 @@
+.root {
+  background-color:#1f1f1f;
+  border-top: 0.1px solid #808080;  
+  border-bottom: 0.1px solid 	#fff;  
+}
+/* .container {
+} */
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 7vh;  
+}

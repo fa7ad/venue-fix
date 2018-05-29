@@ -39,11 +39,11 @@ class Footer extends Component {
             <StyledCol>
               <div>
                 <h3>Contact Us</h3>
-                <span>Email: </span> <span>venuefix@gmail.com</span> <br />
-                <span>Email: </span> <span>venuefix@gmail.com</span>
-              </div>
-              <div>
-                <span>Phone: </span> <span>0100000000</span>
+                <div className={css.contact}>
+                  <p>Email: <span>venuefix@gmail.com</span></p>
+                  <p>Email: <span>venuefix@gmail.com</span></p>
+                  <p>Phone: <span>0100000000</span></p>
+                </div>
               </div>
             </StyledCol>
           </Row>

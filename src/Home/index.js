@@ -5,6 +5,7 @@ import ScrollTrigger from 'react-scroll-trigger'
 import SearchSection from './SearchSection'
 import Category from './Category'
 import Footer from './Footer'
+import SocialMedia from './SocialMedia'
 
 import './Home.css'
 
@@ -18,6 +19,7 @@ const Home = ({ ui, ...p }) => (
     >
       <Footer />
     </ScrollTrigger>
+    <SocialMedia />
   </div>
 )
 

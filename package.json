@@ -20,6 +20,7 @@
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-flatpickr": "^3.6.4",
+    "react-icons": "^2.2.7",
     "react-router-dom": "4.2.2",
     "react-scroll-trigger": "^0.3.3",
     "reactstrap": "^6.0.1",
