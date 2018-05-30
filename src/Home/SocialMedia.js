@@ -9,10 +9,9 @@ import Instagram from 'react-icons/lib/fa/instagram'
 import css from './SocialMedia.module.css'
 
 const StyledCol = styled(Col).attrs({
-  sm: p => p.sm || 4
+  sm: p => p.sm || 3
 })`
   text-align: justify;
-
 `
 
 class SocialMedia extends Component {
@@ -20,11 +19,11 @@ class SocialMedia extends Component {
     return (
       <div className={cx(css.root)}>
         <Container className={cx(css.container)}>
-          <Row className={cx(css.row)}>
+          <Row>
             <StyledCol>
               nothing
             </StyledCol>
-            <StyledCol>
+            <StyledCol sm={6} className={cx('text-center', css['space-icons'])}>
               <FaceBook />
               <Twitter />
               <Instagram />

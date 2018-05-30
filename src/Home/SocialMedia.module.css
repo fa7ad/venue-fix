@@ -1,13 +1,18 @@
 .root {
+  color: #fff;
+  border-top: 1px solid #777;
   background-color:#1f1f1f;
-  border-top: 0.1px solid #808080;  
-  border-bottom: 0.1px solid 	#fff;  
-}
-/* .container {
-} */
-.row {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  min-height: 7vh;  
+}
+
+.container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  flex-basis: 100%;
+}
+
+.space-icons svg {
+  margin: auto 5px;
 }
