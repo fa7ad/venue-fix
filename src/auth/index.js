@@ -18,6 +18,7 @@ const StylRodal = styled(Rodal)`
     right: auto;
     top: auto;
     bottom: auto;
+    height: auto !important;
   }
 `
 
@@ -26,7 +27,6 @@ const Auth = ({ ui, ...p }) => (
     animation='fade'
     visible={ui.authModalVisible}
     onClose={ui.hideAuthModal}
-    height='auto'
   >
     {ui.authPageSignUp
       ? <SignUp onLog={ui.gotoLog} />
