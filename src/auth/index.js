@@ -8,7 +8,7 @@ import SignUp from './SignUp'
 import { uiObserver } from '../uiStore'
 import 'rodal/lib/rodal.css'
 
-const StylRodal = styled(Rodal)`
+const StyRodal = styled(Rodal)`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,7 +23,7 @@ const StylRodal = styled(Rodal)`
 `
 
 const Auth = ({ ui, ...p }) => (
-  <StylRodal
+  <StyRodal
     animation='fade'
     visible={ui.authModalVisible}
     onClose={ui.hideAuthModal}
@@ -31,6 +31,6 @@ const Auth = ({ ui, ...p }) => (
     {ui.authPageSignUp
       ? <SignUp onLog={ui.gotoLog} />
       : <SignIn onReg={ui.gotoReg} />}
-  </StylRodal>
+  </StyRodal>
 )
 export default uiObserver(Auth)

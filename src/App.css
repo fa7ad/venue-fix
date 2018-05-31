@@ -17,3 +17,7 @@ body,html {
 .page {
   flex-basis: 100%;
 }
+
+.page.E404 {
+  display: flex;
+}

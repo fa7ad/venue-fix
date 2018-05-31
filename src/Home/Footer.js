@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import Link from 'react-router-dom/Link'
 
+import GoogleMap from 'google-map-react'
+
 import Chevron from 'react-icons/lib/fa/chevron-right'
 import FaMail from 'react-icons/lib/fa/envelope'
 import FaPhone from 'react-icons/lib/fa/phone'
@@ -19,7 +21,7 @@ const StyledCol = styled(Col).attrs({
 const Embed = styled.div.attrs({
   className: p => cx('embed-responsive', p.className)
 })`
-  min-height: 200px;
+  height: 200px;
 `
 
 const StyLink = styled(Link)`
@@ -34,6 +36,11 @@ const StyLink = styled(Link)`
       left: 2px;
     }
   }
+`
+
+const MapMarker = styled.div`
+  position: relative;
+  color: red;
 `
 
 class Footer extends Component {
@@ -54,10 +61,15 @@ class Footer extends Component {
             <StyledCol sm='6'>
               <h3>Location With Map</h3>
               <Embed>
-                <iframe
-                  title='Footer Map'
-                  src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3652.1663320130447!2d90.3935812145469!3d23.74144729503609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x7f1d997a9e3b766b!2sHotel+Peacock+Ltd.!5e0!3m2!1sen!2sbd!4v1527421627382'
-                />
+                <GoogleMap
+                  defaultCenter={{
+                    lat: 23.762301,
+                    lng: 90.378749
+                  }}
+                  defaultZoom={15}
+                >
+                  <MapMarker lat={23.762301} lng={90.378749}>Parliament</MapMarker>
+                </GoogleMap>
               </Embed>
             </StyledCol>
             <StyledCol>
