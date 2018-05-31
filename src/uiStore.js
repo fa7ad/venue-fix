@@ -1,4 +1,4 @@
-import { decorate, observable, computed } from 'mobx'
+import { decorate, observable } from 'mobx'
 import { observer, inject } from 'mobx-react'
 
 class UiStore {
@@ -33,10 +33,6 @@ class UiStore {
   }
   gotoReg = this.gotoPage('signup')
   gotoLog = this.gotoPage('signin')
-
-  get authModalHeight () {
-    return this.authPageSignUp ? 350 : 200
-  }
 }
 
 const injObser = store => com => inject(store)(observer(com))
@@ -47,6 +43,5 @@ export default decorate(UiStore, {
   navColor: observable,
   navIsOpen: observable,
   authModalVisible: observable,
-  authPageSignUp: observable,
-  authModalHeight: computed
+  authPageSignUp: observable
 })
