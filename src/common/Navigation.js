@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import React, { Component } from 'react'
+import React from 'react'
 import {
   Collapse,
   Container,
@@ -14,6 +14,7 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap'
+import styled from 'styled-components'
 
 import { injObser } from '../uiStore'
 import { Link } from 'react-router-dom'
@@ -35,65 +36,59 @@ const NavItem = ({ to, children, onClick, ...p }) => (
   </NItem>
 )
 
-class Navigation extends Component {
-  state = {
-    isOpen: false
+const StyNavItem = styled(NavItem)`
+  &, &:hover, &:link {
+    cursor: pointer;
   }
+`
 
-  toggle = e => {
-    this.setState(p => ({ isOpen: !p.isOpen }))
-  }
-
-  render () {
-    return (
-      <Navbar
-        fixed='top'
-        color={this.props.ui.navColor}
-        dark
-        expand='md'
-        className={cx('nav__root')}
-      >
-        <Container>
-          <NavbarBrand>
-            <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
-          </NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className={cx('nav-container', 'ml-auto')} navbar>
-              <NavItem to='/'>Home</NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Category
-                </DropdownToggle>
-                <DropdownMenu>
-                  {category.map((el, ind) => (
-                    <DropdownItem key={ind}>
-                      {el}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem to='/tips'>Tips</NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Us
-                </DropdownToggle>
-                <DropdownMenu>
-                  {us.map((el, ind) => (
-                    <DropdownItem key={ind}>
-                      {el}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <NavItem onClick={this.props.ui.showAuthModal}>Login / Register</NavItem>
-              <NavItem to='/event'>Create Event</NavItem>
-            </Nav>
-          </Collapse>
-        </Container>
-      </Navbar>
-    )
-  }
-}
+const Navigation = ({ ui, ...p }) => (
+  <Navbar
+    fixed='top'
+    color={ui.navColor}
+    dark
+    expand='md'
+    className={cx('nav__root')}
+  >
+    <Container>
+      <NavbarBrand>
+        <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
+      </NavbarBrand>
+      <NavbarToggler onClick={ui.toggleNav} />
+      <Collapse isOpen={ui.navIsOpen} navbar>
+        <Nav className={cx('nav-container', 'ml-auto')} navbar>
+          <StyNavItem to='/'>Home</StyNavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              Category
+            </DropdownToggle>
+            <DropdownMenu>
+              {category.map((el, ind) => (
+                <DropdownItem key={ind}>
+                  {el}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          <StyNavItem to='/tips'>Tips</StyNavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              Us
+            </DropdownToggle>
+            <DropdownMenu>
+              {us.map((el, ind) => (
+                <DropdownItem key={ind}>
+                  {el}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          <StyNavItem onClick={ui.showAuthModal}>Login / Register</StyNavItem>
+          <StyNavItem to='/event'>Create Event</StyNavItem>
+        </Nav>
+      </Collapse>
+    </Container>
+  </Navbar>
+)
 
 export default injObser('ui')(Navigation)

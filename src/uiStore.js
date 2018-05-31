@@ -11,6 +11,12 @@ class UiStore {
   setOpaqueNav = this.setNavColor('dark')
   setTranspNav = this.setNavColor('transparent')
 
+  // Navbar collaps
+  navIsOpen = false
+  toggleNav = e => {
+    this.navIsOpen = !this.navIsOpen
+  }
+
   // Authentication Modal
   authModalVisible = false
   showAuthModal = e => {
@@ -39,6 +45,7 @@ const uiObserver = injObser('ui')
 export { injObser, uiObserver }
 export default decorate(UiStore, {
   navColor: observable,
+  navIsOpen: observable,
   authModalVisible: observable,
   authPageSignUp: observable,
   authModalHeight: computed

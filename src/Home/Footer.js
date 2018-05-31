@@ -5,6 +5,8 @@ import { Container, Row, Col } from 'reactstrap'
 import Link from 'react-router-dom/Link'
 
 import Chevron from 'react-icons/lib/fa/chevron-right'
+import FaMail from 'react-icons/lib/fa/envelope'
+import FaPhone from 'react-icons/lib/fa/phone'
 
 import css from './Footer.module.css'
 
@@ -61,9 +63,9 @@ class Footer extends Component {
             <StyledCol>
               <h3>Contact Us</h3>
               <div className={css.contact}>
-                <p>Email: <span>venuefix@gmail.com</span></p>
-                <p>Email: <span>venuefix@gmail.com</span></p>
-                <p>Phone: <span>0100000000</span></p>
+                <p><FaMail /> <span>venuefix@gmail.com</span></p>
+                <p><FaMail /> <span>venuefix@gmail.com</span></p>
+                <p><FaPhone /> <span>0100000000</span></p>
               </div>
             </StyledCol>
           </Row>
