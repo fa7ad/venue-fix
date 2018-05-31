@@ -5,6 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import Navigation from './common/Navigation'
 import Home from './Home/'
 import Tips from './Tips/'
+import Auth from './auth/'
 import FourOhFour from './FourOhFour/'
 
 import { Provider } from 'mobx-react'
@@ -25,6 +26,11 @@ const routes = [
     key: 'tips',
     path: '/tips',
     component: Tips
+  },
+  {
+    key: 'auth',
+    path: '/auth',
+    component: Auth
   },
   {
     key: 'E404',

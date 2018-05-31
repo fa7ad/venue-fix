@@ -4,6 +4,8 @@ import { observer, inject } from 'mobx-react'
 class UiStore {
   navColor = 'transparent'
 
+    visible = true
+
   setNavColor = color => () => {
     this.navColor = color
   }
