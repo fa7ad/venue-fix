@@ -2,7 +2,7 @@ import cx from 'classnames'
 import styled from 'styled-components'
 import React, { Component } from 'react'
 import { Container, Row, Col } from 'reactstrap'
-import { Link } from 'react-router-dom'
+import Link from 'react-router-dom/Link'
 
 import Chevron from 'react-icons/lib/fa/chevron-right'
 

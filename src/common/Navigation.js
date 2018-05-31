@@ -28,9 +28,10 @@ const category = [
 ]
 const us = ['Contact Us', 'About Us']
 
-const NavItem = ({ to, children, ...p }) => (
-  <NItem className='nav-item-vf' {...p}>
-    <NavLink tag={pr => <Link to={to} {...pr}>{children}</Link>} />
+const NavItem = ({ to, children, onClick, ...p }) => (
+  <NItem {...p}>
+    {to && <NavLink tag={pr => <Link to={to} {...pr}>{children}</Link>} />}
+    {onClick && <NavLink onClick={onClick}>{children}</NavLink>}
   </NItem>
 )
 
@@ -85,7 +86,7 @@ class Navigation extends Component {
                   ))}
                 </DropdownMenu>
               </UncontrolledDropdown>
-              <NavItem to='/auth'>Login / Register</NavItem>
+              <NavItem onClick={this.props.ui.showAuthModal}>Login / Register</NavItem>
               <NavItem to='/event'>Create Event</NavItem>
             </Nav>
           </Collapse>

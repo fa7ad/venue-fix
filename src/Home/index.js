@@ -14,8 +14,8 @@ const Home = ({ ui, ...p }) => (
     <SearchSection />
     <Category />
     <ScrollTrigger
-      onEnter={e => ui.setOpaqueNav()}
-      onExit={e => ui.setTranspNav()}
+      onEnter={ui.setOpaqueNav}
+      onExit={ui.setTranspNav}
     >
       <Footer />
     </ScrollTrigger>

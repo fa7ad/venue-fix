@@ -31,7 +31,10 @@ class SignUp extends Component {
             placeholder='Password'
           />
         </FormGroup>
-        <Button>SignUp</Button>
+        <Button>Sign Up</Button>
+        <Button color='link' onClick={this.props.onLog}>
+          Login to existing account
+        </Button>
       </Form>
     )
   }

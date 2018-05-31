@@ -23,7 +23,8 @@ class SignIn extends Component {
             placeholder='Password'
           />
         </FormGroup>
-        <Button>SignIn</Button>
+        <Button>Sign In</Button>
+        <Button color='link' onClick={this.props.onReg}>Create an account</Button>
       </Form>
     )
   }

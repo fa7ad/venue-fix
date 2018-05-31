@@ -1,16 +1,22 @@
 import React from 'react'
 import Rodal from 'rodal'
-import AuthMain from './AuthMain'
-import { injObser } from '../uiStore'
+
+import SignIn from './SignIn'
+import SignUp from './SignUp'
+
+import { uiObserver } from '../uiStore'
 import 'rodal/lib/rodal.css'
 
-const Auth = props => (
+const Auth = ({ ui, ...p }) => (
   <Rodal
-    animation='slideDown'
-    visible={props.ui.visible}
-    onClose={() => (props.ui.visible = false)}
+    animation='fade'
+    visible={ui.authModalVisible}
+    onClose={ui.hideAuthModal}
+    height={ui.authModalHeight}
   >
-    <AuthMain />
+    {ui.authPageSignUp
+      ? <SignUp onLog={ui.gotoLog} />
+      : <SignIn onReg={ui.gotoReg} />}
   </Rodal>
 )
-export default injObser('ui')(Auth)
+export default uiObserver(Auth)

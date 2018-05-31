@@ -28,11 +28,6 @@ const routes = [
     component: Tips
   },
   {
-    key: 'auth',
-    path: '/auth',
-    component: Auth
-  },
-  {
     key: 'E404',
     path: '/*',
     component: FourOhFour
@@ -46,6 +41,7 @@ const App = ({ location: { pathname } }) => {
     <Provider ui={uiStore}>
       <div className={cx('page', (match && match.key) || 'E404')}>
         {match && <Navigation />}
+        <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}
         </Switch>
