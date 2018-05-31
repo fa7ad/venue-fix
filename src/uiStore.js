@@ -18,5 +18,6 @@ const injObser = store => com => inject(store)(observer(com))
 
 export { injObser }
 export default decorate(UiStore, {
-  navColor: observable
+  navColor: observable,
+  visible: observable
 })
