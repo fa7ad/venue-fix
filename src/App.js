@@ -43,13 +43,13 @@ const routes = [
   }
 ]
 
-const App = ({ location: { pathname } }) => {
+const App = ({ location: { pathname }, history }) => {
   const [match] = routes.filter(r => r.path === pathname)
 
   return (
     <Provider ui={uiStore}>
       <div className={cx('page', (match && match.key) || 'E404')}>
-        {match && <Navigation page={match.key} />}
+        {match && <Navigation page={match.key} {...{ history }} />}
         <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}

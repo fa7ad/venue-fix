@@ -42,6 +42,12 @@ const StyNavItem = styled(NavItem)`
   }
 `
 
+const StyBrand = styled(NavbarBrand)`
+  &, &:hover, &:link {
+    cursor: pointer;
+  }
+`
+
 const Navigation = ({ ui, page, ...p }) => (
   <Navbar
     fixed='top'
@@ -51,9 +57,9 @@ const Navigation = ({ ui, page, ...p }) => (
     className={cx('nav__root')}
   >
     <Container>
-      <NavbarBrand>
+      <StyBrand onClick={e => p.history.push('/')}>
         <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
-      </NavbarBrand>
+      </StyBrand>
       <NavbarToggler onClick={ui.navbar.toggle} />
       <Collapse isOpen={ui.navbar.isOpen} navbar>
         <Nav className={cx('nav-container', 'ml-auto')} navbar>

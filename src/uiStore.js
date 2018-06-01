@@ -23,6 +23,7 @@ const Navbar = types
   .views(self => ({
     color (page = 'home') {
       if (page === 'event') self.toDark()
+      if (page === 'home') self.toNone()
       return self._color
     }
   }))
