@@ -21,3 +21,7 @@ body,html {
 .page.E404 {
   display: flex;
 }
+.page.event {
+  display: flex;
+  flex-direction: column;
+}

@@ -10,17 +10,16 @@ import SocialMedia from './SocialMedia'
 import './Home.css'
 
 const Home = ({ ui, ...p }) => (
-  <div className='root'>
-    <SearchSection />
-    <Category />
-    <ScrollTrigger
-      onEnter={ui.setOpaqueNav}
-      onExit={ui.setTranspNav}
-    >
-      <Footer />
-    </ScrollTrigger>
-    <SocialMedia />
-  </div>
+  <ScrollTrigger onEnter={ui.setTranspNav}>
+    <div className='root'>
+      <SearchSection />
+      <Category />
+      <ScrollTrigger onEnter={ui.setOpaqueNav} onExit={ui.setTranspNav}>
+        <Footer />
+      </ScrollTrigger>
+      <SocialMedia />
+    </div>
+  </ScrollTrigger>
 )
 
 export default inject('ui')(Home)

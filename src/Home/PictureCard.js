@@ -13,18 +13,20 @@ const StyCard = styled(Card)`
   justify-content: center;
   align-items: center;
 
-  background-image: ${p => `linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)), url(${p.bgImg})`};
+  background-image: ${p => `linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)),` +
+    `url(${p['data-bgimg']})`};
 
   &:hover {
-    background-image: ${p => `linear-gradient(rgba(20,20,20, .75), rgba(20,20,20, .75)), url(${p.bgImg})`};
+    background-image: ${p => `linear-gradient(rgba(20,20,20, .75), rgba(20,20,20, .75)),` +
+      `url(${p['data-bgimg']})`};
   }
 `
 
-const NormalCard = ({ size, children, btn, onClick, caption, bgImg, ...p }) => (
+const NormalCard = ({ size, children, btn, onActivate, caption, bgImg, ...p }) => (
   <Col sm={size || 3} {...p}>
-    <StyCard body inverse bgImg={bgImg}>
+    <StyCard body inverse data-bgimg={bgImg}>
       <CardTitle>{children}</CardTitle>
-      <Button color={btn || 'primary'} onActivate={onClick}>{caption}</Button>
+      <Button color={btn || 'primary'} onClick={onActivate}>{caption}</Button>
     </StyCard>
   </Col>
 )
