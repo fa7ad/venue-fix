@@ -9,16 +9,20 @@ const Navbar = types
   .actions(self => ({
     toDark () {
       self._color = 'dark'
+      return self._color
     },
     toNone () {
       self._color = 'transparent'
+      return self._color
     },
     toggle: e => {
       self.navIsOpen = !this.navIsOpen
+      return self.navIsOpen
     }
   }))
   .views(self => ({
     color (page = 'home') {
+      if (page === 'event') self.toDark()
       return self._color
     }
   }))

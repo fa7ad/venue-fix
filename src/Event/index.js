@@ -2,7 +2,6 @@ import React from 'react'
 import { inject } from 'mobx-react'
 import cx from 'classnames'
 import styled from 'styled-components'
-import ScrollTrigger from 'react-scroll-trigger'
 
 import EventForm from './EventForm'
 import Venues from './Venues'
@@ -14,12 +13,10 @@ const Root = styled.div.attrs({
 `
 
 const Event = ({ ui, ...p }) => (
-  <ScrollTrigger onEnter={ui.navbar.toDark}>
-    <Root>
-      <EventForm />
-      <Venues />
-    </Root>
-  </ScrollTrigger>
+  <Root>
+    <EventForm />
+    <Venues />
+  </Root>
 )
 
 export default inject('ui')(Event)
