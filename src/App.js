@@ -14,7 +14,10 @@ import UiStore from './uiStore'
 
 import './App.css'
 
-const uiStore = new UiStore()
+const uiStore = UiStore.create({
+  navbar: {},
+  auth: {}
+})
 
 const routes = [
   {
@@ -46,7 +49,7 @@ const App = ({ location: { pathname } }) => {
   return (
     <Provider ui={uiStore}>
       <div className={cx('page', (match && match.key) || 'E404')}>
-        {match && <Navigation />}
+        {match && <Navigation page={match.key} />}
         <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}

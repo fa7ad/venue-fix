@@ -10,11 +10,11 @@ import SocialMedia from './SocialMedia'
 import './Home.css'
 
 const Home = ({ ui, ...p }) => (
-  <ScrollTrigger onEnter={ui.setTranspNav}>
+  <ScrollTrigger onEnter={ui.navbar.toNone}>
     <div className='root'>
       <SearchSection />
       <Category />
-      <ScrollTrigger onEnter={ui.setOpaqueNav} onExit={ui.setTranspNav}>
+      <ScrollTrigger onEnter={ui.navbar.toDark} onExit={ui.navbar.toNone}>
         <Footer />
       </ScrollTrigger>
       <SocialMedia />

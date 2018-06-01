@@ -25,12 +25,12 @@ const StyRodal = styled(Rodal)`
 const Auth = ({ ui, ...p }) => (
   <StyRodal
     animation='fade'
-    visible={ui.authModalVisible}
-    onClose={ui.hideAuthModal}
+    visible={ui.auth.modal}
+    onClose={ui.auth.hideModal}
   >
-    {ui.authPageSignUp
-      ? <SignUp onLog={ui.gotoLog} />
-      : <SignIn onReg={ui.gotoReg} />}
+    {ui.auth.signup
+      ? <SignUp onLog={ui.auth.toLog} />
+      : <SignIn onReg={ui.auth.toReg} />}
   </StyRodal>
 )
 export default uiObserver(Auth)

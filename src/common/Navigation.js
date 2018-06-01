@@ -42,10 +42,10 @@ const StyNavItem = styled(NavItem)`
   }
 `
 
-const Navigation = ({ ui, ...p }) => (
+const Navigation = ({ ui, page, ...p }) => (
   <Navbar
     fixed='top'
-    color={ui.navColor}
+    color={ui.navbar.color(page)}
     dark
     expand='md'
     className={cx('nav__root')}
@@ -54,8 +54,8 @@ const Navigation = ({ ui, ...p }) => (
       <NavbarBrand>
         <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
       </NavbarBrand>
-      <NavbarToggler onClick={ui.toggleNav} />
-      <Collapse isOpen={ui.navIsOpen} navbar>
+      <NavbarToggler onClick={ui.navbar.toggle} />
+      <Collapse isOpen={ui.navbar.isOpen} navbar>
         <Nav className={cx('nav-container', 'ml-auto')} navbar>
           <StyNavItem to='/'>Home</StyNavItem>
           <UncontrolledDropdown nav inNavbar>
@@ -83,7 +83,7 @@ const Navigation = ({ ui, ...p }) => (
               ))}
             </DropdownMenu>
           </UncontrolledDropdown>
-          <StyNavItem onClick={ui.showAuthModal}>Login / Register</StyNavItem>
+          <StyNavItem onClick={ui.auth.showModal}>Login / Register</StyNavItem>
           <StyNavItem to='/event'>Create Event</StyNavItem>
         </Nav>
       </Collapse>
