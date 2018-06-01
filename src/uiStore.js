@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react'
 const Navbar = types
   .model({
     _color: types.optional(types.string, 'transparent'),
+    _page: types.optional(types.string, 'home'),
     isOpen: types.optional(types.boolean, false)
   })
   .actions(self => ({
@@ -18,12 +19,18 @@ const Navbar = types
     toggle: e => {
       self.navIsOpen = !this.navIsOpen
       return self.navIsOpen
+    },
+    _toPage (page) {
+      self._page = page
     }
   }))
   .views(self => ({
     color (page = 'home') {
-      if (page === 'event') self.toDark()
-      if (page === 'home') self.toNone()
+      if (page !== self._page) {
+        self._toPage(page)
+        if (page === 'event') self.toDark()
+        else self.toNone()
+      }
       return self._color
     }
   }))
