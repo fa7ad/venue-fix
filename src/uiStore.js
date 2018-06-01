@@ -1,47 +1,55 @@
-import { decorate, observable } from 'mobx'
-import { observer, inject } from 'mobx-react'
+import { types } from 'mobx-state-tree'
+import { inject, observer } from 'mobx-react'
 
-class UiStore {
-  // Navbar Background color
-  navColor = 'transparent'
+const Navbar = types
+  .model({
+    _color: types.optional(types.string, 'transparent'),
+    isOpen: types.optional(types.boolean, false)
+  })
+  .actions(self => ({
+    toDark () {
+      self._color = 'dark'
+    },
+    toNone () {
+      self._color = 'transparent'
+    },
+    toggle: e => {
+      self.navIsOpen = !this.navIsOpen
+    }
+  }))
+  .views(self => ({
+    color (page = 'home') {
+      return self._color
+    }
+  }))
 
-  setNavColor = color => () => {
-    this.navColor = color
-  }
-  setOpaqueNav = this.setNavColor('dark')
-  setTranspNav = this.setNavColor('transparent')
+const Auth = types
+  .model({
+    modal: types.optional(types.boolean, false),
+    signup: types.optional(types.boolean, false)
+  })
+  .actions(self => ({
+    showModal (e) {
+      self.modal = true
+    },
+    hideModal (e) {
+      self.modal = false
+    },
+    toReg () {
+      self.signup = true
+    },
+    toLog () {
+      self.signup = false
+    }
+  }))
 
-  // Navbar collaps
-  navIsOpen = false
-  toggleNav = e => {
-    this.navIsOpen = !this.navIsOpen
-  }
-
-  // Authentication Modal
-  authModalVisible = false
-  showAuthModal = e => {
-    this.authModalVisible = true
-  }
-  hideAuthModal = e => {
-    this.authModalVisible = false
-  }
-
-  // Auth page
-  authPageSignUp = false
-  gotoPage = page => () => {
-    this.authPageSignUp = page === 'signup'
-  }
-  gotoReg = this.gotoPage('signup')
-  gotoLog = this.gotoPage('signin')
-}
+const UiStore = types.model({
+  navbar: Navbar,
+  auth: Auth
+})
 
 const injObser = store => com => inject(store)(observer(com))
 const uiObserver = injObser('ui')
 
 export { injObser, uiObserver }
-export default decorate(UiStore, {
-  navColor: observable,
-  navIsOpen: observable,
-  authModalVisible: observable,
-  authPageSignUp: observable
-})
+export default UiStore

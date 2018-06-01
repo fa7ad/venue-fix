@@ -14,7 +14,7 @@ const Root = styled.div.attrs({
 `
 
 const Event = ({ ui, ...p }) => (
-  <ScrollTrigger onEnter={ui.setOpaqueNav}>
+  <ScrollTrigger onEnter={ui.navbar.toDark}>
     <Root>
       <EventForm />
       <Venues />
