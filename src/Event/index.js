@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import EventForm from './EventForm'
 import Venues from './Venues'
+import Footer from '../common/Footer'
 
 const Root = styled.div.attrs({
   className: p => cx('root', p.className)
@@ -16,6 +17,7 @@ const Event = ({ ui, ...p }) => (
   <Root>
     <EventForm />
     <Venues />
+    <Footer />
   </Root>
 )
 

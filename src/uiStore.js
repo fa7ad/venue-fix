@@ -3,7 +3,7 @@ import { inject, observer } from 'mobx-react'
 
 const Navbar = types
   .model({
-    _color: types.optional(types.string, 'transparent'),
+    _color: types.optional(types.string, 'dark'),
     _page: types.optional(types.string, 'home'),
     isOpen: types.optional(types.boolean, false)
   })
@@ -28,8 +28,8 @@ const Navbar = types
     color (page = 'home') {
       if (page !== self._page) {
         self._toPage(page)
-        if (page === 'event') self.toDark()
-        else self.toNone()
+        if (page === 'home') self.toNone()
+        else self.toDark()
       }
       return self._color
     }

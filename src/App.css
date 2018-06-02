@@ -25,3 +25,7 @@ body,html {
   display: flex;
   flex-direction: column;
 }
+.page.tips {
+  display: flex;
+  flex-direction: column;
+}

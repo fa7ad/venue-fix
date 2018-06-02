@@ -4,7 +4,7 @@ import { Form, FormGroup, Label, Input } from 'reactstrap'
 class EventForm extends Component {
   render () {
     return (
-      <Form>
+      <Form style={{minHeight: '80vh'}}>
         <FormGroup>
           <Label for='event'>Your Event</Label>
           <Input type='select' name='event' id='eventId' placeholder='City'>

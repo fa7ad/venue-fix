@@ -10,9 +10,25 @@ import Chevron from 'react-icons/lib/fa/chevron-right'
 import FaMail from 'react-icons/lib/fa/envelope'
 import FaPhone from 'react-icons/lib/fa/phone'
 
-import css from './Footer.module.css'
+const Root = styled.div`
+  color: #fff;
+  background-color:#1f1f1f;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
 
-const StyledCol = styled(Col).attrs({
+const StyContainer = styled(Container)`
+  padding-top: 15px;
+  padding-bottom: 15px;
+  flex-basis: 100%;
+`
+
+const StyRow = styled(Row)`
+  min-height: 25vh;
+`
+
+const StyCol = styled(Col).attrs({
   sm: p => p.sm || 3
 })`
   text-align: justify;
@@ -43,13 +59,26 @@ const MapMarker = styled.div`
   color: red;
 `
 
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const ListItem = styled.div`
+  flex-basis: 100%;
+  svg {
+    margin-right: 5px;
+    fill: rgba(255, 255, 255, 0.5);
+  }
+`
+
 class Footer extends Component {
   render () {
     return (
-      <div className={cx(css.root)}>
-        <Container className={cx(css.container)}>
-          <Row className={cx(css.row)}>
-            <StyledCol>
+      <Root>
+        <StyContainer>
+          <StyRow>
+            <StyCol>
               <h3>About Us</h3>
               <p>
                 Without a doubt, Venue Fix is the best way to find & discover the greatest places in the city.
@@ -57,8 +86,8 @@ class Footer extends Component {
               <StyLink to='/about-us' className={cx('btn', 'bg-light')}>
                 See More <Chevron />
               </StyLink>
-            </StyledCol>
-            <StyledCol sm='6'>
+            </StyCol>
+            <StyCol sm='6'>
               <h3>Location With Map</h3>
               <Embed>
                 <GoogleMap
@@ -71,18 +100,18 @@ class Footer extends Component {
                   <MapMarker lat={23.762301} lng={90.378749}>Parliament</MapMarker>
                 </GoogleMap>
               </Embed>
-            </StyledCol>
-            <StyledCol>
+            </StyCol>
+            <StyCol>
               <h3>Contact Us</h3>
-              <div className={css.contact}>
-                <p><FaMail /> <span>venuefix@gmail.com</span></p>
-                <p><FaMail /> <span>venuefix@gmail.com</span></p>
-                <p><FaPhone /> <span>0100000000</span></p>
-              </div>
-            </StyledCol>
-          </Row>
-        </Container>
-      </div>
+              <List>
+                <ListItem><FaMail /> venuefix@gmail.com</ListItem>
+                <ListItem><FaMail /> venuefix@gmail.com</ListItem>
+                <ListItem><FaPhone /> +8801xxxxxxxxx</ListItem>
+              </List>
+            </StyCol>
+          </StyRow>
+        </StyContainer>
+      </Root>
     )
   }
 }
