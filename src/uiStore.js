@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react'
 const Navbar = types
   .model({
     _color: types.optional(types.string, 'dark'),
-    _page: types.optional(types.string, 'home'),
+    _page: types.maybe(types.string),
     isOpen: types.optional(types.boolean, false)
   })
   .actions(self => ({
