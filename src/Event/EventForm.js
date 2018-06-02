@@ -23,7 +23,7 @@ const HeadTag = styled.h3`
 class EventForm extends Component {
   render () {
     return (
-      <Form style={{ minHeight: '80vh' }}>
+      <Form>
         <StyContainer>
           <HeadTag>EVENT DETAILS</HeadTag>
           <RowStyle>
