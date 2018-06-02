@@ -9,6 +9,10 @@ import GoogleMap from 'google-map-react'
 import Chevron from 'react-icons/lib/fa/chevron-right'
 import FaMail from 'react-icons/lib/fa/envelope'
 import FaPhone from 'react-icons/lib/fa/phone'
+import FaceBook from 'react-icons/lib/fa/facebook'
+import Twitter from 'react-icons/lib/fa/twitter'
+import Youtube from 'react-icons/lib/fa/youtube-play'
+import Instagram from 'react-icons/lib/fa/instagram'
 
 const Root = styled.div`
   color: #fff;
@@ -28,10 +32,30 @@ const StyRow = styled(Row)`
   min-height: 25vh;
 `
 
+const SocRow = styled(Row)`
+  padding: 10px auto;
+`
+
+const StyHr = styled.hr`
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 150vw;
+    left: -50%;
+    height: 1px;
+    background: #777;
+  }
+`
+
 const StyCol = styled(Col).attrs({
   sm: p => p.sm || 3
 })`
   text-align: justify;
+  svg {
+    margin: auto 5px;
+  }
 `
 
 const Embed = styled.div.attrs({
@@ -97,7 +121,9 @@ class Footer extends Component {
                   }}
                   defaultZoom={15}
                 >
-                  <MapMarker lat={23.762301} lng={90.378749}>Parliament</MapMarker>
+                  <MapMarker lat={23.762301} lng={90.378749}>
+                    Parliament
+                  </MapMarker>
                 </GoogleMap>
               </Embed>
             </StyCol>
@@ -110,6 +136,19 @@ class Footer extends Component {
               </List>
             </StyCol>
           </StyRow>
+          <StyHr />
+          <SocRow>
+            <StyCol>
+              nothing
+            </StyCol>
+            <StyCol sm={6} className='text-center'>
+              <FaceBook />
+              <Twitter />
+              <Instagram />
+              <Youtube />
+            </StyCol>
+            <StyCol>nothing</StyCol>
+          </SocRow>
         </StyContainer>
       </Root>
     )

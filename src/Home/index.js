@@ -5,7 +5,6 @@ import ScrollTrigger from 'react-scroll-trigger'
 import SearchSection from './SearchSection'
 import Category from './Category'
 import Footer from '../common/Footer'
-import SocialMedia from './SocialMedia'
 
 import './Home.css'
 
@@ -16,7 +15,6 @@ const Home = ({ ui, ...p }) => (
     <ScrollTrigger onEnter={ui.navbar.toDark} onExit={ui.navbar.toNone}>
       <Footer />
     </ScrollTrigger>
-    <SocialMedia />
   </div>
 )
 
