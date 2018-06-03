@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Flatpickr from 'react-flatpickr'
 import { Form, FormGroup, Label, Input, Container, Row, Col } from 'reactstrap'
 import styled from 'styled-components'
 
@@ -26,6 +27,9 @@ const HeadTag = styled.h3`
 `
 
 class EventForm extends Component {
+  state = {
+    date: new Date()
+  }
   render () {
     return (
       <Form>
@@ -69,11 +73,12 @@ class EventForm extends Component {
               <FormGroup>
                 <Label for='dateId'>Date & Time</Label>
                 <DivStyle>
-                  <Input
-                    type='Date'
-                    name='dateId'
-                    id='dateId'
-                    placeholder='date'
+                  <Flatpickr
+                    data-enable-time
+                    value={this.state.date}
+                    onChange={date => {
+                      this.setState({ date })
+                    }}
                   />
                   <Input type='text' name='time' id='time' placeholder='Time' />
                 </DivStyle>
