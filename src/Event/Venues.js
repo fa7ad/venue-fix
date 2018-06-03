@@ -1,26 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Card, CardTitle, Col, Container, Row } from 'reactstrap'
+import { Card, CardTitle, CardImg, Col } from 'reactstrap'
 
 const CardStyle = styled(Card)`
-  min-height: 250px;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  border: none;
-
-  background-image: ${p => `linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)),` + `url(${p['data-bgimg']})`};
+  img {
+    min-height: 250px;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 `
 
 const Venues = ({ children, bgImg, size, ...p }) => (
-  <Container>
-    <Row>
-      <Col sm={size || 3} {...p}>
-        <CardStyle body inverse data-bgimg={bgImg} />
-        <CardTitle>{children}</CardTitle>
-      </Col>
-    </Row>
-  </Container>
+  <Col sm={size || 3} {...p}>
+    <CardStyle>
+      <CardImg top width='100%' src={bgImg} />
+      <CardTitle>{children}</CardTitle>
+    </CardStyle>
+  </Col>
 )
 
 const VenueCard = styled(Venues)`

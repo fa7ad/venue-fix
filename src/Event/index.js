@@ -3,6 +3,8 @@ import { inject } from 'mobx-react'
 import cx from 'classnames'
 import styled from 'styled-components'
 
+import {Row, Container} from 'reactstrap'
+
 import EventForm from './EventForm'
 import VenueCard from './Venues'
 import Footer from '../common/Footer'
@@ -20,15 +22,38 @@ const Root = styled.div.attrs({
 const Event = ({ ui, ...p }) => (
   <Root>
     <EventForm />
-    <VenueCard bgImg={image1} size='4'>
-      hello
-    </VenueCard>
-    <VenueCard bgImg={image2} size='4'>
-      hello
-    </VenueCard>
-    <VenueCard bgImg={image3} size='4'>
-      hello
-    </VenueCard>
+    <Container>
+      <Row>
+        <VenueCard bgImg={image1} size='4'>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta modi culpa vero?
+        </VenueCard>
+        <VenueCard bgImg={image2} size='4'>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere placeat dolorum beatae.
+        </VenueCard>
+        <VenueCard bgImg={image3} size='4'>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe officia debitis corporis.
+        </VenueCard>
+        <VenueCard bgImg={image1} size='4'>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum voluptate aliquid voluptatem!
+        </VenueCard>
+        <VenueCard bgImg={image2} size='4'>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse fuga ea soluta!
+        </VenueCard>
+        <VenueCard bgImg={image1} size='4'>
+          hello
+        </VenueCard>
+        <VenueCard bgImg={image3} size='4'>
+          hello
+        </VenueCard>
+        <VenueCard bgImg={image2} size='4'>
+          hello
+        </VenueCard>
+        <VenueCard bgImg={image3} size='4'>
+          hello
+        </VenueCard>
+
+      </Row>
+    </Container>
     <Footer />
   </Root>
 )

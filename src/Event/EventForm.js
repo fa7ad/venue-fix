@@ -10,8 +10,13 @@ const RowStyle = styled(Row)`
 `
 const ColStyle = styled(Col).attrs({
   sm: p => p.sm || 6
-})`
+})``
+
+const ColAsCol = styled(Col)`
+  display: flex;
+  flex-direction: column;
 `
+
 const DivStyle = styled.div`
   display: flex;
 `
@@ -62,53 +67,40 @@ class EventForm extends Component {
             </ColStyle>
             <ColStyle>
               <FormGroup>
-                <Label for='exampleEmail'>Date & Time</Label>
+                <Label for='dateId'>Date & Time</Label>
                 <DivStyle>
                   <Input
                     type='Date'
-                    name='data'
+                    name='dateId'
                     id='dateId'
                     placeholder='date'
                   />
-                  <Input
-                    type='text'
-                    name='text'
-                    id='textId'
-                    placeholder='Time'
-                  />
+                  <Input type='text' name='time' id='time' placeholder='Time' />
                 </DivStyle>
               </FormGroup>
             </ColStyle>
           </RowStyle>
           <HeadTag>PRICE</HeadTag>
           <RowStyle>
-            <ColStyle>
-              <FormGroup>
-                <Label for='event'>Foods</Label>
-                <DivStyle>
-                  <Input
-                    type='select'
-                    name='event'
-                    id='eventId'
-                    placeholder='City'
-                  >
-                    <option>ChuiJaal</option>
+            <ColStyle className='row'>
+              <ColAsCol>
+                <FormGroup>
+                  <Label for='drinks'>Drinks</Label>
+                  <Input type='select' name='foods' id='foods'>
+                    <option>ChuiJhaal</option>
                     <option>Nanna Biriyani</option>
                     <option>Bismilla Kabab</option>
                   </Input>
-                  <Label for='event'>Drinks</Label>
-                  <Input
-                    type='select'
-                    name='event'
-                    id='eventId'
-                    placeholder='City'
-                  >
-                    <option>Absoulate</option>
-                    <option>100Pipers</option>
-                    <option>Chery Wine</option>
-                  </Input>
-                </DivStyle>
-              </FormGroup>
+                </FormGroup>
+              </ColAsCol>
+              <ColAsCol>
+                <Label for='foods'>Foods</Label>
+                <Input type='select' name='drinks' id='drinks'>
+                  <option>Coca-Cola</option>
+                  <option>Sprite</option>
+                  <option>Fanta</option>
+                </Input>
+              </ColAsCol>
             </ColStyle>
             <ColStyle>
               <FormGroup>
