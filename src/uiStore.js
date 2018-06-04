@@ -17,7 +17,7 @@ const Navbar = types
       return self._color
     },
     toggle: e => {
-      self.navIsOpen = !this.navIsOpen
+      self.isOpen = !self.isOpen
       return self.navIsOpen
     },
     _toPage (page) {
