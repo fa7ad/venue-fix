@@ -16,7 +16,7 @@ import {
 } from 'reactstrap'
 import styled from 'styled-components'
 
-import { injObser } from '../uiStore'
+import { uiObserver } from '../uiStore'
 import { Link } from 'react-router-dom'
 
 import logoImg from '../images/logo.svg'
@@ -30,13 +30,13 @@ const category = [
 const us = ['Contact Us', 'About Us']
 
 const NavItem = ({ to, children, onClick, ...p }) => (
-  <NItem {...p}>
+  <NItem {...p} onClick={p.ui.navbar.toggle}>
     {to && <NavLink tag={pr => <Link to={to} {...pr}>{children}</Link>} />}
     {onClick && <NavLink onClick={onClick}>{children}</NavLink>}
   </NItem>
 )
 
-const StyNavItem = styled(NavItem)`
+const StyNavItem = styled(uiObserver(NavItem))`
   &, &:hover, &:link {
     cursor: pointer;
   }
@@ -97,4 +97,4 @@ const Navigation = ({ ui, page, ...p }) => (
   </Navbar>
 )
 
-export default injObser('ui')(Navigation)
+export default uiObserver(Navigation)
