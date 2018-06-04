@@ -18,7 +18,6 @@ const Navbar = types
     },
     toggle: e => {
       self.isOpen = !self.isOpen
-      return self.navIsOpen
     },
     _toPage (page) {
       self._page = page

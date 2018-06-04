@@ -35,7 +35,7 @@ const Range = Slider.createSliderWithTooltip(Slider.Range)
 class EventForm extends Component {
   state = {
     date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
-    budget: [0, 500000]
+    budget: [0, 250000]
   }
   render () {
     return (
@@ -78,7 +78,11 @@ class EventForm extends Component {
                 value={this.state.date}
                 onChange={date => this.setState({ date })}
                 className='form-control'
-                options={{ minuteIncrement: 30, dateFormat: 'Y.m.d h:i K' }}
+                options={{
+                  minuteIncrement: 30,
+                  dateFormat: 'Y.m.d h:i K',
+                  minDate: DateTime.local().endOf('day').toJSDate()
+                }}
               />
             </Col>
             <Col>
@@ -109,12 +113,12 @@ class EventForm extends Component {
                 <option>Fanta</option>
               </Input>
             </Col>
-            <Col sm='4'>
+            <Col sm='6'>
               <Label for='budget'>Budget</Label>
               <Range
                 id='budget'
                 min={0}
-                max={500000}
+                max={250000}
                 step={500}
                 value={this.state.budget}
                 onChange={budget => this.setState({ budget })}
