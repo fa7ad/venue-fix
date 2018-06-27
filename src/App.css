@@ -29,3 +29,8 @@ body,html {
   display: flex;
   flex-direction: column;
 }
+
+.page.admin {
+  display: flex;
+  flex-direction: column;
+}
