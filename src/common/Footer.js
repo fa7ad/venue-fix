@@ -119,8 +119,12 @@ class Footer extends Component {
                     lng: 90.378749
                   }}
                   defaultZoom={15}
+                  bootstrapURLKeys={{
+                    key: '***REMOVED***'
+                  }}
                 >
                   <MapMarker lat={23.762301} lng={90.378749}>
+                    Bangladesh <br />
                     Parliament
                   </MapMarker>
                 </GoogleMap>

@@ -63,15 +63,18 @@ const AdminNav = p => (
 )
 
 const App = ({ location: { pathname }, history }) => {
-  const [match] = routes.filter(r => r.path === pathname)
+  const [{key: match}] = routes
+    .filter(r => r.path === pathname)
+    .concat(routes.slice(-1))
+    .slice(0, 1)
 
   return (
     <Provider ui={uiStore}>
-      <div className={cx('page', match.key)}>
-        {match &&
-          match.key !== 'admin' &&
-          <Navigation page={match.key} {...{ history }} />}
-        {match.key === 'admin' && <AdminNav />}
+      <div className={cx('page', match)}>
+        {match !== 'E404' &&
+          (match === 'admin'
+            ? <AdminNav />
+            : <Navigation page={match} {...{ history }} />)}
         <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}

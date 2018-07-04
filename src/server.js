@@ -1,7 +1,6 @@
 import express from 'express'
 import React from 'react'
 
-import App from './App'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
@@ -14,6 +13,7 @@ server
   .disable('x-powered-by')
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
+    const { default: App } = require('./App')
     const sheet = new ServerStyleSheet()
     const context = {}
     const markup = renderToString(

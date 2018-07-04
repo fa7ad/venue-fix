@@ -32,8 +32,8 @@ const NormalCard = ({ size, children, btn, onActivate, caption, bgImg, ...p }) =
   </Col>
 )
 NormalCard.propTypes = {
-  size: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-  children: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   btn: PropTypes.string,
   onActivate: PropTypes.func,
   caption: PropTypes.string.isRequired,

@@ -22,9 +22,9 @@ const Venues = ({ children, bgImg, size, ...p }) => (
 )
 
 Venues.propTypes = {
-  children: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   bgImg: PropTypes.string,
-  size: PropTypes.oneOf([PropTypes.string, PropTypes.number])
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }
 
 const VenueCard = styled(Venues)`

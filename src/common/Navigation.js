@@ -37,8 +37,8 @@ const NavItem = ({ to, children, onClick, ...p }) => (
   </NItem>
 )
 NavItem.propTypes = {
-  to: PropTypes.string.isRequired,
-  children: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
+  to: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onClick: PropTypes.func
 }
 
