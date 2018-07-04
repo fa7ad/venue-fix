@@ -67,7 +67,7 @@ const App = ({ location: { pathname }, history }) => {
 
   return (
     <Provider ui={uiStore}>
-      <div className={cx('page', (match && match.key) || 'E404')}>
+      <div className={cx('page', match.key)}>
         {match &&
           match.key !== 'admin' &&
           <Navigation page={match.key} {...{ history }} />}

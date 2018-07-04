@@ -1,5 +1,5 @@
 import React from 'react'
-import types from 'prop-types'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Card, Button, CardTitle, Col } from 'reactstrap'
 
@@ -32,12 +32,12 @@ const NormalCard = ({ size, children, btn, onActivate, caption, bgImg, ...p }) =
   </Col>
 )
 NormalCard.propTypes = {
-  size: types.oneOf(types.string, types.number),
-  children: types.oneOf(types.string, types.element),
-  btn: types.string,
-  onActivate: types.func,
-  caption: types.string.isRequired,
-  bgImg: types.string
+  size: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+  children: PropTypes.oneOf([PropTypes.string, PropTypes.element]),
+  btn: PropTypes.string,
+  onActivate: PropTypes.func,
+  caption: PropTypes.string.isRequired,
+  bgImg: PropTypes.string
 }
 
 const PictureCard = styled(NormalCard)`
