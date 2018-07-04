@@ -1,4 +1,5 @@
 import React from 'react'
+import types from 'prop-types'
 import styled from 'styled-components'
 import { Card, CardTitle, CardImg, Col } from 'reactstrap'
 
@@ -19,6 +20,12 @@ const Venues = ({ children, bgImg, size, ...p }) => (
     </CardStyle>
   </Col>
 )
+
+Venues.propTypes = {
+  children: types.oneOf(types.string, types.element),
+  bgImg: types.string,
+  size: types.oneOf(types.string, types.number)
+}
 
 const VenueCard = styled(Venues)`
 padding-left: 10px;

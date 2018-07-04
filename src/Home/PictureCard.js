@@ -1,4 +1,5 @@
 import React from 'react'
+import types from 'prop-types'
 import styled from 'styled-components'
 import { Card, Button, CardTitle, Col } from 'reactstrap'
 
@@ -30,6 +31,14 @@ const NormalCard = ({ size, children, btn, onActivate, caption, bgImg, ...p }) =
     </StyCard>
   </Col>
 )
+NormalCard.propTypes = {
+  size: types.oneOf(types.string, types.number),
+  children: types.oneOf(types.string, types.element),
+  btn: types.string,
+  onActivate: types.func,
+  caption: types.string.isRequired,
+  bgImg: types.string
+}
 
 const PictureCard = styled(NormalCard)`
 padding-left: 10px;

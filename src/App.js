@@ -1,4 +1,5 @@
 import React from 'react'
+import types from 'prop-types'
 import cx from 'classnames'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
@@ -78,6 +79,11 @@ const App = ({ location: { pathname }, history }) => {
       </div>
     </Provider>
   )
+}
+
+App.propTypes = {
+  location: types.object.isRequired,
+  history: types.object.isRequired
 }
 
 export { routes }

@@ -1,4 +1,5 @@
 import React from 'react'
+import types from 'prop-types'
 import Rodal from 'rodal'
 import styled from 'styled-components'
 
@@ -33,4 +34,9 @@ const Auth = ({ ui, ...p }) => (
       : <SignIn onReg={ui.auth.toReg} />}
   </StyRodal>
 )
+
+Auth.propTypes = {
+  ui: types.object.isRequired
+}
+
 export default uiObserver(Auth)

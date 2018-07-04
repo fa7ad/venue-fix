@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import types from 'prop-types'
 import React from 'react'
 import {
   Collapse,
@@ -35,6 +36,11 @@ const NavItem = ({ to, children, onClick, ...p }) => (
     {onClick && <NavLink onClick={onClick}>{children}</NavLink>}
   </NItem>
 )
+NavItem.propTypes = {
+  to: types.string.isRequired,
+  children: types.oneOf(types.string, types.element),
+  onClick: types.func
+}
 
 const StyNavItem = styled(uiObserver(NavItem))`
   &, &:hover, &:link {
@@ -96,5 +102,10 @@ const Navigation = ({ ui, page, ...p }) => (
     </Container>
   </Navbar>
 )
+
+Navigation.propTypes = {
+  ui: types.object.isRequired,
+  page: types.string.isRequired
+}
 
 export default uiObserver(Navigation)

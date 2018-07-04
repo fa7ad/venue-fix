@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import types from 'prop-types'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 class SignIn extends Component {
@@ -27,6 +28,10 @@ class SignIn extends Component {
         <Button color='link' onClick={this.props.onReg}>Create an account</Button>
       </Form>
     )
+  }
+
+  static propTypes = {
+    onReg: types.func
   }
 }
 export default SignIn

@@ -1,4 +1,5 @@
 import React from 'react'
+import types from 'prop-types'
 import { inject } from 'mobx-react'
 import cx from 'classnames'
 import styled from 'styled-components'
@@ -57,5 +58,9 @@ const Event = ({ ui, ...p }) => (
     <Footer />
   </Root>
 )
+
+Event.propTypes = {
+  ui: types.object.isRequired
+}
 
 export default inject('ui')(Event)

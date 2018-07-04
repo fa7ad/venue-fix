@@ -23,8 +23,7 @@ const Root = styled.div`
 `
 
 const StyContainer = styled(Container)`
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding: 15px 0;
   flex-basis: 100%;
 `
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import types from 'prop-types'
 import { inject } from 'mobx-react'
 import ScrollTrigger from 'react-scroll-trigger'
 
@@ -17,5 +18,9 @@ const Home = ({ ui, ...p }) => (
     </ScrollTrigger>
   </div>
 )
+
+Home.propTypes = {
+  ui: types.object.isRequired
+}
 
 export default inject('ui')(Home)
