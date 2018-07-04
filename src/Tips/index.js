@@ -1,5 +1,5 @@
 import React from 'react'
-import types from 'prop-types'
+import PropTypes from 'prop-types'
 import mark from 'remove-markdown'
 import styled from 'styled-components'
 
@@ -50,8 +50,8 @@ const Tip = ({ tip, onModalActivate, ...p }) => (
 )
 
 Tip.propTypes = {
-  tip: types.object.isRequired,
-  onModalActivate: types.func
+  tip: PropTypes.object.isRequired,
+  onModalActivate: PropTypes.func
 }
 
 const TipCard = styled(Tip)`

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import types from 'prop-types'
+import PropTypes from 'prop-types'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 class SignIn extends Component {
@@ -31,7 +31,7 @@ class SignIn extends Component {
   }
 
   static propTypes = {
-    onReg: types.func
+    onReg: PropTypes.func
   }
 }
 export default SignIn

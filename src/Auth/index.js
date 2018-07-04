@@ -1,5 +1,5 @@
 import React from 'react'
-import types from 'prop-types'
+import PropTypes from 'prop-types'
 import Rodal from 'rodal'
 import styled from 'styled-components'
 
@@ -36,7 +36,7 @@ const Auth = ({ ui, ...p }) => (
 )
 
 Auth.propTypes = {
-  ui: types.object.isRequired
+  ui: PropTypes.object.isRequired
 }
 
 export default uiObserver(Auth)
