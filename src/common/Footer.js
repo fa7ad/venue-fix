@@ -31,7 +31,7 @@ const StyRow = styled(Row)`
   min-height: 25vh;
 `
 
-const SocRow = styled(Row)`
+const SocialRow = styled(Row)`
   padding: 10px auto;
 `
 
@@ -55,12 +55,6 @@ const StyCol = styled(Col).attrs({
   svg {
     margin: auto 5px;
   }
-`
-
-const Embed = styled.div.attrs({
-  className: p => cx('embed-responsive', p.className)
-})`
-  height: 200px;
 `
 
 const StyLink = styled(Link)`
@@ -112,7 +106,7 @@ class Footer extends Component {
             </StyCol>
             <StyCol sm='6'>
               <h3>Location With Map</h3>
-              <Embed>
+              <div className='embed-responsive' style={{height: 200}}>
                 <GoogleMap
                   defaultCenter={{
                     lat: 23.762301,
@@ -128,7 +122,7 @@ class Footer extends Component {
                     Parliament
                   </MapMarker>
                 </GoogleMap>
-              </Embed>
+              </div>
             </StyCol>
             <StyCol>
               <h3>Contact Us</h3>
@@ -140,18 +134,18 @@ class Footer extends Component {
             </StyCol>
           </StyRow>
           <StyHr />
-          <SocRow>
+          <SocialRow>
             <StyCol>
               nothing
             </StyCol>
-            <StyCol sm={6} className='text-center'>
+            <StyCol sm='6' className='text-center'>
               <FaceBook />
               <Twitter />
               <Instagram />
               <Youtube />
             </StyCol>
             <StyCol>nothing</StyCol>
-          </SocRow>
+          </SocialRow>
         </StyContainer>
       </Root>
     )

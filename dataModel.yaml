@@ -1,0 +1,31 @@
+venues:
+  -
+    name: string
+    location: string
+    capacity: number
+    rent: range(number)
+    parking: boolean
+    area: string
+    description: string
+    venue_image: string
+
+caterings:
+  -
+    id: number
+    name: string
+    menu: object
+
+requests:
+  -
+    client_name: string
+    venue: oneOf(venues)
+    date: datetime
+    duration: number
+    guests: number
+    phone: string
+    email: string
+    address: string
+    catering: boolean
+    catering_items: array
+    _catering_id: number
+    comments: string

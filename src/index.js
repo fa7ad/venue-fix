@@ -17,5 +17,5 @@ export default express()
       console.error(err)
       return
     }
-    console.log(`> Started on port ${port}`)
+    console.log(`> Listening on http://localhost:${port}/`)
   })

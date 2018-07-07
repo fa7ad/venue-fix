@@ -63,29 +63,7 @@ const TipCard = styled(Tip)`
   }
 `
 
-// sample data
-const tips = [
-  {
-    heading: 'Hello World',
-    time: new Date(),
-    body: `
-    # hello world
-    ## hi, mars
-    ### bye, pluto
-  `
-  },
-  {
-    heading: 'Hello React',
-    time: new Date(),
-    body: `
-    # hello react
-    ## hi, vue
-    ### bye, angular
-  `
-  }
-]
-
-const TipsPage = p => (
+const TipsPage = ({ tips }) => (
   <Root>
     <Container>
       {tips.map((d, i) => <TipCard key={i} tip={d} />)}
@@ -93,5 +71,9 @@ const TipsPage = p => (
     <Footer />
   </Root>
 )
+
+TipsPage.propTypes = {
+  tips: PropTypes.arrayOf(PropTypes.object)
+}
 
 export default TipsPage

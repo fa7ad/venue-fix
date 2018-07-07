@@ -9,6 +9,7 @@ import Tips from './Tips/'
 import Auth from './Auth/'
 import Event from './Event/'
 import Admin from './Admin/'
+import AdminNav from './Admin/Nav'
 import FourOhFour from './FourOhFour/'
 
 import { Provider } from 'mobx-react'
@@ -21,6 +22,28 @@ const uiStore = UiStore.create({
   auth: {}
 })
 
+// sample data
+const sampleTips = [
+  {
+    heading: 'Hello World',
+    time: new Date(),
+    body: `
+    # hello world
+    ## hi, mars
+    ### bye, pluto
+  `
+  },
+  {
+    heading: 'Hello React',
+    time: new Date(),
+    body: `
+    # hello react
+    ## hi, vue
+    ### bye, angular
+  `
+  }
+]
+
 const routes = [
   {
     key: 'home',
@@ -31,7 +54,7 @@ const routes = [
   {
     key: 'tips',
     path: '/tips',
-    component: Tips
+    render: p => <Tips tips={sampleTips} {...p} />
   },
   {
     key: 'event',
@@ -50,20 +73,8 @@ const routes = [
   }
 ]
 
-const AdminNav = p => (
-  <nav className='navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow'>
-    <a className='navbar-brand col-sm-3 col-md-2 mr-0' href='#'>venue-fix</a>
-    <div className='w-100' />
-    <ul className='navbar-nav px-3'>
-      <li className='nav-item text-nowrap'>
-        <a className='nav-link' href='#'>Sign out</a>
-      </li>
-    </ul>
-  </nav>
-)
-
 const App = ({ location: { pathname }, history }) => {
-  const [{key: match}] = routes
+  const [{ key: match }] = routes
     .filter(r => r.path === pathname)
     .concat(routes.slice(-1))
     .slice(0, 1)
@@ -90,4 +101,5 @@ App.propTypes = {
 }
 
 export { routes }
+
 export default withRouter(App)
