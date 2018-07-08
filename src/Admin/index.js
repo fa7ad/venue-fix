@@ -1,9 +1,16 @@
 import React from 'react'
+import cx from 'classnames'
 import styled from 'styled-components'
 import { defaultProps } from 'recompose'
 import { Link } from 'react-router-dom'
 import { Home, File, PlusCircle } from 'react-feather'
-import { Container, Col, Row, Nav, NavItem as NavItm, NavLink } from 'reactstrap'
+import {
+  Container,
+  Col,
+  Row,
+  Nav,
+  NavItem as NavItm
+} from 'reactstrap'
 
 import chart from '../images/chart.png'
 
@@ -20,15 +27,25 @@ const FluidRoot = styled(Container).attrs({
   }
 `
 
-const NavItem = styled(NavItm)`
+const NavItem = styled(NavItm).attrs({
+  className: p =>
+    cx(
+      { 'text-dark': !p.active },
+      { 'text-light': p.active },
+      'btn',
+      p.className
+    )
+})`
   display: inline-flex;
   align-items: center;
-  padding: 7px 0;
-  a, a:link, a:hover {
-    color: #111;
-  }
+  padding: 1em .5em;
+  width: calc(100% + 1em);
   svg {
-    margin: 0 5px;
+    margin-right: 1em;
+  }
+
+  &.active {
+    background-color: #333;
   }
 `
 
@@ -36,23 +53,21 @@ export default p => (
   <FluidRoot>
     <Row>
       <Nav className='col-sm bg-light text-dark' vertical>
-        <NavItem>
+        <NavItem tag={defaultProps({ to: '/' })(Link)}>
           <Home />
-          <NavLink tag={defaultProps({ to: '/' })(Link)}>
-            Home
-          </NavLink>
+          Home
         </NavItem>
-        <NavItem>
+        <NavItem active tag={defaultProps({ to: '/admin/' })(Link)}>
+          <Home />
+          Dashboard
+        </NavItem>
+        <NavItem tag={defaultProps({ to: '/admin/bookings' })(Link)}>
           <File />
-          <NavLink tag={defaultProps({ to: '/admin/bookings' })(Link)}>
-            Bookings
-          </NavLink>
+          Bookings
         </NavItem>
-        <NavItem>
+        <NavItem tag={defaultProps({ to: '/admin/tips/new' })(Link)}>
           <PlusCircle />
-          <NavLink tag={defaultProps({ to: '/admin/tips/new' })(Link)}>
-            Add Tips
-          </NavLink>
+          Add Tips
         </NavItem>
       </Nav>
       <Col md='10'>

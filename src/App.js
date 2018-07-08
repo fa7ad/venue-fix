@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import pathEx from 'path-to-regexp'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 import Navigation from './common/Navigation'
@@ -74,9 +75,9 @@ const routes = [
 ]
 
 const App = ({ location: { pathname }, history }) => {
+  const key = []
   const [{ key: match }] = routes
-    .filter(r => r.path === pathname)
-    .concat(routes.slice(-1))
+    .filter(r => pathEx(r.path, key).test(pathname))
     .slice(0, 1)
 
   return (
