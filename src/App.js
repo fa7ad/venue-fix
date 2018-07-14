@@ -64,7 +64,7 @@ const routes = [
   },
   {
     key: 'admin',
-    path: '/admin',
+    path: '/admin/*',
     component: Admin
   },
   {
@@ -75,9 +75,8 @@ const routes = [
 ]
 
 const App = ({ location: { pathname }, history }) => {
-  const key = []
   const [{ key: match }] = routes
-    .filter(r => pathEx(r.path, key).test(pathname))
+    .filter(r => pathEx(r.path, []).test(pathname))
     .slice(0, 1)
 
   return (
