@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Col } from 'reactstrap'
-
 import { Switch, Route } from 'react-router-dom'
 
 import Sidebar from './Sidebar'
-import chart from '../images/chart.png'
 
 const FluidRoot = styled.div`
   flex-grow: 1;
@@ -22,10 +20,7 @@ export default p => (
       <Switch>
         <Route path='/admin/' exact>
           <div>
-            <div className='d-flex border-bottom py-2'>
-              <h2>Dashboard</h2>
-            </div>
-            <img className='my-4 w-100' src={chart} />
+            <h2 className='d-flex border-bottom py-2'>Dashboard</h2>
           </div>
         </Route>
       </Switch>
