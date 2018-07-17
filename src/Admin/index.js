@@ -4,6 +4,8 @@ import { Col } from 'reactstrap'
 import { Switch, Route } from 'react-router-dom'
 
 import Sidebar from './Sidebar'
+import AddTips from './AddTips'
+import Bookings from './Bookings'
 
 const FluidRoot = styled.div`
   flex-grow: 1;
@@ -23,6 +25,8 @@ export default p => (
             <h2 className='d-flex border-bottom py-2'>Dashboard</h2>
           </div>
         </Route>
+        <Route path='/admin/tips/new' component={AddTips} />
+        <Route path='/admin/bookings' component={Bookings} />
       </Switch>
     </Col>
   </FluidRoot>

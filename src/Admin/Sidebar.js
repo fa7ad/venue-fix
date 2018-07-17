@@ -50,5 +50,4 @@ const Sidebar = p => (
     </NavItem>
   </Nav>
 )
-
 export default Sidebar
