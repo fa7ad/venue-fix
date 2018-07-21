@@ -20,7 +20,8 @@ import './App.css'
 
 const uiStore = UiStore.create({
   navbar: {},
-  auth: {}
+  auth: {},
+  dash: {}
 })
 
 // sample data
@@ -64,7 +65,7 @@ const routes = [
   },
   {
     key: 'admin',
-    path: '/admin/*',
+    path: '/admin*',
     component: Admin
   },
   {
@@ -85,7 +86,7 @@ const App = ({ location: { pathname }, history }) => {
         {match !== 'E404' &&
           (match === 'admin'
             ? <AdminNav />
-            : <Navigation page={match} {...{ history }} />)}
+            : <Navigation page={match} />)}
         <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}

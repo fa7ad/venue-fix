@@ -54,9 +54,20 @@ const Auth = types
     }
   }))
 
+const Dashboard = types
+  .model({
+    activePage: types.optional(types.string, 'dashboard')
+  })
+  .actions(self => ({
+    activate (page = 'dashboard') {
+      self.activePage = page
+    }
+  }))
+
 const UiStore = types.model({
   navbar: Navbar,
-  auth: Auth
+  auth: Auth,
+  dash: Dashboard
 })
 
 const injObser = store => com => inject(store)(observer(com))
