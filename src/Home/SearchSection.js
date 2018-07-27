@@ -14,7 +14,7 @@ class SearchSection extends Component {
   render () {
     return (
       <Container className={css.root}>
-        <Form className={cx(css.jcsb, 'row')}>
+        <Form className={cx(css.jcsb, 'row')} action='/event'>
           <Input
             name='location'
             type='select'

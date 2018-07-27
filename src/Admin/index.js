@@ -41,7 +41,7 @@ const AdminPage = ({ ui: { dash } }) => (
             })(TempDash)
           )}
         />
-        <Route path='/admin/tips/new' component={AddTips} />
+        <Route path='/admin/add-tips' component={AddTips} />
         <Route path='/admin/bookings' component={Bookings} />
       </Switch>
     </Col>

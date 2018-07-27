@@ -65,12 +65,12 @@ const routes = [
   },
   {
     key: 'admin',
-    path: '/admin*',
+    path: '/admin/:_?',
     component: Admin
   },
   {
     key: 'E404',
-    path: '/*',
+    path: '/:_?',
     component: FourOhFour
   }
 ]

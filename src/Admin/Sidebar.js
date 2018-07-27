@@ -60,7 +60,7 @@ const itemsList = [
     icon: <Info />
   },
   {
-    href: '/admin/tips/new',
+    href: '/admin/add-tips',
     caption: 'Add Tips',
     key: 'add-tips',
     icon: <PlusCircle />

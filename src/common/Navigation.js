@@ -18,7 +18,7 @@ import {
 import styled from 'styled-components'
 
 import { uiObserver } from '../uiStore'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 import logoImg from '../images/logo.svg'
 import './Navigation.css'
@@ -108,4 +108,4 @@ Navigation.propTypes = {
   page: PropTypes.string.isRequired
 }
 
-export default uiObserver(Navigation)
+export default uiObserver(withRouter(Navigation))
