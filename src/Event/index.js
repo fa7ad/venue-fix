@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { inject } from 'mobx-react'
+import qs from 'qs'
 import cx from 'classnames'
 import styled from 'styled-components'
 
-import {Row, Container} from 'reactstrap'
+import { Row, Container } from 'reactstrap'
 
 import EventForm from './EventForm'
 import VenueCard from './Venues'
@@ -20,9 +21,9 @@ const Root = styled.div.attrs({
   margin-top: 64px;
 `
 
-const Event = ({ ui, ...p }) => (
+const Event = ({ ui, location, ...p }) => (
   <Root>
-    <EventForm />
+    <EventForm initialData={qs.parse(location.search.slice(1) || '')} />
     <Container>
       <Row>
         <VenueCard bgImg={image1} size='4'>
@@ -60,7 +61,8 @@ const Event = ({ ui, ...p }) => (
 )
 
 Event.propTypes = {
-  ui: PropTypes.object.isRequired
+  ui: PropTypes.object.isRequired,
+  location: PropTypes.object
 }
 
 export default inject('ui')(Event)

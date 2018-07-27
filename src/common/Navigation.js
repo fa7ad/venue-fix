@@ -54,6 +54,10 @@ const StyBrand = styled(NavbarBrand)`
   }
 `
 
+const Logo = styled.img`
+  max-height: 2em;
+`
+
 const Navigation = ({ ui, page, ...p }) => (
   <Navbar
     fixed='top'
@@ -64,7 +68,7 @@ const Navigation = ({ ui, page, ...p }) => (
   >
     <Container>
       <StyBrand onClick={e => p.history.push('/')}>
-        <img src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
+        <Logo src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
       </StyBrand>
       <NavbarToggler onClick={ui.navbar.toggle} />
       <Collapse isOpen={ui.navbar.isOpen} navbar>

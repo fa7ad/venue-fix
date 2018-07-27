@@ -12,9 +12,12 @@ import {
   Row,
   Col
 } from 'reactstrap'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import 'rc-slider/assets/index.css'
+
+import Option from '../common/LowerOption'
 
 const StyContainer = styled(Container)`
   background-color: #fff;
@@ -33,22 +36,38 @@ const DatePicker = styled(Flatpickr)`
 const Range = Slider.createSliderWithTooltip(Slider.Range)
 
 class EventForm extends Component {
-  state = {
-    date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
-    budget: [0, 250000]
+  state = Object.assign(
+    {
+      date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
+      budget: [0, 250000]
+    },
+    this.props.initialData,
+    { date: new Date(+this.props.initialData.date) || void 0 }
+  )
+
+  valChange = name => e => {
+    this.setState({ [name]: e.target.value })
   }
+
   render () {
+    const { valChange } = this
     return (
       <Form>
         <StyContainer>
           <h3 className='text-primary'>EVENT DETAILS</h3>
           <Row>
             <Col>
-              <Label for='city'>City</Label>
-              <Input type='select' placeholder='City' id='city'>
-                <option>Dhaka</option>
-                <option>Comilla</option>
-                <option>Chittagong</option>
+              <Label for='city'>Location</Label>
+              <Input
+                type='select'
+                placeholder='City'
+                id='location'
+                value={this.state.location}
+                onChange={valChange('location')}
+              >
+                <Option>Dhaka</Option>
+                <Option>Comilla</Option>
+                <Option>Chittagong</Option>
               </Input>
             </Col>
             <Col>
@@ -60,14 +79,22 @@ class EventForm extends Component {
                 max='50000'
                 id='guests'
                 placeholder='Guest Count'
+                value={this.state.guests}
+                onChange={valChange('guests')}
               />
             </Col>
             <Col>
               <Label for='eventType'>Event Type</Label>
-              <Input type='select' id='eventType' placeholder='Event Type'>
-                <option>Birthday Paty</option>
-                <option>Baby Shower</option>
-                <option>Marrige</option>
+              <Input
+                type='select'
+                id='event'
+                placeholder='Event'
+                value={this.state.event}
+                onChange={valChange('event')}
+              >
+                <Option>Wedding</Option>
+                <Option>Conference</Option>
+                <Option>Meeting</Option>
               </Input>
             </Col>
             <Col sm='4'>
@@ -76,7 +103,7 @@ class EventForm extends Component {
                 data-enable-time
                 id='date'
                 value={this.state.date}
-                onChange={date => this.setState({ date })}
+                onChange={([date]) => this.setState({ date })}
                 className='form-control'
                 options={{
                   minuteIncrement: 30,
@@ -88,7 +115,13 @@ class EventForm extends Component {
             <Col>
               <Label for='duration'>Duration</Label>
               <InputGroup>
-                <Input type='number' min='1' id='duration' />
+                <Input
+                  type='number'
+                  min='1'
+                  id='duration'
+                  value={this.state.duration}
+                  onChange={valChange('duration')}
+                />
                 <InputGroupAddon addonType='append'>
                   hr
                 </InputGroupAddon>
@@ -99,18 +132,28 @@ class EventForm extends Component {
           <Row>
             <Col>
               <Label for='foods'>Foods</Label>
-              <Input type='select' id='foods'>
-                <option>ChuiJhaal</option>
-                <option>Nanna Biriyani</option>
-                <option>Bismilla Kabab</option>
+              <Input
+                type='select'
+                id='foods'
+                value={this.state.foods}
+                onChange={valChange('foods')}
+              >
+                <Option>ChuiJhaal</Option>
+                <Option>Nanna Biriyani</Option>
+                <Option>Bismilla Kabab</Option>
               </Input>
             </Col>
             <Col>
               <Label for='drinks'>Drinks</Label>
-              <Input type='select' id='drinks'>
-                <option>Coca-Cola</option>
-                <option>Sprite</option>
-                <option>Fanta</option>
+              <Input
+                type='select'
+                id='drinks'
+                value={this.state.drinks}
+                onChange={valChange('foods')}
+              >
+                <Option>Coca-Cola</Option>
+                <Option>Sprite</Option>
+                <Option>Fanta</Option>
               </Input>
             </Col>
             <Col sm='6'>
@@ -128,6 +171,10 @@ class EventForm extends Component {
         </StyContainer>
       </Form>
     )
+  }
+
+  static propTypes = {
+    initialData: PropTypes.object
   }
 }
 export default EventForm

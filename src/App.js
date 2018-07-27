@@ -70,23 +70,20 @@ const routes = [
   },
   {
     key: 'E404',
-    path: '/:_?',
     component: FourOhFour
   }
 ]
 
 const App = ({ location: { pathname }, history }) => {
   const [{ key: match }] = routes
-    .filter(r => pathEx(r.path, []).test(pathname))
+    .filter(r => pathEx(r.path || '', []).test(pathname))
     .slice(0, 1)
 
   return (
     <Provider ui={uiStore}>
       <div className={cx('page', match)}>
         {match !== 'E404' &&
-          (match === 'admin'
-            ? <AdminNav />
-            : <Navigation page={match} />)}
+          (match === 'admin' ? <AdminNav /> : <Navigation page={match} />)}
         <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}

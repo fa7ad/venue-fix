@@ -1,13 +1,28 @@
 import express from 'express'
 import React from 'react'
 
+/* import path from 'path'
+import up from 'levelup'
+import sql from 'sqldown'
+import enc from 'encoding-down' */
+
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
+/* const createDB = table =>
+  up(
+    enc(sql(path.resolve(__dirname, `${table || 'database'}.db`)), {
+      valueEncoding: 'json'
+    })
+  ) */
+
+// const venuesdb = createDB('venues')
+
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const server = express()
+// venuesdb.get('record1').then(console.log).catch(console.log)
 
 server
   .disable('x-powered-by')

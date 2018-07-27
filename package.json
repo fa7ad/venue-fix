@@ -12,14 +12,17 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "draft-js": "^0.10.5",
+    "encoding-down": "^5.0.4",
     "express": "4.16.3",
     "flatpickr": "^4.5.0",
     "google-map-react": "^1.0.3",
+    "levelup": "^3.1.1",
     "luxon": "^1.2.1",
     "mobx": "^5.0.3",
     "mobx-react": "^5.1.2",
     "mobx-state-tree": "^3.0.0",
     "path-to-regexp": "^2.2.1",
+    "pouchdb": "^7.0.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.2",
     "ramda": "^0.25.0",
@@ -38,6 +41,8 @@
     "remove-markdown": "^0.3.0",
     "rodal": "^1.6.3",
     "sanitize-html": "^1.18.2",
+    "sqldown": "^2.1.0",
+    "sqlite3": "^4.0.2",
     "styled-components": "^3.3.0"
   },
   "devDependencies": {
