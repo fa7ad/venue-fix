@@ -25,6 +25,9 @@ const Root = styled.div`
 const StyContainer = styled(Container)`
   padding: 15px 0;
   flex-basis: 100%;
+  @media (max-width: 640px) {
+    padding: 15px;
+  }
 `
 
 const StyRow = styled(Row)`

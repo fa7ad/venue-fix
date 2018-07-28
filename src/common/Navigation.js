@@ -17,8 +17,8 @@ import {
 } from 'reactstrap'
 import styled from 'styled-components'
 
-import { uiObserver } from '../uiStore'
-import { Link, withRouter } from 'react-router-dom'
+import { injObser, uiObserver } from '../uiStore'
+import { Link } from 'react-router-dom'
 
 import logoImg from '../images/logo.svg'
 import './Navigation.css'
@@ -42,7 +42,9 @@ NavItem.propTypes = {
   onClick: PropTypes.func
 }
 
-const StyNavItem = styled(uiObserver(NavItem))`
+const StyNavItem = styled(uiObserver(NavItem)).attrs({
+  className: p => cx(p.className, p.button ? 'btn-' + p.button : '')
+})`
   &, &:hover, &:link {
     cursor: pointer;
   }
@@ -58,7 +60,7 @@ const Logo = styled.img`
   max-height: 2em;
 `
 
-const Navigation = ({ ui, page, ...p }) => (
+const Navigation = ({ ui, page, router: { history }, ...p }) => (
   <Navbar
     fixed='top'
     color={ui.navbar.color(page)}
@@ -67,7 +69,7 @@ const Navigation = ({ ui, page, ...p }) => (
     className={cx('nav__root')}
   >
     <Container>
-      <StyBrand onClick={e => p.history.push('/')}>
+      <StyBrand onClick={e => history.push('/')}>
         <Logo src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
       </StyBrand>
       <NavbarToggler onClick={ui.navbar.toggle} />
@@ -100,7 +102,7 @@ const Navigation = ({ ui, page, ...p }) => (
             </DropdownMenu>
           </UncontrolledDropdown>
           <StyNavItem onClick={ui.auth.showModal}>Login / Register</StyNavItem>
-          <StyNavItem to='/event'>Create Event</StyNavItem>
+          <StyNavItem to='/event' button='danger'>Create Event</StyNavItem>
         </Nav>
       </Collapse>
     </Container>
@@ -109,7 +111,8 @@ const Navigation = ({ ui, page, ...p }) => (
 
 Navigation.propTypes = {
   ui: PropTypes.object.isRequired,
-  page: PropTypes.string.isRequired
+  page: PropTypes.string.isRequired,
+  router: PropTypes.object.isRequired
 }
 
-export default uiObserver(withRouter(Navigation))
+export default injObser('ui', 'router')(Navigation)

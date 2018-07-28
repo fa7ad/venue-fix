@@ -18,6 +18,7 @@ const Navbar = types
     },
     toggle: e => {
       self.isOpen = !self.isOpen
+      console.log('isOpen', self.isOpen)
     },
     _toPage (page) {
       self._page = page
@@ -70,7 +71,7 @@ const UiStore = types.model({
   dash: Dashboard
 })
 
-const injObser = store => com => inject(store)(observer(com))
+const injObser = (...stores) => com => inject(...stores)(observer(com))
 const uiObserver = injObser('ui')
 
 export { injObser, uiObserver }

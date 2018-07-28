@@ -39,10 +39,10 @@ class EventForm extends Component {
   state = Object.assign(
     {
       date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
-      budget: [0, 250000]
+      budget: [0, 50000]
     },
     this.props.initialData,
-    { date: new Date(+this.props.initialData.date) || void 0 }
+    this.props.initialData.date && { date: new Date(+this.props.initialData.date) }
   )
 
   valChange = name => e => {
@@ -161,8 +161,8 @@ class EventForm extends Component {
               <Range
                 id='budget'
                 min={0}
-                max={250000}
-                step={500}
+                max={200000}
+                step={1000}
                 value={this.state.budget}
                 onChange={budget => this.setState({ budget })}
               />

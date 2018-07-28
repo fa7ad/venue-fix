@@ -8,8 +8,8 @@
   max-height: 36px;
 }
 
-.nav__root .ml-auto .nav-item a,
-.nav__root .ml-auto .nav-item a:link {
+.nav__root .nav-container .nav-item a,
+.nav__root .nav-container .nav-item a:link {
   color: #fff;
 }
 

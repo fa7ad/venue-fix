@@ -15,9 +15,6 @@ class Category extends Component {
         <Container>
           <div className={css.header}>
             <h3>Featured Categories</h3>
-            <p>
-              Discover Bangladesh best things to do, restaurants, theatre, nightlife and more
-            </p>
           </div>
 
           <Row className={css.row}>

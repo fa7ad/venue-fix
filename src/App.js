@@ -74,13 +74,14 @@ const routes = [
   }
 ]
 
-const App = ({ location: { pathname }, history }) => {
+const App = ({ location, history, match: rmatch }) => {
+  const { pathname } = location
   const [{ key: match }] = routes
     .filter(r => pathEx(r.path || '', []).test(pathname))
     .slice(0, 1)
 
   return (
-    <Provider ui={uiStore}>
+    <Provider ui={uiStore} router={{ match: rmatch, location, history }}>
       <div className={cx('page', match)}>
         {match !== 'E404' &&
           (match === 'admin' ? <AdminNav /> : <Navigation page={match} />)}
@@ -95,7 +96,8 @@ const App = ({ location: { pathname }, history }) => {
 
 App.propTypes = {
   location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 }
 
 export { routes }

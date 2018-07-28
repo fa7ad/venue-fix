@@ -24,7 +24,7 @@ const remark = function (md) {
 const Root = styled.div`
   background-color: #eee;
 
-  margin-top: 60px;
+  margin-top: 4em;
   flex-grow: 1;
 
   display: flex;
@@ -55,7 +55,7 @@ Tip.propTypes = {
 }
 
 const TipCard = styled(Tip)`
-  margin-top: 15px;
+  margin: 8px 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
   p {
