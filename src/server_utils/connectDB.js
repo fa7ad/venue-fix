@@ -9,11 +9,12 @@ function connectDB (dbname = Math.floor(Math.random() * 100)) {
     RAZZLE_DB_PORT: dbport
   } = process.env
 
-  const dburi = `http://${dbhost}:${dbport}/${prefix}${dbname}`
-
-  return new PouchDB(dburi, {auth: {
-    username, password
-  }})
+  return new PouchDB(`http://${dbhost}:${dbport}/${prefix}${dbname}`, {
+    auth: {
+      username,
+      password
+    }
+  })
 }
 
 export default connectDB

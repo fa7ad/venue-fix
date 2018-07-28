@@ -1,4 +1,4 @@
-function render ({ assets, prodEnv, styleTags, markup }) {
+function render (prodEnv = false, { assets, styleTags, markup }) {
   return `<!doctype html>
     <html lang="en">
     <head>

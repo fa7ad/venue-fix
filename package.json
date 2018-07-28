@@ -10,8 +10,10 @@
     "start:prod": "cross-env NODE_ENV=production node build/server.js"
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
+    "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.3",
     "draft-js": "^0.10.5",
     "express": "4.16.3",

@@ -1,12 +1,13 @@
 import Express from 'express'
 
+import bcrypt from 'bcrypt'
 import logger from 'morgan'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import cookieParser from 'cookie-parser'
-/*
-import Passport from 'passport'
-import {Strategy as LocalStrategy} from 'passport-local' */
+
+import passport from 'passport'
+import { Strategy as LocalStrategy } from 'passport-local'
 
 import App from './App'
 import React from 'react'
@@ -21,14 +22,47 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const app = Express()
 
-usersDB.info().then(_ => {
-  console.log('[PouchDB]', 'Connected to CouchDB')
-}).catch(_ => {
-  console.error('[PouchDB]', 'Failed to connect to CouchDB')
+usersDB
+  .info()
+  .then(_ => {
+    console.log('[PouchDB]', 'Connected to CouchDB')
+  })
+  .catch(_ => {
+    console.error('[PouchDB]', 'Failed to connect to CouchDB')
+  })
+
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: 'phone',
+      passwordField: 'password',
+      session: true
+    },
+    function (phone, plainPassword, cb) {
+      usersDB
+        .find(phone)
+        .then(user => {
+          cb(
+            null,
+            user && bcrypt.compareSync(plainPassword, user.password)
+              ? user
+              : false
+          )
+        })
+        .catch(err => cb(err))
+    }
+  )
+)
+
+passport.serializeUser(function (user, cb) {
+  cb(null, user._id)
+})
+
+passport.deserializeUser(function (id, cb) {
+  usersDB.find(id).catch(err => cb(err)).then(user => cb(null, user))
 })
 
 app.disable('x-powered-by')
-
 app.use(Express.static(process.env.RAZZLE_PUBLIC_DIR, { index: false }))
 app.use(logger('dev'))
 app.use(cookieParser())
@@ -42,9 +76,20 @@ app.use(
   })
 )
 
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.post(
+  '/auth',
+  passport.authenticate('local', {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/auth'
+  })
+)
+
 app.get('/*', (req, res) => {
-  const sheet = new ServerStyleSheet()
   const context = {}
+  const sheet = new ServerStyleSheet()
   const markup = renderToString(
     sheet.collectStyles(
       <StaticRouter context={context} location={req.url}>
@@ -53,16 +98,15 @@ app.get('/*', (req, res) => {
     )
   )
   const styleTags = sheet.getStyleTags()
-  if (context.url) res.redirect(context.url)
-  else {
-    const html = renderPage({
+  if (context.url) return res.redirect(context.url)
+
+  res.send(
+    renderPage(process.env.NODE_ENV === 'production', {
       assets,
-      prodEnv: process.env.NODE_ENV === 'production',
       styleTags,
       markup
     })
-    res.send(html)
-  }
+  )
 })
 
 export default app

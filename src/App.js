@@ -54,6 +54,14 @@ const routes = [
     component: Home
   },
   {
+    key: 'home auth',
+    path: '/auth',
+    render: p => {
+      uiStore.auth.showModal()
+      return <Home />
+    }
+  },
+  {
     key: 'tips',
     path: '/tips',
     render: p => <Tips tips={sampleTips} {...p} />
