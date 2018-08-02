@@ -14,9 +14,14 @@ import AdminNav from './Admin/Nav'
 import FourOhFour from './FourOhFour/'
 
 import { Provider } from 'mobx-react'
+import { IconContext } from 'react-icons'
 import UiStore from './uiStore'
 
 import './App.css'
+
+// TODO: remove when package fixes bug
+// FIXME
+global.IconContext = IconContext
 
 const uiStore = UiStore.create({
   navbar: {},
@@ -89,10 +94,12 @@ const App = ({ location, history, match: rmatch }) => {
     .slice(0, 1)
 
   return (
-    <Provider ui={uiStore} router={{ match: rmatch, location, history }}>
+    <Provider ui={uiStore}>
       <div className={cx('page', match)}>
         {match !== 'E404' &&
-          (match === 'admin' ? <AdminNav /> : <Navigation page={match} />)}
+          (match === 'admin'
+            ? <AdminNav />
+            : <Navigation page={match} history={history} />)}
         <Auth />
         <Switch>
           {routes.map(props => <Route {...props} />)}

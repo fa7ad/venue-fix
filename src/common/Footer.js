@@ -6,13 +6,15 @@ import Link from 'react-router-dom/Link'
 
 import GoogleMap from 'google-map-react'
 
-import Chevron from 'react-icons/lib/fa/chevron-right'
-import FaMail from 'react-icons/lib/fa/envelope'
-import FaPhone from 'react-icons/lib/fa/phone'
-import FaceBook from 'react-icons/lib/fa/facebook'
-import Twitter from 'react-icons/lib/fa/twitter'
-import Youtube from 'react-icons/lib/fa/youtube-play'
-import Instagram from 'react-icons/lib/fa/instagram'
+import {
+  FaChevronRight,
+  FaEnvelope,
+  FaPhone,
+  FaFacebook,
+  FaTwitter,
+  FaYoutube,
+  FaInstagram
+} from 'react-icons/fa'
 
 const Root = styled.div`
   color: #fff;
@@ -104,12 +106,12 @@ class Footer extends Component {
                 Without a doubt, Venue Fix is the best way to find & discover the greatest places in the city.
               </p>
               <StyLink to='/about-us' className={cx('btn', 'bg-light')}>
-                See More <Chevron />
+                See More <FaChevronRight />
               </StyLink>
             </StyCol>
             <StyCol sm='6'>
               <h3>Location With Map</h3>
-              <div className='embed-responsive' style={{height: 200}}>
+              <div className='embed-responsive' style={{ height: 200 }}>
                 <GoogleMap
                   defaultCenter={{
                     lat: 23.762301,
@@ -130,8 +132,8 @@ class Footer extends Component {
             <StyCol>
               <h3>Contact Us</h3>
               <List>
-                <ListItem><FaMail /> venuefix@gmail.com</ListItem>
-                <ListItem><FaMail /> venuefix@gmail.com</ListItem>
+                <ListItem><FaEnvelope /> venuefix@gmail.com</ListItem>
+                <ListItem><FaEnvelope /> venuefix@gmail.com</ListItem>
                 <ListItem><FaPhone /> +8801xxxxxxxxx</ListItem>
               </List>
             </StyCol>
@@ -142,10 +144,10 @@ class Footer extends Component {
               nothing
             </StyCol>
             <StyCol sm='6' className='text-center'>
-              <FaceBook />
-              <Twitter />
-              <Instagram />
-              <Youtube />
+              <FaFacebook />
+              <FaTwitter />
+              <FaInstagram />
+              <FaYoutube />
             </StyCol>
             <StyCol>nothing</StyCol>
           </SocialRow>

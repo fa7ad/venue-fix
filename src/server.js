@@ -29,6 +29,8 @@ usersDB
   })
   .catch(_ => {
     console.error('[PouchDB]', 'Failed to connect to CouchDB')
+    console.error('[PouchDB]', "CouchDB server doesn't seem to be running")
+    process.exit(1)
   })
 
 passport.use(

@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 
 import cx from 'classnames'
 import styled from 'styled-components'
-import { Home, PlusCircle, List, Activity, Info } from 'react-feather'
+
+import { FiHome, FiPlusCircle, FiList, FiInfo } from 'react-icons/fi'
+
+import { FaChartLine } from 'react-icons/fa'
 
 import { Nav, NavItem as NavItm } from 'reactstrap'
 import PropTypes from 'prop-types'
@@ -26,6 +29,8 @@ const NavItem = styled(NavItm).attrs({
   width: calc(100% + 1em);
   svg {
     margin-right: 1em;
+    width: 1.5em;
+    height: 1.5em;
   }
 
   &.active {
@@ -38,32 +43,32 @@ const itemsList = [
     href: '/',
     caption: 'Home',
     key: 'home',
-    icon: <Home />
+    icon: <FiHome />
   },
 
   {
     href: '/admin/',
     caption: 'Dashboard',
     key: 'dashboard',
-    icon: <Activity />
+    icon: <FaChartLine />
   },
   {
     href: '/admin/bookings',
     caption: 'Bookings',
     key: 'bookings',
-    icon: <List />
+    icon: <FiList />
   },
   {
     href: '/tips/',
     caption: 'Tips',
     key: 'tips',
-    icon: <Info />
+    icon: <FiInfo />
   },
   {
     href: '/admin/add-tips',
     caption: 'Add Tips',
     key: 'add-tips',
-    icon: <PlusCircle />
+    icon: <FiPlusCircle />
   }
 ]
 
