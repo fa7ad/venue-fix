@@ -17,7 +17,7 @@ import {
 } from 'reactstrap'
 import styled from 'styled-components'
 
-import { injObser, uiObserver } from '../uiStore'
+import { uiObserver } from '../uiStore'
 import { Link } from 'react-router-dom'
 
 import logoImg from '../images/logo.svg'
@@ -30,24 +30,25 @@ const category = [
 ]
 const us = ['Contact Us', 'About Us']
 
-const NavItem = ({ to, children, onClick, ...p }) => (
-  <NItem {...p} onClick={p.ui.navbar.toggle}>
+const Item = ({ to, children, onClick, className, button, ...p }) => (
+  <NItem className={cx(className, button ? 'btn-' + button : '')} {...p}>
     {to && <NavLink tag={pr => <Link to={to} {...pr}>{children}</Link>} />}
     {onClick && <NavLink onClick={onClick}>{children}</NavLink>}
   </NItem>
 )
-NavItem.propTypes = {
+
+Item.propTypes = {
   to: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  button: PropTypes.bool
 }
 
-const StyNavItem = styled(uiObserver(NavItem)).attrs({
-  className: p => cx(p.className, p.button ? 'btn-' + p.button : '')
-})`
-  &, &:hover, &:link {
-    cursor: pointer;
-  }
+const NavItem = styled(Item)`
+&, &:hover, &:link {
+  cursor: pointer;
+}
 `
 
 const StyBrand = styled(NavbarBrand)`
@@ -60,10 +61,10 @@ const Logo = styled.img`
   max-height: 2em;
 `
 
-const Navigation = ({ ui, page, router: { history }, ...p }) => (
+const Navigation = ({ ui, page, history, ...p }) => (
   <Navbar
     fixed='top'
-    color={ui.navbar.color(page)}
+    color={ui.navbar.getColor(page)}
     dark
     expand='md'
     className={cx('nav__root')}
@@ -75,7 +76,7 @@ const Navigation = ({ ui, page, router: { history }, ...p }) => (
       <NavbarToggler onClick={ui.navbar.toggle} />
       <Collapse isOpen={ui.navbar.isOpen} navbar>
         <Nav className={cx('nav-container', 'ml-auto')} navbar>
-          <StyNavItem to='/'>Home</StyNavItem>
+          <NavItem to='/'>Home</NavItem>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
               Category
@@ -88,7 +89,7 @@ const Navigation = ({ ui, page, router: { history }, ...p }) => (
               ))}
             </DropdownMenu>
           </UncontrolledDropdown>
-          <StyNavItem to='/tips'>Tips</StyNavItem>
+          <NavItem to='/tips'>Tips</NavItem>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
               Us
@@ -101,8 +102,8 @@ const Navigation = ({ ui, page, router: { history }, ...p }) => (
               ))}
             </DropdownMenu>
           </UncontrolledDropdown>
-          <StyNavItem onClick={ui.auth.showModal}>Login / Register</StyNavItem>
-          <StyNavItem to='/event' button='danger'>Create Event</StyNavItem>
+          <NavItem onClick={ui.auth.showModal}>Login / Register</NavItem>
+          <NavItem to='/event' button='danger'>Create Event</NavItem>
         </Nav>
       </Collapse>
     </Container>
@@ -112,7 +113,7 @@ const Navigation = ({ ui, page, router: { history }, ...p }) => (
 Navigation.propTypes = {
   ui: PropTypes.object.isRequired,
   page: PropTypes.string.isRequired,
-  router: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired
 }
 
-export default injObser('ui', 'router')(Navigation)
+export default uiObserver(Navigation)

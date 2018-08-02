@@ -10,26 +10,21 @@ const Navbar = types
   .actions(self => ({
     toDark () {
       self._color = 'dark'
-      return self._color
     },
     toNone () {
       self._color = 'transparent'
-      return self._color
     },
     toggle: e => {
       self.isOpen = !self.isOpen
-      console.log('isOpen', self.isOpen)
     },
     _toPage (page) {
       self._page = page
-    }
-  }))
-  .views(self => ({
-    color (page = 'home') {
+      self.isOpen = false
+    },
+    getColor (page = 'home') {
       if (page !== self._page) {
         self._toPage(page)
-        if (page === 'home') self.toNone()
-        else self.toDark()
+        self[page === 'home' ? 'toNone' : 'toDark']()
       }
       return self._color
     }
