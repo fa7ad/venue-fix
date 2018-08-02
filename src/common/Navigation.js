@@ -42,7 +42,7 @@ Item.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   onClick: PropTypes.func,
   className: PropTypes.string,
-  button: PropTypes.bool
+  button: PropTypes.string
 }
 
 const NavItem = styled(Item)`

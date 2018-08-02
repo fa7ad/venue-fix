@@ -26,30 +26,9 @@ global.IconContext = IconContext
 const uiStore = UiStore.create({
   navbar: {},
   auth: {},
-  dash: {}
+  dash: {},
+  tip: {}
 })
-
-// sample data
-const sampleTips = [
-  {
-    heading: 'Hello World',
-    time: new Date(),
-    body: `
-    # hello world
-    ## hi, mars
-    ### bye, pluto
-  `
-  },
-  {
-    heading: 'Hello React',
-    time: new Date(),
-    body: `
-    # hello react
-    ## hi, vue
-    ### bye, angular
-  `
-  }
-]
 
 const routes = [
   {
@@ -69,7 +48,7 @@ const routes = [
   {
     key: 'tips',
     path: '/tips',
-    render: p => <Tips tips={sampleTips} {...p} />
+    component: Tips
   },
   {
     key: 'event',

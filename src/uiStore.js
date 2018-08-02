@@ -50,6 +50,35 @@ const Auth = types
     }
   }))
 
+const Tip = types.model({
+  heading: types.string,
+  time: types.Date,
+  body: types.string
+})
+
+const TipModal = types
+  .model({
+    activeTip: types.maybe(Tip),
+    visible: types.optional(types.boolean, false)
+  })
+  .actions(self => ({
+    show () {
+      self.visible = true
+      console.log(self.activeTip)
+    },
+    hide () {
+      self.visible = false
+    },
+    activate (tip) {
+      try {
+        self.activeTip = Tip.create(tip)
+      } catch (e) {
+        console.info(e)
+        self.activeTip = undefined
+      }
+    }
+  }))
+
 const Dashboard = types
   .model({
     activePage: types.optional(types.string, 'dashboard')
@@ -63,7 +92,8 @@ const Dashboard = types
 const UiStore = types.model({
   navbar: Navbar,
   auth: Auth,
-  dash: Dashboard
+  dash: Dashboard,
+  tip: TipModal
 })
 
 const injObser = (...stores) => com => inject(...stores)(observer(com))

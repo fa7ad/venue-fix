@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import mark from 'remove-markdown'
 import styled from 'styled-components'
@@ -13,6 +13,8 @@ import {
   CardText,
   Button
 } from 'reactstrap'
+
+import { uiObserver } from '../uiStore'
 
 import Footer from '../common/Footer'
 
@@ -35,7 +37,7 @@ const Root = styled.div`
   }
 `
 
-const Tip = ({ tip, onModalActivate, ...p }) => (
+const Tip = ({ tip, onActivate, ...p }) => (
   <Card className={p.className}>
     {tip.img && <CardImg top width='100%' src={tip.img} />}
     <CardBody>
@@ -44,14 +46,14 @@ const Tip = ({ tip, onModalActivate, ...p }) => (
       <CardText className='text-muted'>
         {remark(tip.body)}
       </CardText>
-      <Button onClick={onModalActivate}>See more</Button>
+      <Button onClick={e => onActivate(tip)}>See more</Button>
     </CardBody>
   </Card>
 )
 
 Tip.propTypes = {
   tip: PropTypes.object.isRequired,
-  onModalActivate: PropTypes.func
+  onActivate: PropTypes.func
 }
 
 const TipCard = styled(Tip)`
@@ -63,17 +65,51 @@ const TipCard = styled(Tip)`
   }
 `
 
-const TipsPage = ({ tips }) => (
-  <Root>
-    <Container>
-      {tips.map((d, i) => <TipCard key={i} tip={d} />)}
-    </Container>
-    <Footer />
-  </Root>
-)
+class TipsPage extends Component {
+  // sample data
+  tips = [
+    {
+      heading: 'Hello World',
+      time: new Date(),
+      body: `
+      # hello world
+      ## hi, mars
+      ### bye, pluto
+    `
+    },
+    {
+      heading: 'Hello React',
+      times: new Date(),
+      body: `
+      # hello react
+      ## hi, vue
+      ### bye, angular
+    `
+    }
+  ]
 
-TipsPage.propTypes = {
-  tips: PropTypes.arrayOf(PropTypes.object)
+  render () {
+    return (
+      <Root>
+        <Container>
+          {this.tips.map((data, idx) => (
+            <TipCard key={idx} tip={data} onActivate={this.activateModal} />
+          ))}
+        </Container>
+        <Footer />
+      </Root>
+    )
+  }
+
+  activateModal = tip => {
+    const { ui } = this.props
+    ui.tip.activate(tip)
+    ui.tip.show()
+  }
+
+  static propTypes = {
+    ui: PropTypes.object.isRequired
+  }
 }
 
-export default TipsPage
+export default uiObserver(TipsPage)
