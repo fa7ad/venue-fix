@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import cx from 'classnames'
 import styled from 'styled-components'
 
-import { FiHome, FiPlusCircle, FiList, FiInfo } from 'react-icons/fi'
+import { FiHome, FiList, FiInfo } from 'react-icons/fi'
 
 import { FaChartLine } from 'react-icons/fa'
 
@@ -59,16 +59,10 @@ const itemsList = [
     icon: <FiList />
   },
   {
-    href: '/tips/',
+    href: '/admin/tips',
     caption: 'Tips',
     key: 'tips',
     icon: <FiInfo />
-  },
-  {
-    href: '/admin/add-tips',
-    caption: 'Add Tips',
-    key: 'add-tips',
-    icon: <FiPlusCircle />
   }
 ]
 

@@ -39,15 +39,28 @@ class EventForm extends Component {
   state = Object.assign(
     {
       date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
-      budget: [0, 50000]
+      budget: [0, 50000],
+      location: 'dhaka',
+      guests: '0',
+      event: 'conference',
+      duration: 1,
+      catering: false
     },
     this.props.initialData,
-    this.props.initialData.date && { date: new Date(+this.props.initialData.date) }
+    this.props.initialData.date && {
+      date: new Date(+this.props.initialData.date)
+    }
   )
 
   valChange = name => e => {
-    this.setState({ [name]: e.target.value })
+    this.stateSet({ [name]: e.target.value })
   }
+
+  stateSet = val =>
+    this.setState(p => {
+      this.props.onChange(Object.assign(p, val))
+      return val
+    })
 
   render () {
     const { valChange } = this
@@ -84,7 +97,7 @@ class EventForm extends Component {
               />
             </Col>
             <Col>
-              <Label for='eventType'>Event Type</Label>
+              <Label for='event'>Event Type</Label>
               <Input
                 type='select'
                 id='event'
@@ -92,8 +105,8 @@ class EventForm extends Component {
                 value={this.state.event}
                 onChange={valChange('event')}
               >
-                <Option>Wedding</Option>
                 <Option>Conference</Option>
+                <Option>Wedding</Option>
                 <Option>Meeting</Option>
               </Input>
             </Col>
@@ -103,7 +116,7 @@ class EventForm extends Component {
                 data-enable-time
                 id='date'
                 value={this.state.date}
-                onChange={([date]) => this.setState({ date })}
+                onChange={([date]) => this.stateSet({ date })}
                 className='form-control'
                 options={{
                   minuteIncrement: 30,
@@ -128,35 +141,23 @@ class EventForm extends Component {
               </InputGroup>
             </Col>
           </Row>
-          <h3 className='text-primary'>PRICE</h3>
-          <Row>
-            <Col>
-              <Label for='foods'>Foods</Label>
-              <Input
-                type='select'
-                id='foods'
-                value={this.state.foods}
-                onChange={valChange('foods')}
-              >
-                <Option>ChuiJhaal</Option>
-                <Option>Nanna Biriyani</Option>
-                <Option>Bismilla Kabab</Option>
-              </Input>
+          <Row className='my-2'>
+            <Col
+              sm='3'
+              className='d-flex justify-content-center align-items-end'
+            >
+              <input
+                type='checkbox'
+                name='catering'
+                id='catering'
+                className='mb-2 position-static'
+                checked={this.state.catering}
+                onChange={e =>
+                  this.stateSet({ catering: e.currentTarget.checked })}
+              />
+              <Label for='catering'>Catering</Label>
             </Col>
             <Col>
-              <Label for='drinks'>Drinks</Label>
-              <Input
-                type='select'
-                id='drinks'
-                value={this.state.drinks}
-                onChange={valChange('foods')}
-              >
-                <Option>Coca-Cola</Option>
-                <Option>Sprite</Option>
-                <Option>Fanta</Option>
-              </Input>
-            </Col>
-            <Col sm='6'>
               <Label for='budget'>Budget</Label>
               <Range
                 id='budget'
@@ -164,7 +165,7 @@ class EventForm extends Component {
                 max={200000}
                 step={1000}
                 value={this.state.budget}
-                onChange={budget => this.setState({ budget })}
+                onChange={budget => this.stateSet({ budget })}
               />
             </Col>
           </Row>
@@ -172,9 +173,13 @@ class EventForm extends Component {
       </Form>
     )
   }
+  componentDidMount () {
+    this.stateSet({})
+  }
 
   static propTypes = {
-    initialData: PropTypes.object
+    initialData: PropTypes.object,
+    onChange: PropTypes.func
   }
 }
 export default EventForm

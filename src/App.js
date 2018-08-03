@@ -29,7 +29,8 @@ const uiStore = UiStore.create({
   navbar: {},
   auth: {},
   dash: {},
-  tip: { activeTip: {} }
+  tip: { activeTip: {} },
+  form: {}
 })
 
 const routes = [

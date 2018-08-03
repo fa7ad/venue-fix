@@ -89,11 +89,27 @@ const Dashboard = types
     }
   }))
 
+const Form = types
+  .model({
+    date: types.optional(types.Date, new Date()),
+    location: types.optional(types.string, ''),
+    guests: types.optional(types.string, '0'),
+    event: types.optional(types.string, ''),
+    catering: types.optional(types.boolean, false),
+    budget: types.optional(types.array(types.number), [0, 50000])
+  })
+  .actions(self => ({
+    set (form) {
+      Object.assign(self, form)
+    }
+  }))
+
 const UiStore = types.model({
   navbar: Navbar,
   auth: Auth,
   dash: Dashboard,
-  tip: TipModal
+  tip: TipModal,
+  form: Form
 })
 
 const injObser = (...stores) => com => inject(...stores)(observer(com))

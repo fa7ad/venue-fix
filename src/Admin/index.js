@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Sidebar from './Sidebar'
-import AddTips from './AddTips'
+import ManageTips from './Tips'
 import Bookings from './Bookings'
 
 import { injObser } from '../uiStore'
@@ -41,7 +41,7 @@ const AdminPage = ({ ui: { dash } }) => (
             })(TempDash)
           )}
         />
-        <Route path='/admin/add-tips' component={AddTips} />
+        <Route path='/admin/tips' component={ManageTips} />
         <Route path='/admin/bookings' component={Bookings} />
       </Switch>
     </Col>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class AddTips extends Component {
+class ManageTips extends Component {
   render () {
     return (
       <form action='/tips' method='POST'>
@@ -10,4 +10,4 @@ class AddTips extends Component {
   }
 }
 
-export default AddTips
+export default ManageTips
