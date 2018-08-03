@@ -7,6 +7,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 import Navigation from './common/Navigation'
 import Home from './Home/'
 import Tips from './Tips/'
+import TipsModal from './Tips/Modal'
 import Auth from './Auth/'
 import Event from './Event/'
 import Admin from './Admin/'
@@ -18,6 +19,7 @@ import { IconContext } from 'react-icons'
 import UiStore from './uiStore'
 
 import './App.css'
+import 'rodal/lib/rodal.css'
 
 // TODO: remove when package fixes bug
 // FIXME
@@ -27,7 +29,7 @@ const uiStore = UiStore.create({
   navbar: {},
   auth: {},
   dash: {},
-  tip: {}
+  tip: { activeTip: {} }
 })
 
 const routes = [
@@ -66,7 +68,7 @@ const routes = [
   }
 ]
 
-const App = ({ location, history, match: rmatch }) => {
+const App = ({ location, history }) => {
   const { pathname } = location
   const [{ key: match }] = routes
     .filter(r => pathEx(r.path || '', []).test(pathname))
@@ -79,7 +81,10 @@ const App = ({ location, history, match: rmatch }) => {
           (match === 'admin'
             ? <AdminNav />
             : <Navigation page={match} history={history} />)}
-        <Auth />
+        <div className='modals' style={{ zIndex: 1080 }}>
+          <TipsModal />
+          <Auth />
+        </div>
         <Switch>
           {routes.map(props => <Route {...props} />)}
         </Switch>
@@ -90,8 +95,7 @@ const App = ({ location, history, match: rmatch }) => {
 
 App.propTypes = {
   location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  match: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired
 }
 
 export { routes }

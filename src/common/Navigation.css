@@ -2,6 +2,7 @@
   padding-left: 0;
   padding-right: 0;
   padding: .5rem 0;
+  transition: background-color 500ms ease;
 }
 
 .nav__image {

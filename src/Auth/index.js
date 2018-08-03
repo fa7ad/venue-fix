@@ -7,7 +7,6 @@ import SignIn from './SignIn'
 import SignUp from './SignUp'
 
 import { uiObserver } from '../uiStore'
-import 'rodal/lib/rodal.css'
 
 const StyRodal = styled(Rodal)`
   display: flex;

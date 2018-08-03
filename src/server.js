@@ -15,8 +15,8 @@ import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
-import renderPage from './server_utils/renderPage'
-import connectDB from './server_utils/connectDB'
+import renderPage from './server/utils/renderPage'
+import connectDB from './server/utils/connectDB'
 const usersDB = connectDB('users')
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 

@@ -18,14 +18,15 @@ const Navbar = types
       self.isOpen = !self.isOpen
     },
     _toPage (page) {
-      self._page = page
-      self.isOpen = false
-    },
-    getColor (page = 'home') {
       if (page !== self._page) {
-        self._toPage(page)
-        self[page === 'home' ? 'toNone' : 'toDark']()
+        self._page = page
+        self.isOpen = false
       }
+    }
+  }))
+  .views(self => ({
+    getColor (page = 'home') {
+      self._toPage(page)
       return self._color
     }
   }))
@@ -51,30 +52,29 @@ const Auth = types
   }))
 
 const Tip = types.model({
-  heading: types.string,
-  time: types.Date,
-  body: types.string
+  heading: types.optional(types.string, ''),
+  time: types.optional(types.Date, new Date()),
+  body: types.optional(types.string, '')
 })
 
 const TipModal = types
   .model({
-    activeTip: types.maybe(Tip),
+    activeTip: Tip,
     visible: types.optional(types.boolean, false)
   })
   .actions(self => ({
     show () {
       self.visible = true
-      console.log(self.activeTip)
     },
     hide () {
       self.visible = false
     },
-    activate (tip) {
+    async activate (tip) {
       try {
         self.activeTip = Tip.create(tip)
+        return true
       } catch (e) {
-        console.info(e)
-        self.activeTip = undefined
+        return false
       }
     }
   }))

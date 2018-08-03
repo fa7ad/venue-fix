@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { DateTime } from 'luxon'
 import PropTypes from 'prop-types'
 import mark from 'remove-markdown'
 import styled from 'styled-components'
-
+import { struct } from 'superstruct'
 import {
   Container,
   Card,
@@ -37,22 +38,36 @@ const Root = styled.div`
   }
 `
 
-const Tip = ({ tip, onActivate, ...p }) => (
+const isTip = struct({
+  img: 'string?',
+  heading: 'string',
+  time: 'date',
+  body: 'string'
+})
+
+const Tip = ({ img, heading, time, body, onActivate, ...p }) => (
   <Card className={p.className}>
-    {tip.img && <CardImg top width='100%' src={tip.img} />}
+    {img && <CardImg top width='100%' src={img} />}
     <CardBody>
-      <CardTitle>{tip.heading || ''}</CardTitle>
-      <CardSubtitle>{tip.time.toDateString() || ''}</CardSubtitle>
+      <CardTitle>{heading}</CardTitle>
+      <CardSubtitle>
+        {DateTime.fromJSDate(time).toLocaleString(DateTime.DATE_MED)}
+      </CardSubtitle>
       <CardText className='text-muted'>
-        {remark(tip.body)}
+        {remark(body)}
       </CardText>
-      <Button onClick={e => onActivate(tip)}>See more</Button>
+      <Button onClick={e => onActivate({ img, heading, time, body })}>
+        See more
+      </Button>
     </CardBody>
   </Card>
 )
 
 Tip.propTypes = {
-  tip: PropTypes.object.isRequired,
+  img: PropTypes.string,
+  heading: PropTypes.string.isRequired,
+  time: PropTypes.instanceOf(Date).isRequired,
+  body: PropTypes.string.isRequired,
   onActivate: PropTypes.func
 }
 
@@ -72,19 +87,19 @@ class TipsPage extends Component {
       heading: 'Hello World',
       time: new Date(),
       body: `
-      # hello world
-      ## hi, mars
-      ### bye, pluto
-    `
+# hello world
+## hi, mars
+### bye, pluto
+`
     },
     {
       heading: 'Hello React',
-      times: new Date(),
+      time: new Date('7/12/2018 12:15 AM'),
       body: `
-      # hello react
-      ## hi, vue
-      ### bye, angular
-    `
+# hello react
+## hi, vue
+### bye, angular
+`
     }
   ]
 
@@ -92,9 +107,11 @@ class TipsPage extends Component {
     return (
       <Root>
         <Container>
-          {this.tips.map((data, idx) => (
-            <TipCard key={idx} tip={data} onActivate={this.activateModal} />
-          ))}
+          {this.tips
+            .filter(isTip.test)
+            .map((data, idx) => (
+              <TipCard key={idx} {...data} onActivate={this.activateModal} />
+            ))}
         </Container>
         <Footer />
       </Root>
@@ -103,8 +120,9 @@ class TipsPage extends Component {
 
   activateModal = tip => {
     const { ui } = this.props
-    ui.tip.activate(tip)
-    ui.tip.show()
+    ui.tip.activate(tip).then(success => {
+      success && ui.tip.show()
+    })
   }
 
   static propTypes = {

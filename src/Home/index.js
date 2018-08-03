@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { inject } from 'mobx-react'
 import ScrollTrigger from 'react-scroll-trigger'
+import { lifecycle } from 'recompose'
 
 import SearchSection from './SearchSection'
 import Category from './Category'
@@ -23,4 +24,10 @@ Home.propTypes = {
   ui: PropTypes.object.isRequired
 }
 
-export default inject('ui')(Home)
+const HomePage = lifecycle({
+  componentDidMount () {
+    this.props.ui.navbar.toNone()
+  }
+})(Home)
+
+export default inject('ui')(HomePage)
