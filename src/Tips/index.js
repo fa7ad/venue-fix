@@ -82,7 +82,7 @@ const TipCard = styled(Tip)`
 
 class TipsPage extends Component {
   // sample data
-  tips = [
+  static tips = [
     {
       heading: 'Hello World',
       time: new Date(),
@@ -129,5 +129,8 @@ hello
     ui: PropTypes.object.isRequired
   }
 }
+
+const { tips } = TipsPage
+export { tips, isTip, TipCard }
 
 export default uiObserver(TipsPage)

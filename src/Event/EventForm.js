@@ -2,16 +2,7 @@ import Slider from 'rc-slider'
 import { DateTime } from 'luxon'
 import React, { Component } from 'react'
 import Flatpickr from 'react-flatpickr'
-import {
-  Form,
-  Label,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  Container,
-  Row,
-  Col
-} from 'reactstrap'
+import { Form, Label, Input, Button, Container, Row, Col } from 'reactstrap'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
@@ -43,7 +34,6 @@ class EventForm extends Component {
       location: 'dhaka',
       guests: '0',
       event: 'conference',
-      duration: 1,
       catering: false
     },
     this.props.initialData,
@@ -110,7 +100,7 @@ class EventForm extends Component {
                 <Option>Meeting</Option>
               </Input>
             </Col>
-            <Col sm='4'>
+            <Col>
               <Label for='date'>Date & Time</Label>
               <DatePicker
                 data-enable-time
@@ -125,38 +115,20 @@ class EventForm extends Component {
                 }}
               />
             </Col>
-            <Col>
-              <Label for='duration'>Duration</Label>
-              <InputGroup>
-                <Input
-                  type='number'
-                  min='1'
-                  id='duration'
-                  value={this.state.duration}
-                  onChange={valChange('duration')}
-                />
-                <InputGroupAddon addonType='append'>
-                  hr
-                </InputGroupAddon>
-              </InputGroup>
+            <Col sm='2'>
+              <Label for='catering'>Catering</Label>
+              <Button
+                color='secondary'
+                id='catering'
+                className='d-block'
+                outline={!this.state.catering}
+                onClick={e => this.setState(p => ({ catering: !p.catering }))}
+              >
+                {this.state.catering ? 'Required' : 'Not required'}
+              </Button>
             </Col>
           </Row>
           <Row className='my-2'>
-            <Col
-              sm='3'
-              className='d-flex justify-content-center align-items-end'
-            >
-              <input
-                type='checkbox'
-                name='catering'
-                id='catering'
-                className='mb-2 position-static'
-                checked={this.state.catering}
-                onChange={e =>
-                  this.stateSet({ catering: e.currentTarget.checked })}
-              />
-              <Label for='catering'>Catering</Label>
-            </Col>
             <Col>
               <Label for='budget'>Budget</Label>
               <Range

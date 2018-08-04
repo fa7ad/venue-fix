@@ -34,7 +34,7 @@ const NavItem = styled(NavItm).attrs({
   }
 
   &.active {
-    background-color: #333;
+    background-color: #32383e;
   }
 `
 

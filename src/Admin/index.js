@@ -9,6 +9,7 @@ import ManageTips from './Tips'
 import Bookings from './Bookings'
 
 import { uiObserver } from '../uiStore'
+import { lifecycle } from 'recompose'
 
 const FluidRoot = styled.div`
   @media (min-width: 768px) {
@@ -38,10 +39,12 @@ const AdminPage = ({ ui: { dash } }) => (
       </Switch>
       <Switch>
         <Route
-          render={p => {
-            dash.activate(p.match.params.page || 'dashboard')
-            return <div />
-          }}
+          component={lifecycle({
+            componentDidMount () {
+              const { page } = this.props.match.params
+              if (dash.activePage !== page) dash.activate(page)
+            }
+          })(p => <div data-what='navigation' />)}
         />
       </Switch>
     </Col>

@@ -2,11 +2,14 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Rodal from 'rodal'
 import styled from 'styled-components'
-import { Button } from 'reactstrap'
-import { convertToRaw, EditorState } from 'draft-js'
+import { Button, Row, Container } from 'reactstrap'
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import draftToMarkdown from 'draftjs-to-markdown'
+import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
 import { IoMdCreate } from 'react-icons/io'
+
+import { tips } from '../Tips/index'
+
 import { addTipsEditor, addTipsWrapper } from './Tips.module.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
@@ -27,23 +30,47 @@ const StyRodal = styled(Rodal)`
   }
 `
 
-const TipsEditor = ({ visible, onClose, onDone, onEdit }) => (
+const TipsEditor = ({
+  visible,
+  onClose,
+  onDone,
+  onEdit,
+  state,
+  updating,
+  onUpdate
+}) => (
   <StyRodal animation='fade' visible={visible} onClose={onClose}>
     <h1 className='text-primary'>Add Tip</h1>
-    <Editor
-      wrapperClassName={addTipsWrapper}
-      editorClassName={addTipsEditor}
-      onEditorStateChange={onEdit}
-    />
-    <div className='py-2'>
-      <Button
-        color='danger'
-        onClick={e => {
-          onDone(e).then(e => onClose())
+    {visible &&
+      <Editor
+        editorState={state}
+        wrapperClassName={addTipsWrapper}
+        editorClassName={addTipsEditor}
+        onEditorStateChange={onEdit}
+        toolbar={{
+          image: {
+            uploadCallback: file =>
+              new Promise((resolve, reject) => {
+                const reader = new window.FileReader()
+                reader.onload = e =>
+                  resolve({ data: { link: e.target.result } })
+                reader.onerror = e => reject(e)
+                reader.readAsDataURL(file)
+              })
+          }
         }}
-      >
-        Add
-      </Button>
+      />}
+    <div className='py-2'>
+      {updating
+        ? <Button
+          color='warning'
+          onClick={e => onUpdate(updating).then(onClose)}
+        >
+            Update
+        </Button>
+        : <Button color='danger' onClick={e => onDone(e).then(onClose)}>
+            Add
+        </Button>}
       <Button color='primary' onClick={onClose}>Close</Button>
     </div>
   </StyRodal>
@@ -53,29 +80,56 @@ TipsEditor.propTypes = {
   visible: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onDone: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired
+  onUpdate: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  state: PropTypes.object,
+  updating: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool
+  ])
 }
 
 class ManageTips extends Component {
   state = {
     editorState: EditorState.createEmpty(),
-    editor: false
+    editor: false,
+    updating: false
   }
 
   render () {
     return (
-      <div className='px-1'>
+      <div className='px-2'>
         <h2 className='py-2 border-bottom'>Tips</h2>
-
+        <Button onClick={e => this.setState({ editor: true })}>
+          <IoMdCreate />&nbsp;New
+        </Button>
         <TipsEditor
+          state={this.state.editorState}
           visible={this.state.editor}
           onClose={this.editorClose}
           onEdit={this.editorChange}
           onDone={async e => console.log(this.editorToMd())}
+          onUpdate={async id => console.log(id, this.editorToMd())}
+          updating={this.state.updating}
         />
-        <Button onClick={e => this.setState({ editor: true })}>
-          <IoMdCreate />&nbsp;New
-        </Button>
+        <Container fluid>
+          {tips.map((data, idx) => (
+            <Row>
+              <strong>{data.time.toISOString()}</strong>
+              {data.heading}
+              <Button
+                onClick={e =>
+                  this.mdToEditor(data.body).then(e =>
+                    this.setState({ editor: true, updating: 'x' + idx })
+                  )}
+              >
+                Edit
+              </Button>
+              <Button>Delete</Button>
+            </Row>
+          ))}
+        </Container>
       </div>
     )
   }
@@ -92,6 +146,12 @@ class ManageTips extends Component {
       draftToMarkdown(convertToRaw(editorState.getCurrentContent()))
 
     return md
+  }
+
+  mdToEditor = async md => {
+    const raw = markdownToDraft(md)
+    const content = convertFromRaw(raw)
+    this.setState({ editorState: EditorState.createWithContent(content) })
   }
 }
 

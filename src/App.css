@@ -34,3 +34,12 @@ body,html {
   display: flex;
   flex-direction: column;
 }
+
+.rdw-image-modal {
+  left: auto !important;
+  right: 5px;
+}
+
+.rdw-image-modal-upload-option-label {
+  overflow: hidden !important;
+}

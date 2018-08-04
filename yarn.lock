@@ -2588,10 +2588,6 @@ draft-js@^0.10.5:
     immutable "~3.7.4"
     object-assign "^4.1.0"
 
-draftjs-to-markdown@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/draftjs-to-markdown/-/draftjs-to-markdown-0.5.1.tgz#ad4cd3f6d1dfffd01680c6f2588e24e67e9ec988"
-
 draftjs-utils@^0.9.3:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/draftjs-utils/-/draftjs-utils-0.9.4.tgz#976c61aa133dbbbfedd65ae1dd6627d7b98c6f08"
@@ -5304,6 +5300,12 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
+markdown-draft-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/markdown-draft-js/-/markdown-draft-js-1.0.1.tgz#5abf2c1209656c6bbfef279e2754b871bd6f79fb"
+  dependencies:
+    remarkable "1.7.1"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.17.tgz#de819fdbcd84dccd8fae59c6aeb79615b9d266ac"
@@ -7212,7 +7214,7 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
-remarkable@^1.7.1:
+remarkable@1.7.1, remarkable@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/remarkable/-/remarkable-1.7.1.tgz#aaca4972100b66a642a63a1021ca4bac1be3bff6"
   dependencies:
