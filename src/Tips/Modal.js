@@ -2,10 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Rodal from 'rodal'
 import styled from 'styled-components'
-import MdView from 'react-markdown'
+import sanitize from 'sanitize-html'
+import MarkDown from 'remarkable'
 import { Badge } from 'reactstrap'
 import { DateTime } from 'luxon'
 import { uiObserver } from '../uiStore'
+
+const remarkable = new MarkDown({ html: true })
+const sanitizeOptions = {
+  allowedTags: sanitize.defaults.allowedTags.concat(['img', 'span']),
+  allowedAttributes: {
+    a: ['href', 'name', 'target'],
+    img: ['src'],
+    '*': ['style']
+  }
+}
 
 const StyRodal = styled(Rodal)`
   display: flex;
@@ -26,6 +37,17 @@ const StyRodal = styled(Rodal)`
 const TextContent = styled.div`
   text-size: 0.8em;
 `
+
+const MdView = ({ source }) => (
+  <div
+    dangerouslySetInnerHTML={{
+      __html: sanitize(remarkable.render(source), sanitizeOptions)
+    }}
+  />
+)
+MdView.propTypes = {
+  source: PropTypes.string.isRequired
+}
 
 const TipsModal = ({ ui, ...props }) => (
   <StyRodal animation='fade' visible={ui.tip.visible} onClose={ui.tip.hide}>

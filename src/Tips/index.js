@@ -87,9 +87,9 @@ class TipsPage extends Component {
       heading: 'Hello World',
       time: new Date(),
       body: `
-# hello world
-## hi, mars
-### bye, pluto
+hello
+# <span style="font-family: Georgia;">World</span>
+![](https://woothosting.com/assets/images/logo.png)
 `
     },
     {
