@@ -60,7 +60,7 @@ const routes = [
   },
   {
     key: 'admin',
-    path: '/admin/:_?',
+    path: '/admin/:page?',
     component: Admin
   },
   {

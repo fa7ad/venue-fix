@@ -8,15 +8,17 @@ import Sidebar from './Sidebar'
 import ManageTips from './Tips'
 import Bookings from './Bookings'
 
-import { injObser } from '../uiStore'
-import { lifecycle } from 'recompose'
+import { uiObserver } from '../uiStore'
 
 const FluidRoot = styled.div`
-  flex-grow: 1;
-  flex-basis: 100%;
+  @media (min-width: 768px) {
+    flex-grow: 1;
+    flex-basis: 100%;
+  }
 
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 `
 
 const TempDash = p => (
@@ -28,21 +30,19 @@ const TempDash = p => (
 const AdminPage = ({ ui: { dash } }) => (
   <FluidRoot>
     <Sidebar active={dash.activePage} />
-    <Col md='10'>
+    <Col md='10' className='px-0'>
       <Switch>
-        <Route
-          path='/admin/'
-          exact
-          component={injObser('ui')(
-            lifecycle({
-              componentDidMount () {
-                this.props.ui.dash.activate('dashboard')
-              }
-            })(TempDash)
-          )}
-        />
+        <Route path='/admin/' exact component={uiObserver(TempDash)} />
         <Route path='/admin/tips' component={ManageTips} />
         <Route path='/admin/bookings' component={Bookings} />
+      </Switch>
+      <Switch>
+        <Route
+          render={p => {
+            dash.activate(p.match.params.page || 'dashboard')
+            return <div />
+          }}
+        />
       </Switch>
     </Col>
   </FluidRoot>
@@ -52,4 +52,4 @@ AdminPage.propTypes = {
   ui: PropTypes.object
 }
 
-export default injObser('ui')(AdminPage)
+export default uiObserver(AdminPage)
