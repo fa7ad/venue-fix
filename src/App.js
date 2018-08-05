@@ -20,6 +20,7 @@ import UiStore from './uiStore'
 
 import './App.css'
 import 'rodal/lib/rodal.css'
+import { lifecycle } from 'recompose'
 
 // TODO: remove when package fixes bug
 // FIXME
@@ -88,6 +89,15 @@ const App = ({ location, history }) => {
         </div>
         <Switch>
           {routes.map(props => <Route {...props} />)}
+        </Switch>
+        <Switch>
+          <Route
+            component={lifecycle({
+              componentDidMount () {
+                uiStore.navbar.toPage(match)
+              }
+            })(p => <div data-what='navbar-color-fix' />)}
+          />
         </Switch>
       </div>
     </Provider>

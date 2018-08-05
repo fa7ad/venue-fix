@@ -136,7 +136,12 @@ class ManageTips extends Component {
 
   editorChange = editorState => this.setState({ editorState })
 
-  editorClose = e => this.setState({ editor: false })
+  editorClose = e =>
+    this.setState({
+      editor: false,
+      updating: false,
+      editorState: EditorState.createEmpty()
+    })
 
   editorToMd = () => {
     const { editorState } = this.state

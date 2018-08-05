@@ -64,7 +64,7 @@ const Logo = styled.img`
 const Navigation = ({ ui, page, history, ...p }) => (
   <Navbar
     fixed='top'
-    color={ui.navbar.getColor(page)}
+    color={ui.navbar.color}
     dark
     expand='md'
     className={cx('nav__root')}

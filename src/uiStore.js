@@ -17,16 +17,17 @@ const Navbar = types
     toggle: e => {
       self.isOpen = !self.isOpen
     },
-    _toPage (page) {
+    toPage (page) {
       if (page !== self._page) {
         self._page = page
         self.isOpen = false
+        if (page === 'home') self.toNone()
+        else self.toDark()
       }
     }
   }))
   .views(self => ({
-    getColor (page = 'home') {
-      self._toPage(page)
+    get color () {
       return self._color
     }
   }))

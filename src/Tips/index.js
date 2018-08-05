@@ -107,7 +107,7 @@ hello
     return (
       <Root>
         <Container>
-          {this.tips
+          {TipsPage.tips
             .filter(isTip.test)
             .map((data, idx) => (
               <TipCard key={idx} {...data} onActivate={this.activateModal} />

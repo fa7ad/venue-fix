@@ -46,10 +46,14 @@ class EventForm extends Component {
     this.stateSet({ [name]: e.target.value })
   }
 
-  stateSet = val =>
-    this.setState(p => {
-      this.props.onChange(Object.assign(p, val))
-      return val
+  stateSet = state =>
+    this.setState(prev => {
+      // expecting functional setState or just an Object
+      const next = state instanceof Function ? state(prev) : state
+      // merge next state to previous and call onChange
+      this.props.onChange(Object.assign(prev, next))
+      // return the next state for react to merge
+      return next
     })
 
   render () {
@@ -122,7 +126,7 @@ class EventForm extends Component {
                 id='catering'
                 className='d-block'
                 outline={!this.state.catering}
-                onClick={e => this.setState(p => ({ catering: !p.catering }))}
+                onClick={e => this.stateSet(p => ({ catering: !p.catering }))}
               >
                 {this.state.catering ? 'Required' : 'Not required'}
               </Button>
@@ -145,8 +149,9 @@ class EventForm extends Component {
       </Form>
     )
   }
+
   componentDidMount () {
-    this.stateSet({})
+    this.props.onChange(this.state)
   }
 
   static propTypes = {
