@@ -29,7 +29,7 @@ const Auth = ({ ui, ...p }) => (
     onClose={ui.auth.hideModal}
   >
     {ui.auth.signup
-      ? <SignUp onLog={ui.auth.toLog} />
+      ? <SignUp onLog={ui.auth.toLog} history={p.history} />
       : <SignIn onReg={ui.auth.toReg} />}
   </StyRodal>
 )

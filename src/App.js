@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import qs from 'qs'
 import cx from 'classnames'
 import pathEx from 'path-to-regexp'
 import { Route, Switch, withRouter } from 'react-router-dom'
@@ -71,10 +72,9 @@ const routes = [
 ]
 
 const App = ({ location, history }) => {
-  const { pathname } = location
-  const [{ key: match }] = routes
-    .filter(r => pathEx(r.path || '', []).test(pathname))
-    .slice(0, 1)
+  const [{ key: match }] = routes.filter(r =>
+    pathEx(r.path || /.*/, []).test(location.pathname)
+  )
 
   return (
     <Provider ui={uiStore}>
@@ -95,6 +95,10 @@ const App = ({ location, history }) => {
             component={lifecycle({
               componentDidMount () {
                 uiStore.navbar.toPage(match)
+                if (location.search && match === 'home') {
+                  const { auth } = qs.parse(location.search.slice(1) || '')
+                  if (auth) uiStore.auth.showModal()
+                }
               }
             })(p => <div data-what='navbar-color-fix' />)}
           />

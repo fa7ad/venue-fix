@@ -3,36 +3,60 @@ import PropTypes from 'prop-types'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 class SignUp extends Component {
+  state = {
+    name: '',
+    phone: '',
+    address: '',
+    password: ''
+  }
+
   render () {
     return (
-      <Form>
+      <Form method='PUT' action='#'>
         <FormGroup>
           <Label>Name</Label>
-          <Input type='text' name='name' id='nameId' placeholder='Name' />
+          <Input
+            type='text'
+            name='name'
+            id='name'
+            placeholder='Name'
+            required
+            onChange={this.valChange('name')}
+          />
         </FormGroup>
         <FormGroup>
           <Label>Phone</Label>
-          <Input type='phone' name='phone' id='phoneId' placeholder='Phone' />
+          <Input
+            type='phone'
+            name='phone'
+            id='phone'
+            placeholder='Phone'
+            required
+            onChange={this.valChange('phone')}
+          />
         </FormGroup>
         <FormGroup>
           <Label>Address</Label>
           <Input
             type='text'
             name='address'
-            id='addressId'
+            id='address'
             placeholder='Address'
+            onChange={this.valChange('address')}
           />
         </FormGroup>
         <FormGroup>
-          <Label for='examplePassword'>Password</Label>
+          <Label for='password'>Password</Label>
           <Input
             type='password'
             name='password'
-            id='PasswordId'
-            placeholder='Password'
+            id='password'
+            placeholder='password'
+            required
+            onChange={this.valChange('password')}
           />
         </FormGroup>
-        <Button>Sign Up</Button>
+        <Button onClick={this.createUser}>Sign Up</Button>
         <Button color='link' onClick={this.props.onLog}>
           Login to existing account
         </Button>
@@ -40,8 +64,25 @@ class SignUp extends Component {
     )
   }
 
+  valChange = name => e => this.setState({ [name]: e.currentTarget.value })
+
+  createUser = e => {
+    e.preventDefault()
+    fetch('/auth', {
+      method: 'PUT',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(r => r.json()).then(e => {
+      if (e.success) this.props.history.push('/?auth=signin')
+      console.log(e)
+    })
+  }
+
   static propTypes = {
-    onLog: PropTypes.func
+    onLog: PropTypes.func,
+    history: PropTypes.object
   }
 }
 

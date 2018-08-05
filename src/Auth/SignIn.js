@@ -5,23 +5,25 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 class SignIn extends Component {
   render () {
     return (
-      <Form>
+      <Form method='POST' action='/auth'>
         <FormGroup>
           <Label>Phone</Label>
           <Input
             type='phone'
             name='phone'
-            id='phoneId'
+            id='phone'
             placeholder='Phone'
+            required
           />
         </FormGroup>
         <FormGroup>
-          <Label for='examplePassword'>Password</Label>
+          <Label for='password'>Password</Label>
           <Input
             type='password'
             name='password'
-            id='PasswordId'
+            id='password'
             placeholder='Password'
+            required
           />
         </FormGroup>
         <Button>Sign In</Button>
