@@ -4,9 +4,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "razzle start",
-    "build": "razzle build",
-    "test": "razzle test --env=jsdom",
+    "start": "cross-env RAZZLE_HOME=. razzle start",
+    "build": "cross-env RAZZLE_HOME=. razzle build",
+    "test": "cross-env RAZZLE_HOME=. razzle test --env=jsdom",
     "start:prod": "cross-env NODE_ENV=production node build/server.js"
   },
   "dependencies": {
@@ -14,9 +14,9 @@
     "body-parser": "^1.18.3",
     "classnames": "^2.2.5",
     "connect-ensure-login": "^0.1.1",
-    "cookie-parser": "^1.4.3",
     "draft-js": "^0.10.5",
     "express": "4.16.3",
+    "express-pouchdb": "^4.0.1",
     "express-session": "^1.15.6",
     "flatpickr": "^4.5.0",
     "google-map-react": "^1.0.3",
@@ -50,6 +50,7 @@
     "remove-markdown": "^0.3.0",
     "rodal": "^1.6.3",
     "sanitize-html": "^1.18.4",
+    "session-pouchdb-store": "^0.2.1",
     "styled-components": "^3.3.0",
     "superstruct": "^0.5.4"
   },

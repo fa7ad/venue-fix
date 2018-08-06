@@ -1,70 +1,51 @@
+import path from 'path'
 import Express from 'express'
 
-import { superstruct, struct } from 'superstruct'
+import Pouch from 'pouchdb'
+import ExpressPouchDB from 'express-pouchdb'
+
 import bcrypt from 'bcrypt'
 import logger from 'morgan'
+import passport from 'passport'
 import bodyParser from 'body-parser'
 import session from 'express-session'
-import cookieParser from 'cookie-parser'
-
-import passport from 'passport'
+import PouchSession from 'session-pouchdb-store'
 import { Strategy as LocalStrategy } from 'passport-local'
 
-import App from './App'
 import React from 'react'
+import App from './App'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
-import renderPage from './server/utils/renderPage'
-import connectDB from './server/utils/connectDB'
+import User from './server/userModel'
+import renderPage from './server/renderPage'
 
-const usersDB = connectDB('users')
-const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
-
-const model = superstruct({
-  types: {
-    phone: val => struct('string').test(val) && val.length === 11
-  }
+const PouchDB = Pouch.defaults({
+  prefix: path.resolve(process.env.RAZZLE_HOME, 'db', '.db__')
 })
-
-const User = model(
-  {
-    phone: 'phone',
-    name: 'string',
-    address: 'string?',
-    password: 'string',
-    admin: 'boolean?'
-  },
-  {
-    address: 'not given',
-    admin: false
-  }
-)
 
 const app = Express()
 
-usersDB.info(function (err) {
-  if (err) {
-    console.error('[PouchDB]', 'Failed to connect to CouchDB')
-    console.error('[PouchDB]', "CouchDB server doesn't seem to be running")
-    process.exit(1)
-  }
-  console.log('[PouchDB]', 'Connected to CouchDB')
-  bcrypt
-    .hash('admin i am', 10)
-    .then(password =>
-      usersDB.put({
-        _id: '01666666666',
-        password,
-        name: 'Administrator',
-        address: 'Hell',
-        admin: true
-      })
-    )
-    .then(_ => console.log('[PouchDB]', 'Added demo administrator'))
-    .catch(_ => console.error('[PouchDB]', 'Demo administrator already exists'))
-})
+app.disable('x-powered-by')
+app.use(Express.static(process.env.RAZZLE_PUBLIC_DIR, { index: false }))
+app.use(logger('dev'))
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(
+  session({
+    secret: 'venue is fixed',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 6e5
+    },
+    store: new PouchSession(PouchDB)
+  })
+)
+app.use('/__db', ExpressPouchDB(PouchDB))
+
+const usersDB = new PouchDB(process.env.RAZZLE_DB_PREFIX + 'users')
 
 passport.use(
   new LocalStrategy(
@@ -90,20 +71,6 @@ passport.serializeUser(function (user, cb) {
 passport.deserializeUser(function (id, cb) {
   usersDB.get(id).catch(err => cb(err)).then(user => cb(null, user))
 })
-
-app.disable('x-powered-by')
-app.use(Express.static(process.env.RAZZLE_PUBLIC_DIR, { index: false }))
-app.use(logger('dev'))
-app.use(cookieParser())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-app.use(
-  session({
-    secret: 'venue is fixed',
-    resave: false,
-    saveUninitialized: false
-  })
-)
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -135,10 +102,12 @@ app
     }
   })
 
-app.get('/signout', function (req, res) {
+app.get(['/signout', '/logout'], function (req, res) {
   req.logout()
   res.redirect('/')
 })
+
+const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 app.get('/*', (req, res) => {
   const context = {}
@@ -160,6 +129,28 @@ app.get('/*', (req, res) => {
       markup
     })
   )
+})
+
+usersDB.info(function (err) {
+  if (err) {
+    console.error('[PouchDB]', 'Failed to connect to CouchDB')
+    console.error('[PouchDB]', "CouchDB server doesn't seem to be running")
+    process.exit(1)
+  }
+  console.log('[PouchDB]', 'Connected to CouchDB')
+  bcrypt
+    .hash('admin i am', 10)
+    .then(password =>
+      usersDB.put({
+        _id: '01666666666',
+        password,
+        name: 'Administrator',
+        address: 'Hell',
+        admin: true
+      })
+    )
+    .then(_ => console.log('[PouchDB]', 'Added demo administrator'))
+    .catch(_ => console.error('[PouchDB]', 'Demo administrator already exists'))
 })
 
 export default app
