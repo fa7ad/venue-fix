@@ -41,8 +41,8 @@ export default function (app, usersDB) {
     .route('/auth')
     .post(
       passport.authenticate('local', {
-        successReturnToOrRedirect: '/admin',
-        failureRedirect: '/auth'
+        successReturnToOrRedirect: '/',
+        failureRedirect: '/?auth=signin'
       })
     )
     .get(function (req, res) {

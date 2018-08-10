@@ -49,13 +49,13 @@ auth(app, usersDB)
 
 app
   .route('/user')
-  .get(ensureLoggedIn('/'), (req, res) => {
+  .get(ensureLoggedIn('/401'), (req, res) => {
     usersDB
       .get(req.user._id)
       .then(user => res.json(user))
       .catch(err => res.status(500).json({ success: false, err }))
   })
-  .post(ensureLoggedIn('/'), (req, res) => {
+  .post(ensureLoggedIn('/401'), (req, res) => {
     usersDB
       .get(req.user._id)
       .then(({ password, _rev, admin }) => {
@@ -76,6 +76,12 @@ app
       .then(rep => res.json({ success: rep.ok }))
       .catch(rep => res.status(500).json({ success: false, error: rep }))
   })
+
+app.get('/:code', (req, res, next) => {
+  const { code } = req.params
+  if (code && code > 200 && code < 599) res.sendStatus(code)
+  else next()
+})
 
 app.get('/*', (req, res) => {
   const context = {}

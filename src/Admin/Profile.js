@@ -51,7 +51,11 @@ class ProfileFormDumb extends Component {
         <FormGroup>
           <Label className='col-sm-4'>
             Password:
-            <Input type='password' defaultValue='falsehood' onChange={onPasswordChange} />
+            <Input
+              type='password'
+              defaultValue='falsehood'
+              onChange={onPasswordChange}
+            />
           </Label>
         </FormGroup>
         <FormGroup>
@@ -105,8 +109,17 @@ class Profile extends Component {
   }
 
   componentDidMount () {
-    req.url('/user').get().json(profile => this.setState({ profile }))
+    req
+      .url('/user')
+      .get()
+      .unauthorized(_ => this.props.ui.auth.showModal())
+      .json()
+      .then(profile => this.setState({ profile }))
+  }
+
+  static propTypes = {
+    ui: PropTypes.object
   }
 }
 
-export default Profile
+export default uiObserver(Profile)
