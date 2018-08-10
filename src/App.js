@@ -81,7 +81,7 @@ const App = ({ location, history }) => {
       <div className={cx('page', match)}>
         {match !== 'E404' &&
           (match === 'admin'
-            ? <AdminNav />
+            ? <AdminNav history={history} />
             : <Navigation page={match} history={history} />)}
         <div className='modals' style={{ zIndex: 1080 }}>
           <TipsModal />

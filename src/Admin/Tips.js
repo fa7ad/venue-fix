@@ -57,6 +57,12 @@ const TipsEditor = ({
                 reader.onerror = e => reject(e)
                 reader.readAsDataURL(file)
               })
+          },
+          fontFamily: {
+            className: 'd-none'
+          },
+          fontSize: {
+            className: 'd-none'
           }
         }}
       />}
@@ -102,7 +108,7 @@ class ManageTips extends Component {
       <div className='px-2'>
         <h2 className='py-2 border-bottom'>Tips</h2>
         <Button onClick={e => this.setState({ editor: true })}>
-          <IoMdCreate />&nbsp;New
+          <IoMdCreate />&nbsp;New Tip
         </Button>
         <TipsEditor
           state={this.state.editorState}
@@ -115,13 +121,13 @@ class ManageTips extends Component {
         />
         <Container fluid>
           {tips.map((data, idx) => (
-            <Row>
-              <strong>{data.time.toISOString()}</strong>
+            <Row key={idx}>
+              <strong>{data.time.toLocaleString()}</strong>
               {data.heading}
               <Button
                 onClick={e =>
                   this.mdToEditor(data.body).then(e =>
-                    this.setState({ editor: true, updating: 'x' + idx })
+                    this.setState({ editor: true, updating: idx })
                   )}
               >
                 Edit

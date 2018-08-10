@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
+import req from '../request'
+
 class SignUp extends Component {
   state = {
     name: '',
@@ -68,13 +70,7 @@ class SignUp extends Component {
 
   createUser = e => {
     e.preventDefault()
-    fetch('/auth', {
-      method: 'PUT',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(r => r.json()).then(e => {
+    req.api('/auth').json(this.state).put().json(e => {
       if (e.success) this.props.history.push('/?auth=signin')
       console.log(e)
     })

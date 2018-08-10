@@ -88,7 +88,7 @@ class TipsPage extends Component {
       time: new Date(),
       body: `
 hello
-# <span style="font-family: Georgia;">World</span>
+# World
 ![](https://woothosting.com/assets/images/logo.png)
 `
     },

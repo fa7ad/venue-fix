@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import Sidebar from './Sidebar'
 import ManageTips from './Tips'
 import Bookings from './Bookings'
+import Profile from './Profile'
 
 import { uiObserver } from '../uiStore'
 import { lifecycle } from 'recompose'
@@ -34,8 +35,13 @@ const AdminPage = ({ ui: { dash } }) => (
     <Col md='10' className='px-0'>
       <Switch>
         <Route path='/admin/' exact component={uiObserver(TempDash)} />
-        <Route path='/admin/tips' component={ManageTips} />
-        <Route path='/admin/bookings' component={Bookings} />
+        <Route path='/admin/tips'>
+          <ManageTips />
+        </Route>
+        <Route path='/admin/bookings'>
+          <Bookings />
+        </Route>
+        <Route path='/admin/profile'><Profile /></Route>
       </Switch>
       <Switch>
         <Route

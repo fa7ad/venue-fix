@@ -1,8 +1,6 @@
 import express from 'express'
 import app from './server'
 
-import 'isomorphic-fetch'
-
 if (module.hot) {
   module.hot.accept('./server', function () {
     console.log('🔁  HMR Reloading `./server`...')

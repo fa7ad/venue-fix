@@ -9,6 +9,7 @@ import logger from 'morgan'
 import bodyParser from 'body-parser'
 import session from 'express-session'
 import PouchSession from 'session-pouchdb-store'
+import { ensureLoggedIn } from 'connect-ensure-login'
 
 import React from 'react'
 import App from './App'
@@ -46,6 +47,26 @@ app.use('/__db', ExpressPouchDB(PouchDB))
 
 auth(app, usersDB)
 
+app
+  .route('/user')
+  .get(ensureLoggedIn('/'), (req, res) => {
+    res.json(Object.assign({}, req.user, { password: undefined }))
+  })
+  .post(ensureLoggedIn('/'), (req, res) => {
+    usersDB
+      .get(req.user._id)
+      .then(user =>
+        usersDB.put(
+          Object.assign({}, req.user, req.body, {
+            password: user.password,
+            _rev: user._rev
+          })
+        )
+      )
+      .then(rep => res.json({ success: rep.ok }))
+      .catch(rep => res.status(500).json({ success: false, error: rep }))
+  })
+
 app.get('/*', (req, res) => {
   const context = {}
   const sheet = new ServerStyleSheet()
@@ -70,11 +91,11 @@ app.get('/*', (req, res) => {
 
 usersDB.info(function (err) {
   if (err) {
-    console.error('[PouchDB]', 'Failed to connect to CouchDB')
-    console.error('[PouchDB]', "CouchDB server doesn't seem to be running")
-    process.exit(1)
+    console.error('[PouchDB]', 'Failed to connect to database')
+    console.error('[PouchDB]', 'Database server error')
+    return
   }
-  console.log('[PouchDB]', 'Connected to CouchDB')
+  console.log('[PouchDB]', 'Connected to database')
   bcrypt
     .hash('admin i am', 10)
     .then(password =>

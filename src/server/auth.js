@@ -31,7 +31,10 @@ export default function (app, usersDB) {
   })
 
   passport.deserializeUser(function (id, cb) {
-    usersDB.get(id).catch(err => cb(err)).then(user => cb(null, user))
+    usersDB
+      .get(id)
+      .catch(err => cb(err))
+      .then(user => cb(null, Object.assign(user, { password: undefined })))
   })
 
   app.use(passport.initialize())
@@ -64,8 +67,8 @@ export default function (app, usersDB) {
       }
     })
 
-  app.get(['/signout', '/logout'], function (req, res) {
+  app.get('/signout', function (req, res) {
     req.logout()
-    res.redirect('/')
+    res.json({to: '/'})
   })
 }
