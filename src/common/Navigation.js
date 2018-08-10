@@ -8,8 +8,6 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem as NItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -17,8 +15,9 @@ import {
 } from 'reactstrap'
 import styled from 'styled-components'
 
+import NavItem from './NavItem'
+
 import { uiObserver } from '../uiStore'
-import { Link } from 'react-router-dom'
 
 import logoImg from '../images/logo.svg'
 import './Navigation.css'
@@ -28,30 +27,9 @@ const category = [
   'Conventun Hall',
   'Catering Service'
 ]
-const us = ['Contact Us', 'About Us']
-
-const Item = ({ to, children, onClick, className, button, ...p }) => (
-  <NItem className={cx(className, button ? 'btn-' + button : '')} {...p}>
-    {to && <NavLink tag={pr => <Link to={to} {...pr}>{children}</Link>} />}
-    {onClick && <NavLink onClick={onClick}>{children}</NavLink>}
-  </NItem>
-)
-
-Item.propTypes = {
-  to: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-  onClick: PropTypes.func,
-  className: PropTypes.string,
-  button: PropTypes.string
-}
-
-const NavItem = styled(Item)`
-&, &:hover, &:link {
-  cursor: pointer;
-}
-`
 
 const StyBrand = styled(NavbarBrand)`
+  color: #fff;
   &, &:hover, &:link {
     cursor: pointer;
   }
@@ -61,21 +39,33 @@ const Logo = styled.img`
   max-height: 2em;
 `
 
+const NavigationBar = styled(Navbar).attrs({
+  fixed: 'top',
+  dark: true,
+  expand: 'md',
+  className: p => cx(p.className, 'px-0 py-2')
+})`
+  transition: background-color 500ms ease;
+`
+
+const StyNav = styled(Nav)`
+@media (max-width: 768px) {
+  & > * {
+    padding: 0 5px;
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+`
+
 const Navigation = ({ ui, page, history, ...p }) => (
-  <Navbar
-    fixed='top'
-    color={ui.navbar.color}
-    dark
-    expand='md'
-    className={cx('nav__root')}
-  >
-    <Container>
+  <NavigationBar color={ui.navbar.color}>
+    <Container className='p-0'>
       <StyBrand onClick={e => history.push('/')}>
-        <Logo src={logoImg} alt='nothing' className='nav__image' /> Venue-Fix
+        <Logo src={logoImg} alt='Logo' /> Venue-Fix
       </StyBrand>
       <NavbarToggler onClick={ui.navbar.toggle} />
       <Collapse isOpen={ui.navbar.isOpen} navbar>
-        <Nav className={cx('nav-container', 'ml-auto')} navbar>
+        <StyNav className={cx('nav-container', 'ml-auto')} navbar>
           <NavItem to='/'>Home</NavItem>
           <UncontrolledDropdown nav inNavbar>
             <DropdownToggle nav caret>
@@ -95,19 +85,20 @@ const Navigation = ({ ui, page, history, ...p }) => (
               Us
             </DropdownToggle>
             <DropdownMenu>
-              {us.map((el, ind) => (
-                <DropdownItem key={ind}>
-                  {el}
-                </DropdownItem>
-              ))}
+              <DropdownItem onClick={e => history.push('/about-us')}>
+                About Us
+              </DropdownItem>
+              <DropdownItem onClick={e => history.push('/contact-us')}>
+                Contact Us
+              </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
           <NavItem onClick={ui.auth.showModal}>Login / Register</NavItem>
           <NavItem to='/event' button='danger'>Create Event</NavItem>
-        </Nav>
+        </StyNav>
       </Collapse>
     </Container>
-  </Navbar>
+  </NavigationBar>
 )
 
 Navigation.propTypes = {
