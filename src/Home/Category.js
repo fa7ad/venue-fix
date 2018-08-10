@@ -17,14 +17,14 @@ class Category extends React.Component {
           </div>
 
           <Row className={css.row}>
-            <PictureCard bgImg={image1} size='6' caption='Hotels'>
-              Cat 1
+            <PictureCard bgImg={image1} size='6' caption='Meetings'>
+              Book a room
             </PictureCard>
-            <PictureCard bgImg={image2} size='3' caption='Hotels' btn='danger'>
-              Cat 1
+            <PictureCard bgImg={image2} size='3' caption='Conferences' btn='danger'>
+              Book a hall
             </PictureCard>
-            <PictureCard bgImg={image3} size='3' caption='Hotels'>
-              Cat 1
+            <PictureCard bgImg={image3} size='3' caption='Weddings'>
+              Book a venue
             </PictureCard>
           </Row>
         </Container>

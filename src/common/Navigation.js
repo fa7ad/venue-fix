@@ -15,7 +15,7 @@ import {
 import NavItem from './NavItem'
 import { uiObserver } from '../uiStore'
 
-import logoImg from '../images/logo.svg'
+import logo from './logo.svg'
 
 const category = [
   'Community/Party center',
@@ -24,13 +24,16 @@ const category = [
 ]
 
 const StyBrand = styled(NavbarBrand)`
-  color: #fff;
   &, &:hover, &:link {
+    &&& {
+      color: #fff;
+    }
     cursor: pointer;
   }
 `
 
 const Logo = styled.img`
+  fill: #fff;
   max-height: 2em;
 `
 
@@ -44,19 +47,22 @@ const NavigationBar = styled(Navbar).attrs({
 `
 
 const StyNav = styled(Nav)`
-@media (max-width: 768px) {
-  & > * {
-    padding: 0 5px;
-    background: rgba(0, 0, 0, 0.5);
+  @media (max-width: 768px) {
+    & > * {
+      padding: 0 5px;
+      background: rgba(0, 0, 0, 0.5);
+    }
   }
-}
+  .nav-item a.nav-link {
+    color: #fff !important;
+  }
 `
 
 const Navigation = ({ ui, page, history, ...p }) => (
   <NavigationBar color={ui.navbar.color}>
     <Container className='p-0'>
       <StyBrand onClick={e => history.push('/')}>
-        <Logo src={logoImg} alt='Logo' /> Venue-Fix
+        <Logo src={logo} /> Venue-Fix
       </StyBrand>
       <NavbarToggler onClick={ui.navbar.toggle} />
       <Collapse isOpen={ui.navbar.isOpen} navbar>

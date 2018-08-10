@@ -2,7 +2,7 @@ const Option = ({ children }) => (
   <option value={children.toLowerCase()}>{children}</option>
 )
 Option.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.string
 }
 
 export default Option

@@ -24,9 +24,6 @@ const NavItem = styled(Item)`
 &, &:hover, &:link {
   cursor: pointer;
 }
-a, a:link {
-  color: #fff;
-}
 `
 
 export default NavItem
