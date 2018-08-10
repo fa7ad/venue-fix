@@ -30,7 +30,7 @@ global.IconContext = IconContext
 const uiStore = UiStore.create({
   navbar: {},
   auth: {},
-  dash: {},
+  dash: { profile: {} },
   tip: { activeTip: {} },
   form: {}
 })

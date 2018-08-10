@@ -2,7 +2,7 @@ import { types } from 'mobx-state-tree'
 import { inject, observer } from 'mobx-react'
 
 const Navbar = types
-  .model({
+  .model('Navbar', {
     _color: types.optional(types.string, 'dark'),
     _page: types.maybe(types.string),
     isOpen: types.optional(types.boolean, false)
@@ -33,7 +33,7 @@ const Navbar = types
   }))
 
 const Auth = types
-  .model({
+  .model('Auth', {
     modal: types.optional(types.boolean, false),
     signup: types.optional(types.boolean, false)
   })
@@ -52,14 +52,14 @@ const Auth = types
     }
   }))
 
-const Tip = types.model({
+const Tip = types.model('Tip', {
   heading: types.optional(types.string, ''),
   time: types.optional(types.Date, new Date()),
   body: types.optional(types.string, '')
 })
 
 const TipModal = types
-  .model({
+  .model('TipModal', {
     activeTip: Tip,
     visible: types.optional(types.boolean, false)
   })
@@ -80,9 +80,24 @@ const TipModal = types
     }
   }))
 
+const DashProfile = types.model('UserProfile', {
+  formSuccess: types.optional(types.boolean, false)
+}).actions(self => ({
+  hideSuccess () {
+    self.formSuccess = false
+  },
+  showSuccess () {
+    self.formSuccess = true
+  },
+  toggleSuccess () {
+    self.formSuccess = !self.formSuccess
+  }
+}))
+
 const Dashboard = types
-  .model({
-    activePage: types.optional(types.string, 'dashboard')
+  .model('Dashboard', {
+    activePage: types.optional(types.string, 'dashboard'),
+    profile: DashProfile
   })
   .actions(self => ({
     activate (page = 'dashboard') {
@@ -91,7 +106,7 @@ const Dashboard = types
   }))
 
 const Form = types
-  .model({
+  .model('EventForm', {
     date: types.optional(types.Date, new Date()),
     location: types.optional(types.string, ''),
     guests: types.optional(types.string, '0'),
@@ -105,7 +120,7 @@ const Form = types
     }
   }))
 
-const UiStore = types.model({
+const UiStore = types.model('UI', {
   navbar: Navbar,
   auth: Auth,
   dash: Dashboard,

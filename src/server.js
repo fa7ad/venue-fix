@@ -4,7 +4,7 @@ import Express from 'express'
 import Pouch from 'pouchdb'
 import ExpressPouchDB from 'express-pouchdb'
 
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import logger from 'morgan'
 import bodyParser from 'body-parser'
 import session from 'express-session'
@@ -50,19 +50,29 @@ auth(app, usersDB)
 app
   .route('/user')
   .get(ensureLoggedIn('/'), (req, res) => {
-    res.json(Object.assign({}, req.user, { password: undefined }))
+    usersDB
+      .get(req.user._id)
+      .then(user => res.json(user))
+      .catch(err => res.status(500).json({ success: false, err }))
   })
   .post(ensureLoggedIn('/'), (req, res) => {
     usersDB
       .get(req.user._id)
-      .then(user =>
-        usersDB.put(
-          Object.assign({}, req.user, req.body, {
-            password: user.password,
-            _rev: user._rev
-          })
+      .then(({ password, _rev, admin }) => {
+        const { name, phone, address, password: pwd } = Object.assign(
+          {},
+          req.user,
+          req.body
         )
-      )
+        return usersDB.put({
+          name,
+          _id: phone,
+          address,
+          password: req.body.password ? pwd : password,
+          _rev,
+          admin
+        })
+      })
       .then(rep => res.json({ success: rep.ok }))
       .catch(rep => res.status(500).json({ success: false, error: rep }))
   })
@@ -96,8 +106,9 @@ usersDB.info(function (err) {
     return
   }
   console.log('[PouchDB]', 'Connected to database')
+  // usersDB.get('01666666666').then(user => usersDB.remove(user))
   bcrypt
-    .hash('admin i am', 10)
+    .hash('i am admin', 10)
     .then(password =>
       usersDB.put({
         _id: '01666666666',

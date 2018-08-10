@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
@@ -31,10 +31,7 @@ export default function (app, usersDB) {
   })
 
   passport.deserializeUser(function (id, cb) {
-    usersDB
-      .get(id)
-      .catch(err => cb(err))
-      .then(user => cb(null, Object.assign(user, { password: undefined })))
+    usersDB.get(id).catch(err => cb(err)).then(user => cb(null, user))
   })
 
   app.use(passport.initialize())
@@ -69,6 +66,6 @@ export default function (app, usersDB) {
 
   app.get('/signout', function (req, res) {
     req.logout()
-    res.json({to: '/'})
+    res.json({ to: '/' })
   })
 }
