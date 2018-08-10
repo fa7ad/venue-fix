@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
 import { DateTime } from 'luxon'
-import PropTypes from 'prop-types'
 import mark from 'remove-markdown'
-import styled from 'styled-components'
+
 import { struct } from 'superstruct'
 import {
   Container,
@@ -80,7 +78,7 @@ const TipCard = styled(Tip)`
   }
 `
 
-class TipsPage extends Component {
+class TipsPage extends React.Component {
   // sample data
   static tips = [
     {

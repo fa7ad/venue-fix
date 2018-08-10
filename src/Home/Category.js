@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { Row, Container } from 'reactstrap'
 
 import image1 from '../images/hotel.jpg'
@@ -8,7 +7,7 @@ import PictureCard from './PictureCard'
 
 import css from './Category.module.css'
 
-class Category extends Component {
+class Category extends React.Component {
   render () {
     return (
       <div className={css.root}>

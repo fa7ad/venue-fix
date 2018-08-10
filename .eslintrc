@@ -7,5 +7,10 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "globals": {
+    "React": true,
+    "PropTypes": true,
+    "styled": true
   }
 }

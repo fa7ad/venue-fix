@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 import req from '../request'
 
-class SignUp extends Component {
+class SignUp extends React.Component {
   state = {
     name: '',
     phone: '',

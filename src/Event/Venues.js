@@ -1,6 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+
 import { Card, CardTitle, CardImg, Col, Badge } from 'reactstrap'
 
 const CardStyle = styled(Card)`

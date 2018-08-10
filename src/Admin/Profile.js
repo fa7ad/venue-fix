@@ -1,14 +1,11 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
 import ReactLoading from 'react-loading'
 import { Alert, Input, Label, FormGroup, Button } from 'reactstrap'
-import PropTypes from 'prop-types'
 import bcrypt from 'bcryptjs'
 
 import { uiObserver } from '../uiStore'
 import req from '../request'
 
-class ProfileFormDumb extends Component {
+class ProfileFormDumb extends React.Component {
   state = {
     phone: this.props._id,
     name: this.props.name,
@@ -97,7 +94,7 @@ const Center = styled.div`
   align-items: center;
 `
 
-class Profile extends Component {
+class Profile extends React.Component {
   state = {
     profile: undefined
   }

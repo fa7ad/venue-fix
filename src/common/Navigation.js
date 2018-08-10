@@ -1,6 +1,4 @@
 import cx from 'classnames'
-import PropTypes from 'prop-types'
-import React from 'react'
 import {
   Collapse,
   Container,
@@ -13,14 +11,11 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap'
-import styled from 'styled-components'
 
 import NavItem from './NavItem'
-
 import { uiObserver } from '../uiStore'
 
 import logoImg from '../images/logo.svg'
-import './Navigation.css'
 
 const category = [
   'Community/Party center',

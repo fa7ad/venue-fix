@@ -1,8 +1,6 @@
-import React from 'react'
 import { defaultProps } from 'recompose'
 import { Link } from 'react-router-dom'
 import { Navbar, NavbarBrand, NavLink, NavItem, Nav } from 'reactstrap'
-import PropTypes from 'prop-types'
 
 import req from '../request'
 

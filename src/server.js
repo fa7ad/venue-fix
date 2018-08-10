@@ -11,7 +11,6 @@ import session from 'express-session'
 import PouchSession from 'session-pouchdb-store'
 import { ensureLoggedIn } from 'connect-ensure-login'
 
-import React from 'react'
 import App from './App'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString } from 'react-dom/server'

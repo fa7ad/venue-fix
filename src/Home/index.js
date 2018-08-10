@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import { inject } from 'mobx-react'
 import ScrollTrigger from 'react-scroll-trigger'
 import { lifecycle } from 'recompose'

@@ -1,10 +1,7 @@
 import Slider from 'rc-slider'
 import { DateTime } from 'luxon'
-import React, { Component } from 'react'
 import Flatpickr from 'react-flatpickr'
 import { Form, Label, Input, Button, Container, Row, Col } from 'reactstrap'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
 
 import 'rc-slider/assets/index.css'
 
@@ -26,7 +23,7 @@ const DatePicker = styled(Flatpickr)`
 
 const Range = Slider.createSliderWithTooltip(Slider.Range)
 
-class EventForm extends Component {
+class EventForm extends React.Component {
   state = Object.assign(
     {
       date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),

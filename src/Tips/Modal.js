@@ -1,7 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import Rodal from 'rodal'
-import styled from 'styled-components'
+
 import sanitize from 'sanitize-html'
 import MarkDown from 'remarkable'
 import { Badge } from 'reactstrap'

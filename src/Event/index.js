@@ -1,8 +1,5 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import qs from 'qs'
 import cx from 'classnames'
-import styled from 'styled-components'
 
 import { Row, Container } from 'reactstrap'
 
@@ -45,7 +42,7 @@ const testData = [
   }
 ]
 
-class Event extends Component {
+class Event extends React.Component {
   state = {
     form: {}
   }

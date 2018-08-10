@@ -1,7 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import Rodal from 'rodal'
-import styled from 'styled-components'
 import { Button, Row, Container } from 'reactstrap'
 import { convertToRaw, EditorState, convertFromRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
@@ -96,7 +93,7 @@ TipsEditor.propTypes = {
   ])
 }
 
-class ManageTips extends Component {
+class ManageTips extends React.Component {
   state = {
     editorState: EditorState.createEmpty(),
     editor: false,

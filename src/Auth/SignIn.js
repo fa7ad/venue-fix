@@ -1,8 +1,6 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
-class SignIn extends Component {
+class SignIn extends React.Component {
   render () {
     return (
       <Form method='POST' action='/auth'>

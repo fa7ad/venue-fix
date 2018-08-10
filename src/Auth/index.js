@@ -1,7 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import Rodal from 'rodal'
-import styled from 'styled-components'
 
 import SignIn from './SignIn'
 import SignUp from './SignUp'

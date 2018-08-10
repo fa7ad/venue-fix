@@ -1,5 +1,3 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import qs from 'qs'
 import cx from 'classnames'
 import pathEx from 'path-to-regexp'

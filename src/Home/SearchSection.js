@@ -1,5 +1,4 @@
 import cx from 'classnames'
-import React, { Component } from 'react'
 import Flatpickr from 'react-flatpickr'
 import { Button, Form, Input, Container } from 'reactstrap'
 import { DateTime } from 'luxon'
@@ -9,7 +8,7 @@ import css from './SearchSection.module.css'
 
 import Option from '../common/LowerOption'
 
-class SearchSection extends Component {
+class SearchSection extends React.Component {
   state = {
     date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate()
   }

@@ -1,6 +1,5 @@
 import cx from 'classnames'
-import styled from 'styled-components'
-import React, { Component } from 'react'
+
 import { Container, Row, Col } from 'reactstrap'
 import Link from 'react-router-dom/Link'
 
@@ -94,7 +93,7 @@ const ListItem = styled.div`
   }
 `
 
-class Footer extends Component {
+class Footer extends React.Component {
   render () {
     return (
       <Root>

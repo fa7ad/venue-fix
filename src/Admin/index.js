@@ -1,8 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
 import { Col } from 'reactstrap'
 import { Switch, Route } from 'react-router-dom'
-import PropTypes from 'prop-types'
 
 import Sidebar from './Sidebar'
 import ManageTips from './Tips'

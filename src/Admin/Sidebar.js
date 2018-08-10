@@ -1,16 +1,11 @@
-import React from 'react'
 import { defaultProps } from 'recompose'
 import { Link } from 'react-router-dom'
 
 import cx from 'classnames'
-import styled from 'styled-components'
-
-import { FiHome, FiList, FiInfo, FiUser } from 'react-icons/fi'
+import { Nav, NavItem as NavItm } from 'reactstrap'
 
 import { FaChartLine } from 'react-icons/fa'
-
-import { Nav, NavItem as NavItm } from 'reactstrap'
-import PropTypes from 'prop-types'
+import { FiHome, FiList, FiInfo, FiUser } from 'react-icons/fi'
 
 import { injObser } from '../uiStore'
 
