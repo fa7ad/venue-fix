@@ -1,8 +1,8 @@
 import Rodal from 'rodal'
-import { Button, Row, Container } from 'reactstrap'
-import { convertToRaw, EditorState, convertFromRaw } from 'draft-js'
+import { Button, Row, Container, Input } from 'reactstrap'
+import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
+import { convertFromHTML, convertToHTML } from 'draft-convert'
 import { IoMdCreate } from 'react-icons/io'
 
 import { tips } from '../Tips/index'
@@ -29,14 +29,22 @@ const StyRodal = styled(Rodal)`
 const TipsEditor = ({
   visible,
   onClose,
-  onDone,
   onEdit,
   state,
   updating,
-  onUpdate
+  heading,
+  onHeadingChange,
+  ...p
 }) => (
   <StyRodal animation='fade' visible={visible} onClose={onClose}>
     <h1 className='text-primary'>Add Tip</h1>
+    <Input
+      className='my-2'
+      placeholder='Heading'
+      required
+      onChange={onHeadingChange}
+      value={heading}
+    />
     {visible &&
       <Editor
         editorState={state}
@@ -53,26 +61,16 @@ const TipsEditor = ({
                 reader.onerror = e => reject(e)
                 reader.readAsDataURL(file)
               })
-          },
-          fontFamily: {
-            className: 'd-none'
-          },
-          fontSize: {
-            className: 'd-none'
           }
         }}
       />}
     <div className='py-2'>
-      {updating
-        ? <Button
-          color='warning'
-          onClick={e => onUpdate(updating).then(onClose)}
-        >
-            Update
-        </Button>
-        : <Button color='danger' onClick={e => onDone(e).then(onClose)}>
-            Add
-        </Button>}
+      <Button
+        color={updating ? 'warning' : 'danger'}
+        onClick={e =>
+          p[updating ? 'onUpdate' : 'onDone'](updating).then(onClose)}
+        children={updating ? 'Update' : 'Add'}
+      />
       <Button color='primary' onClick={onClose}>Close</Button>
     </div>
   </StyRodal>
@@ -84,7 +82,9 @@ TipsEditor.propTypes = {
   onDone: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
+  onHeadingChange: PropTypes.func.isRequired,
   state: PropTypes.object,
+  heading: PropTypes.string,
   updating: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -96,7 +96,8 @@ class ManageTips extends React.Component {
   state = {
     editorState: EditorState.createEmpty(),
     editor: false,
-    updating: false
+    updating: false,
+    heading: 'New Tip'
   }
 
   render () {
@@ -111,9 +112,12 @@ class ManageTips extends React.Component {
           visible={this.state.editor}
           onClose={this.editorClose}
           onEdit={this.editorChange}
-          onDone={async e => console.log(this.editorToMd())}
-          onUpdate={async id => console.log(id, this.editorToMd())}
+          heading={this.state.heading}
+          onDone={async e =>
+            console.log(this.state.heading, this.editorToHTML())}
+          onUpdate={async id => console.log(this.state.heading, this.editorToHTML())}
           updating={this.state.updating}
+          onHeadingChange={e => this.setState({heading: e.currentTarget.value})}
         />
         <Container fluid>
           {tips.map((data, idx) => (
@@ -122,8 +126,12 @@ class ManageTips extends React.Component {
               {data.heading}
               <Button
                 onClick={e =>
-                  this.mdToEditor(data.body).then(e =>
-                    this.setState({ editor: true, updating: idx })
+                  this.markupToEditor(data.body).then(e =>
+                    this.setState({
+                      editor: true,
+                      updating: 'item_' + idx,
+                      heading: data.heading
+                    })
                   )}
               >
                 Edit
@@ -145,20 +153,16 @@ class ManageTips extends React.Component {
       editorState: EditorState.createEmpty()
     })
 
-  editorToMd = () => {
+  editorToHTML = () => {
     const { editorState } = this.state
 
-    const md =
-      editorState &&
-      draftToMarkdown(convertToRaw(editorState.getCurrentContent()))
-
-    return md
+    return editorState && convertToHTML(editorState.getCurrentContent())
   }
 
-  mdToEditor = async md => {
-    const raw = markdownToDraft(md)
-    const content = convertFromRaw(raw)
-    this.setState({ editorState: EditorState.createWithContent(content) })
+  markupToEditor = async html => {
+    this.setState({
+      editorState: EditorState.createWithContent(convertFromHTML(html))
+    })
   }
 }
 

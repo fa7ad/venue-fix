@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon'
-import mark from 'remove-markdown'
-
+import striptags from 'striptags'
 import { struct } from 'superstruct'
 import {
   Container,
@@ -17,9 +16,9 @@ import { uiObserver } from '../uiStore'
 
 import Footer from '../common/Footer'
 
-const remark = function (md) {
-  const text = mark(md)
-  return text.split(' ').slice(0, 20).join(' ')
+const toText = function (html) {
+  const text = striptags(html)
+  return text.split(' ').slice(0, 25).join(' ')
 }
 
 const Root = styled.div`
@@ -52,7 +51,7 @@ const Tip = ({ img, heading, time, body, onActivate, ...p }) => (
         {DateTime.fromJSDate(time).toLocaleString(DateTime.DATE_MED)}
       </CardSubtitle>
       <CardText className='text-muted'>
-        {remark(body)}
+        {toText(body)}
       </CardText>
       <Button onClick={e => onActivate({ img, heading, time, body })}>
         See more
@@ -85,8 +84,7 @@ class TipsPage extends React.Component {
       heading: 'Hello World',
       time: new Date(),
       body: `
-hello
-# World
+hello <b>World</b>
 ![](https://woothosting.com/assets/images/logo.png)
 `
     },
@@ -94,9 +92,9 @@ hello
       heading: 'Hello React',
       time: new Date('7/12/2018 12:15 AM'),
       body: `
-# hello react
-## hi, vue
-### bye, angular
+<h1>hello react</h1>
+<h2>hi, vue</h2>
+<h3>bye, angular</h3>
 `
     }
   ]
