@@ -7,7 +7,6 @@ import { IoMdCreate } from 'react-icons/io'
 
 import { tips } from '../Tips/index'
 
-import { addTipsEditor, addTipsWrapper } from './Tips.module.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const StyRodal = styled(Rodal)`
@@ -41,8 +40,8 @@ const TipsEditor = ({
     {visible &&
       <Editor
         editorState={state}
-        wrapperClassName={addTipsWrapper}
-        editorClassName={addTipsEditor}
+        wrapperClassName='bg-white'
+        editorClassName='bg-light'
         onEditorStateChange={onEdit}
         toolbar={{
           image: {

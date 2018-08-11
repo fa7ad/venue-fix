@@ -1,12 +1,31 @@
 import cx from 'classnames'
-import Flatpickr from 'react-flatpickr'
-import { Button, Form, Input, Container } from 'reactstrap'
+import Pickr from 'react-flatpickr'
+import { Button, Form, Input as Inp, Container } from 'reactstrap'
 import { DateTime } from 'luxon'
 
 import 'flatpickr/dist/themes/material_blue.css'
-import css from './SearchSection.module.css'
 
 import Option from '../common/LowerOption'
+
+const RootContainer = styled(Container)`
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center
+`
+
+const Flatpickr = styled(Pickr)`
+  background-color: #fff;
+`
+
+const Input = styled(Inp).attrs({
+  className: p => cx('col-sm-2', p.className)
+})`
+  @media (min-width: 576px) {
+    flex-basis: 17%;
+    max-width: 17%;
+  }
+`
 
 class SearchSection extends React.Component {
   state = {
@@ -15,13 +34,12 @@ class SearchSection extends React.Component {
 
   render () {
     return (
-      <Container className={css.root}>
-        <Form className={cx(css.jcsb, 'row')} action='/event'>
+      <RootContainer>
+        <Form className={'justify-content-between row'} action='/event'>
           <Input
             name='location'
             type='select'
             placeholder='City'
-            className={cx('col-sm-2', css['col-sm-2'])}
           >
             <Option>Dhaka</Option>
             <Option>Comilla</Option>
@@ -31,7 +49,6 @@ class SearchSection extends React.Component {
             name='event'
             type='select'
             placeholder='Type Of Event'
-            className={cx('col-sm-2', css['col-sm-2'])}
           >
             <Option>Wedding</Option>
             <Option>Conference</Option>
@@ -43,7 +60,7 @@ class SearchSection extends React.Component {
             onChange={([date]) => {
               this.setState({ date })
             }}
-            className={cx('col-sm-3', css['form-control'], 'form-control')}
+            className='col-sm-3 form-control'
             options={{
               minuteIncrement: 30,
               dateFormat: 'Y.m.d h:i K',
@@ -54,13 +71,12 @@ class SearchSection extends React.Component {
           <Input
             name='guests'
             placeholder='Guests'
-            className={cx('col-sm-2', css['col-sm-2'])}
           />
-          <Button color='primary' className='form__button col-sm-2'>
+          <Button color='primary' className='col-sm-2'>
             Search
           </Button>
         </Form>
-      </Container>
+      </RootContainer>
     )
   }
 }

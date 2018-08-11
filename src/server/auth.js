@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-
+import {ensureLoggedIn} from 'connect-ensure-login'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
@@ -41,7 +41,7 @@ export default function (app, usersDB) {
     .route('/auth')
     .post(
       passport.authenticate('local', {
-        successReturnToOrRedirect: '/',
+        successRedirect: '/',
         failureRedirect: '/?auth=signin'
       })
     )
@@ -67,5 +67,9 @@ export default function (app, usersDB) {
   app.get('/signout', function (req, res) {
     req.logout()
     res.json({ to: '/' })
+  })
+
+  app.get('/loggedIn', ensureLoggedIn('/401'), (req, res) => {
+    res.json({success: true, admin: req.user.admin})
   })
 }

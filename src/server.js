@@ -2,7 +2,6 @@ import path from 'path'
 import Express from 'express'
 
 import Pouch from 'pouchdb'
-import ExpressPouchDB from 'express-pouchdb'
 
 import bcrypt from 'bcryptjs'
 import logger from 'morgan'
@@ -42,7 +41,6 @@ app.use(
     store: new PouchSession(PouchDB)
   })
 )
-app.use('/__db', ExpressPouchDB(PouchDB))
 
 auth(app, usersDB)
 
@@ -110,8 +108,11 @@ usersDB.info(function (err) {
     console.error('[PouchDB]', 'Database server error')
     return
   }
+
   console.log('[PouchDB]', 'Connected to database')
+
   // usersDB.get('01666666666').then(user => usersDB.remove(user))
+
   bcrypt
     .hash('i am admin', 10)
     .then(password =>

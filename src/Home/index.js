@@ -6,8 +6,6 @@ import SearchSection from './SearchSection'
 import Category from './Category'
 import Footer from '../common/Footer'
 
-import './Home.css'
-
 const Home = ({ ui, ...p }) => (
   <div className='root'>
     <SearchSection />

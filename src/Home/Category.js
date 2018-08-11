@@ -1,26 +1,51 @@
-import { Row, Container } from 'reactstrap'
+import { Row as Rw, Container } from 'reactstrap'
 
 import image1 from '../images/hotel.jpg'
 import image2 from '../images/hotel2.jpg'
 import image3 from '../images/hotel3.jpg'
 import PictureCard from './PictureCard'
 
-import css from './Category.module.css'
+const Root = styled.div`
+  background-color: #fff;
+  min-height: 65vh;
+  display: flex;
+  align-items: center
+`
+
+const Row = styled(Rw)`
+  margin-left: -25px;
+  margin-right: -25px;
+`
+
+const Header = styled.div`
+  margin-top: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+`
 
 class Category extends React.Component {
   render () {
     return (
-      <div className={css.root}>
+      <Root>
         <Container>
-          <div className={css.header}>
+          <Header>
             <h3>Featured Categories</h3>
-          </div>
+          </Header>
 
-          <Row className={css.row}>
+          <Row>
             <PictureCard bgImg={image1} size='6' caption='Meetings'>
               Book a room
             </PictureCard>
-            <PictureCard bgImg={image2} size='3' caption='Conferences' btn='danger'>
+            <PictureCard
+              bgImg={image2}
+              size='3'
+              caption='Conferences'
+              btn='danger'
+            >
               Book a hall
             </PictureCard>
             <PictureCard bgImg={image3} size='3' caption='Weddings'>
@@ -28,7 +53,7 @@ class Category extends React.Component {
             </PictureCard>
           </Row>
         </Container>
-      </div>
+      </Root>
     )
   }
 }

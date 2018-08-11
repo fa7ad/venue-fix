@@ -119,4 +119,6 @@ class Profile extends React.Component {
   }
 }
 
+export {Center}
+
 export default uiObserver(Profile)

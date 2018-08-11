@@ -16,7 +16,6 @@
     "connect-ensure-login": "^0.1.1",
     "draft-js": "^0.10.5",
     "express": "4.16.3",
-    "express-pouchdb": "^4.0.1",
     "express-session": "^1.15.6",
     "flatpickr": "^4.5.0",
     "google-map-react": "^1.0.3",
