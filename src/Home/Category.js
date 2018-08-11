@@ -37,7 +37,12 @@ class Category extends React.Component {
           </Header>
 
           <Row>
-            <PictureCard bgImg={image1} size='6' caption='Meetings'>
+            <PictureCard
+              bgImg={image1}
+              size='6'
+              caption='Meetings'
+              onActivate={this.goTo('/event?event=meeting')}
+            >
               Book a room
             </PictureCard>
             <PictureCard
@@ -45,10 +50,16 @@ class Category extends React.Component {
               size='3'
               caption='Conferences'
               btn='danger'
+              onActivate={this.goTo('/event?event=conference')}
             >
               Book a hall
             </PictureCard>
-            <PictureCard bgImg={image3} size='3' caption='Weddings'>
+            <PictureCard
+              bgImg={image3}
+              size='3'
+              caption='Weddings'
+              onActivate={this.goTo('/event?event=wedding')}
+            >
               Book a venue
             </PictureCard>
           </Row>
@@ -56,5 +67,12 @@ class Category extends React.Component {
       </Root>
     )
   }
+
+  goTo = page => () => this.props.history.push(page)
+
+  static propTypes = {
+    history: PropTypes.object
+  }
 }
+
 export default Category

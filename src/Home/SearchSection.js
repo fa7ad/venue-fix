@@ -15,7 +15,9 @@ const RootContainer = styled(Container)`
 `
 
 const Flatpickr = styled(Pickr)`
-  background-color: #fff;
+  &, &:disabled, &[readonly] {
+    background-color: #fff;
+  }
 `
 
 const Input = styled(Inp).attrs({
