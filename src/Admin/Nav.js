@@ -18,11 +18,11 @@ const AdminNav = ({ history, ...p }) => (
         <NavLink
           onClick={e => {
             e.preventDefault()
-            req.url('/signout').get().json(({ to }) => history.push(to))
+            req.url('/logout').get().json(({ to }) => history.push(to))
           }}
           href='#'
         >
-          Sign out
+          Log out
         </NavLink>
       </NavItem>
     </Nav>

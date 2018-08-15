@@ -42,11 +42,11 @@ export default function (app, usersDB) {
     .post(
       passport.authenticate('local', {
         successRedirect: '/',
-        failureRedirect: '/?auth=signin'
+        failureRedirect: '/?auth=login'
       })
     )
-    .get(function (req, res) {
-      res.redirect('/?auth=signin')
+    .get(ensureLoggedIn('/401'), function (req, res) {
+      res.json({success: true})
     })
     .put(function (req, res) {
       if (!req.body) res.status(400).redirect('/')
@@ -64,7 +64,7 @@ export default function (app, usersDB) {
       }
     })
 
-  app.get('/signout', function (req, res) {
+  app.get('/logout', function (req, res) {
     req.logout()
     res.json({ to: '/' })
   })

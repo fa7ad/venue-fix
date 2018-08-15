@@ -1,6 +1,6 @@
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
-class SignIn extends React.Component {
+class Login extends React.Component {
   render () {
     return (
       <Form method='POST' action='/auth'>
@@ -24,7 +24,7 @@ class SignIn extends React.Component {
             required
           />
         </FormGroup>
-        <Button>Sign In</Button>
+        <Button>Login</Button>
         <Button color='link' onClick={this.props.onReg}>Create an account</Button>
       </Form>
     )
@@ -34,4 +34,4 @@ class SignIn extends React.Component {
     onReg: PropTypes.func
   }
 }
-export default SignIn
+export default Login

@@ -83,7 +83,7 @@ class AdminPage extends React.Component {
         .get()
         .unauthorized(_ => {
           clearInterval(poll)
-          this.props.history.push('/?auth=signin')
+          this.props.history.push('/?auth=login')
         })
         .json(data => data.admin)
     checkLogin().then(show => this.setState({ show }))

@@ -76,8 +76,7 @@ app
 
 app.get('/:code', (req, res, next) => {
   const { code } = req.params
-  if (code && code > 200 && code < 599) res.sendStatus(code)
-  else next()
+  if (code && code > 399 && code < 512) { res.status(code).json({ success: false }) } else next()
 })
 
 app.get('/*', (req, res) => {

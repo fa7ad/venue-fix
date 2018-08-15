@@ -1,7 +1,7 @@
 import Rodal from 'rodal'
 
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import Login from './Login'
+import Register from './Register'
 
 import { uiObserver } from '../uiStore'
 
@@ -25,9 +25,9 @@ const Auth = ({ ui, ...p }) => (
     visible={ui.auth.modal}
     onClose={ui.auth.hideModal}
   >
-    {ui.auth.signup
-      ? <SignUp onLog={ui.auth.toLog} history={p.history} />
-      : <SignIn onReg={ui.auth.toReg} />}
+    {ui.auth.register
+      ? <Register onLog={ui.auth.toLog} history={p.history} />
+      : <Login onReg={ui.auth.toReg} />}
   </StyRodal>
 )
 

@@ -4,8 +4,10 @@ import { inject, observer } from 'mobx-react'
 const Navbar = types
   .model('Navbar', {
     _color: types.optional(types.string, 'dark'),
-    _page: types.maybe(types.string),
-    isOpen: types.optional(types.boolean, false)
+    _page: types.optional(types.string, ''),
+    isOpen: types.optional(types.boolean, false),
+    isAdmin: types.optional(types.boolean, false),
+    loggedIn: types.optional(types.boolean, false)
   })
   .actions(self => ({
     toDark () {
@@ -24,6 +26,10 @@ const Navbar = types
         if (page === 'home') self.toNone()
         else self.toDark()
       }
+    },
+    authState (isLoggedIn = false, isAdmin = false) {
+      self.loggedIn = isLoggedIn
+      self.isAdmin = isAdmin
     }
   }))
   .views(self => ({
@@ -35,7 +41,7 @@ const Navbar = types
 const Auth = types
   .model('Auth', {
     modal: types.optional(types.boolean, false),
-    signup: types.optional(types.boolean, false)
+    register: types.optional(types.boolean, false)
   })
   .actions(self => ({
     showModal (e) {
@@ -45,10 +51,10 @@ const Auth = types
       self.modal = false
     },
     toReg () {
-      self.signup = true
+      self.register = true
     },
     toLog () {
-      self.signup = false
+      self.register = false
     }
   }))
 
@@ -80,19 +86,21 @@ const TipModal = types
     }
   }))
 
-const DashProfile = types.model('UserProfile', {
-  formSuccess: types.optional(types.boolean, false)
-}).actions(self => ({
-  hideSuccess () {
-    self.formSuccess = false
-  },
-  showSuccess () {
-    self.formSuccess = true
-  },
-  toggleSuccess () {
-    self.formSuccess = !self.formSuccess
-  }
-}))
+const DashProfile = types
+  .model('UserProfile', {
+    formSuccess: types.optional(types.boolean, false)
+  })
+  .actions(self => ({
+    hideSuccess () {
+      self.formSuccess = false
+    },
+    showSuccess () {
+      self.formSuccess = true
+    },
+    toggleSuccess () {
+      self.formSuccess = !self.formSuccess
+    }
+  }))
 
 const Dashboard = types
   .model('Dashboard', {

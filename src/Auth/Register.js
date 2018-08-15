@@ -2,7 +2,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 
 import req from '../request'
 
-class SignUp extends React.Component {
+class Register extends React.Component {
   state = {
     name: '',
     phone: '',
@@ -56,7 +56,7 @@ class SignUp extends React.Component {
             onChange={this.valChange('password')}
           />
         </FormGroup>
-        <Button onClick={this.createUser}>Sign Up</Button>
+        <Button onClick={this.createUser}>Register</Button>
         <Button color='link' onClick={this.props.onLog}>
           Login to existing account
         </Button>
@@ -80,4 +80,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp
+export default Register

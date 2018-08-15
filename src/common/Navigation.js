@@ -14,6 +14,7 @@ import {
 
 import NavItem from './NavItem'
 import { uiObserver } from '../uiStore'
+import req from '../request'
 
 import logo from './logo.svg'
 
@@ -33,7 +34,6 @@ const StyBrand = styled(NavbarBrand)`
 `
 
 const Logo = styled.img`
-  fill: #fff;
   max-height: 2em;
 `
 
@@ -57,55 +57,80 @@ const StyNav = styled(Nav)`
     color: #fff !important;
   }
 `
+class Navigation extends React.Component {
+  goTo = url => e => this.props.history.push(url)
 
-const Navigation = ({ ui, page, history, ...p }) => (
-  <NavigationBar color={ui.navbar.color}>
-    <Container className='p-0'>
-      <StyBrand onClick={e => history.push('/')}>
-        <Logo src={logo} /> Venue-Fix
-      </StyBrand>
-      <NavbarToggler onClick={ui.navbar.toggle} />
-      <Collapse isOpen={ui.navbar.isOpen} navbar>
-        <StyNav className={cx('nav-container', 'ml-auto')} navbar>
-          <NavItem to='/'>Home</NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Category
-            </DropdownToggle>
-            <DropdownMenu>
-              {category.map((el, ind) => (
-                <DropdownItem key={ind}>
-                  {el}
-                </DropdownItem>
-              ))}
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <NavItem to='/tips'>Tips</NavItem>
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              Us
-            </DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem onClick={e => history.push('/about-us')}>
-                About Us
-              </DropdownItem>
-              <DropdownItem onClick={e => history.push('/contact-us')}>
-                Contact Us
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-          <NavItem onClick={ui.auth.showModal}>Login / Register</NavItem>
-          <NavItem to='/event' button='danger'>Create Event</NavItem>
-        </StyNav>
-      </Collapse>
-    </Container>
-  </NavigationBar>
-)
+  render () {
+    const { ui } = this.props
+    return (
+      <NavigationBar color={ui.navbar.color}>
+        <Container className='p-0'>
+          <StyBrand onClick={this.goTo('/')}>
+            <Logo src={logo} /> Venue-Fix
+          </StyBrand>
+          <NavbarToggler onClick={ui.navbar.toggle} />
+          <Collapse isOpen={ui.navbar.isOpen} navbar>
+            <StyNav className='nav-container ml-auto' navbar>
+              <NavItem to='/'>Home</NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Category
+                </DropdownToggle>
+                <DropdownMenu>
+                  {category.map((el, ind) => (
+                    <DropdownItem key={ind}>
+                      {el}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <NavItem to='/tips'>Tips</NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Us
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem onClick={this.goTo('/about-us')}>
+                    About Us
+                  </DropdownItem>
+                  <DropdownItem onClick={this.goTo('/contact-us')}>
+                    Contact Us
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <NavItem
+                onClick={ui.navbar.loggedIn ? this.logOut : ui.auth.showModal}
+                children={ui.navbar.loggedIn ? 'Log out' : 'Login / Register'}
+              />
+              {ui.navbar.isAdmin &&
+                <NavItem to='/admin' button='primary' className='mr-2'>
+                  Dashboard
+                </NavItem>}
+              <NavItem to='/event' button='danger'>Create Event</NavItem>
+            </StyNav>
+          </Collapse>
+        </Container>
+      </NavigationBar>
+    )
+  }
 
-Navigation.propTypes = {
-  ui: PropTypes.object.isRequired,
-  page: PropTypes.string.isRequired,
-  history: PropTypes.object.isRequired
+  logOut = e => {
+    req.url('/logout').get().json(({ to }) => history.push(to))
+  }
+
+  componentDidMount () {
+    const { navbar } = this.props.ui
+    req
+      .url('/loggedIn')
+      .get()
+      .unauthorized(e => navbar.authState(false))
+      .json(r => navbar.authState(r.success, r.admin))
+  }
+
+  static propTypes = {
+    ui: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  }
 }
 
 export default uiObserver(Navigation)
