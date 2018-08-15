@@ -12,6 +12,7 @@ import Event from './Event/'
 import Admin from './Admin/'
 import AdminNav from './Admin/Nav'
 import FourOhFour from './FourOhFour/'
+import AboutUs from './AboutUs/'
 
 import { Provider } from 'mobx-react'
 import { IconContext } from 'react-icons'
@@ -57,6 +58,11 @@ const routes = [
     key: 'event',
     path: '/event',
     component: Event
+  },
+  {
+    key: 'about-us',
+    path: '/about-us',
+    component: AboutUs
   },
   {
     key: 'admin',
