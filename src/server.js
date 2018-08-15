@@ -77,12 +77,30 @@ app
       .catch(rep => res.status(500).json({ success: false, error: rep }))
   })
 
-app.route('/tags').get(ensureLoggedIn('/401'), (req, res) => {
-  categoriesDB
-    .allDocs({ include_docs: true })
-    .then(({ rows: categories }) => res.json({ success: true, categories }))
-    .catch(e => res.status(404).json({ success: false }))
-})
+app
+  .route('/tags')
+  .get((req, res) => {
+    categoriesDB
+      .allDocs({ include_docs: true })
+      .then(data => data.rows.map(row => row.doc))
+      .then(categories => res.json({ success: true, categories }))
+      .catch(_ => res.redirect('/404'))
+  })
+  .post(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    categoriesDB
+      .post({ name: req.body.name })
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/500'))
+  })
+  .delete(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    categoriesDB
+      .get(req.body.id)
+      .then(res => categoriesDB.remove(res))
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/404'))
+  })
 
 app.get('/:code', (req, res, next) => {
   const { code } = req.params
