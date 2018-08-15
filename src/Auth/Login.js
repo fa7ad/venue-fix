@@ -7,11 +7,12 @@ class Login extends React.Component {
         <FormGroup>
           <Label>Phone</Label>
           <Input
-            type='phone'
             name='phone'
             id='phone'
             placeholder='Phone'
             required
+            pattern='^01[0-9]{9}$'
+            title='Enter a valid 11-digit phone number'
           />
         </FormGroup>
         <FormGroup>
@@ -25,7 +26,9 @@ class Login extends React.Component {
           />
         </FormGroup>
         <Button>Login</Button>
-        <Button color='link' onClick={this.props.onReg}>Create an account</Button>
+        <Button color='link' onClick={this.props.onReg}>
+          Create an account
+        </Button>
       </Form>
     )
   }

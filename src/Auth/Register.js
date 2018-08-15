@@ -35,6 +35,7 @@ class Register extends React.Component {
             required
             value={this.state.phone}
             onChange={this.valChange('phone')}
+            pattern='^[0-9]{11}$'
           />
         </FormGroup>
         <FormGroup>

@@ -14,6 +14,7 @@ import Admin from './Admin/'
 import AdminNav from './Admin/Nav'
 import FourOhFour from './FourOhFour/'
 import AboutUs from './AboutUs/'
+import ContactUs from './ContactUs/'
 
 import ScrollTrigger from 'react-scroll-trigger'
 import { Provider } from 'mobx-react'
@@ -113,6 +114,11 @@ const routes = [
     key: 'about-us',
     path: '/about-us',
     component: AboutUs
+  },
+  {
+    key: 'contact-us',
+    path: '/contact-us',
+    component: ContactUs
   },
   {
     key: 'admin',
