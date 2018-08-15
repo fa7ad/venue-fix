@@ -6,6 +6,7 @@ import { Nav, NavItem as NavItm } from 'reactstrap'
 
 import { FaChartLine } from 'react-icons/fa'
 import { FiHome, FiList, FiInfo, FiUser } from 'react-icons/fi'
+import { TiTags } from 'react-icons/ti'
 
 import { injObser } from '../uiStore'
 
@@ -51,6 +52,12 @@ const itemsList = [
     caption: 'Dashboard',
     key: 'dashboard',
     icon: <FaChartLine />
+  },
+  {
+    href: '/admin/tags',
+    caption: 'Categories',
+    key: 'tags',
+    icon: <TiTags />
   },
   {
     href: '/admin/bookings',

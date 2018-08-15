@@ -21,8 +21,11 @@ import renderPage from './server/renderPage'
 const PouchDB = Pouch.defaults({
   prefix: path.resolve(process.env.RAZZLE_HOME, 'db', '.db__')
 })
-const usersDB = new PouchDB(process.env.RAZZLE_DB_PREFIX + 'users')
+const createPouchDB = db => new PouchDB(process.env.RAZZLE_DB_PREFIX + db)
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
+
+const usersDB = createPouchDB('users')
+const categoriesDB = createPouchDB('tags')
 
 const app = Express()
 app.disable('x-powered-by')
@@ -74,9 +77,18 @@ app
       .catch(rep => res.status(500).json({ success: false, error: rep }))
   })
 
+app.route('/tags').get(ensureLoggedIn('/401'), (req, res) => {
+  categoriesDB
+    .allDocs({ include_docs: true })
+    .then(({ rows: categories }) => res.json({ success: true, categories }))
+    .catch(e => res.status(404).json({ success: false }))
+})
+
 app.get('/:code', (req, res, next) => {
   const { code } = req.params
-  if (code && code > 399 && code < 512) { res.status(code).json({ success: false }) } else next()
+  if (code && code > 399 && code < 512) {
+    res.status(code).json({ success: false })
+  } else next()
 })
 
 app.get('/*', (req, res) => {

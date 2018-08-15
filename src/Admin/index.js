@@ -1,11 +1,13 @@
 import { Col } from 'reactstrap'
-import { defaultProps } from 'recompose'
 import { Switch, Route } from 'react-router-dom'
 
 import Sidebar from './Sidebar'
 import ManageTips from './Tips'
 import Bookings from './Bookings'
-import Profile, { Center } from './Profile'
+import Profile from './Profile'
+import Categories from './Categories'
+
+import Center from './Center'
 
 import { uiObserver } from '../uiStore'
 import req from '../request'
@@ -50,7 +52,8 @@ class AdminPage extends React.Component {
   }
 
   render () {
-    const { ui: { dash } } = this.props
+    const { ui } = this.props
+    const { dash } = ui
     return this.state.show
       ? <FluidRoot>
         <Sidebar active={dash.activePage} />
@@ -64,12 +67,10 @@ class AdminPage extends React.Component {
               <Bookings />
             </Route>
             <Route path='/admin/profile'><Profile /></Route>
+            <Route path='/admin/tags'><Categories /></Route>
           </Switch>
           <Switch>
-            <Route
-              path='/admin/:page'
-              component={defaultProps({ ui: this.props.ui })(NavHack)}
-            />
+            <Route path='/admin/:page' component={uiObserver(NavHack)} />
           </Switch>
         </Col>
       </FluidRoot>

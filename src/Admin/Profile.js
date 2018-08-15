@@ -2,6 +2,8 @@ import ReactLoading from 'react-loading'
 import { Alert, Input, Label, FormGroup, Button } from 'reactstrap'
 import bcrypt from 'bcryptjs'
 
+import Center from './Center'
+
 import { uiObserver } from '../uiStore'
 import req from '../request'
 
@@ -86,14 +88,6 @@ class ProfileFormDumb extends React.Component {
 
 const ProfileForm = uiObserver(ProfileFormDumb)
 
-const Center = styled.div`
-  height: 100%
-  flex-basis: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
 class Profile extends React.Component {
   state = {
     profile: undefined
@@ -118,7 +112,5 @@ class Profile extends React.Component {
     ui: PropTypes.object
   }
 }
-
-export {Center}
 
 export default uiObserver(Profile)
