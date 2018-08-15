@@ -115,7 +115,13 @@ class Navigation extends React.Component {
   }
 
   logOut = e => {
-    req.url('/logout').get().json(({ to }) => history.push(to))
+    req
+      .url('/logout')
+      .get()
+      .json(({ to }) => this.props.history.push(to))
+      .then(e => {
+        this.props.ui.navbar.logOut()
+      })
   }
 
   componentDidMount () {

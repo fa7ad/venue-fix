@@ -30,6 +30,9 @@ const Navbar = types
     authState (isLoggedIn = false, isAdmin = false) {
       self.loggedIn = isLoggedIn
       self.isAdmin = isAdmin
+    },
+    logOut () {
+      self.authState(false, false)
     }
   }))
   .views(self => ({

@@ -14,8 +14,6 @@ import {
 
 import { uiObserver } from '../uiStore'
 
-import Footer from '../common/Footer'
-
 const toText = function (html) {
   const text = striptags(html)
   return text.split(' ').slice(0, 25).join(' ')
@@ -109,7 +107,6 @@ hello <b>World</b>
               <TipCard key={idx} {...data} onActivate={this.activateModal} />
             ))}
         </Container>
-        <Footer />
       </Root>
     )
   }

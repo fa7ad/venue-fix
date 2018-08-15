@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import {ensureLoggedIn} from 'connect-ensure-login'
+import { ensureLoggedIn } from 'connect-ensure-login'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
 
@@ -22,7 +22,7 @@ export default function (app, usersDB) {
               usr && bcrypt.compareSync(plain, usr.password) ? usr : false
             )
           )
-          .catch(cb)
+          .catch(_ => cb(null, false))
     )
   )
 
@@ -43,22 +43,24 @@ export default function (app, usersDB) {
       passport.authenticate('local', {
         successRedirect: '/',
         failureRedirect: '/?auth=login'
-      })
+      }),
+      (req, res) => {
+        res.redirect('/')
+      }
     )
     .get(ensureLoggedIn('/401'), function (req, res) {
-      res.json({success: true})
+      res.json({ success: true })
     })
     .put(function (req, res) {
-      if (!req.body) res.status(400).redirect('/')
+      if (!req.body) res.status(400).json({ success: false })
       try {
         const { phone: _id, password, name, address, admin } = User(req.body)
         bcrypt
           .hash(password, 10)
           .then(hash => ({ _id, password: hash, name, address, admin }))
           .then(user => usersDB.put(user))
-          .then(_ => {
-            res.json({ success: true })
-          })
+          .then(_ => res.status(500).json({ success: true }))
+          .catch(e => res.status(409).json({ success: false }))
       } catch (e) {
         res.status(400).json({ success: false })
       }
@@ -70,6 +72,6 @@ export default function (app, usersDB) {
   })
 
   app.get('/loggedIn', ensureLoggedIn('/401'), (req, res) => {
-    res.json({success: true, admin: req.user.admin})
+    res.json({ success: true, admin: req.user.admin })
   })
 }

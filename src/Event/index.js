@@ -5,7 +5,6 @@ import { Row, Container } from 'reactstrap'
 
 import EventForm from './EventForm'
 import VenueCard from './Venues'
-import Footer from '../common/Footer'
 
 import image1 from '../images/hotel.jpg'
 import image2 from '../images/hotel2.jpg'
@@ -74,7 +73,6 @@ class Event extends React.Component {
             ))}
           </Row>
         </Container>
-        <Footer />
       </Root>
     )
   }

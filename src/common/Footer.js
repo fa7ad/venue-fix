@@ -1,5 +1,3 @@
-import cx from 'classnames'
-
 import { Container, Row, Col } from 'reactstrap'
 import Link from 'react-router-dom/Link'
 
@@ -41,12 +39,13 @@ const SocialRow = styled(Row)`
 
 const StyHr = styled.hr`
   position: relative;
+  width: 100%;
   &:before {
     content: '';
     display: block;
     position: absolute;
-    width: 150vw;
-    left: -50%;
+    width: 100vw;
+    left: 0;
     height: 1px;
     background: #777;
   }
@@ -102,9 +101,10 @@ class Footer extends React.Component {
             <StyCol>
               <h3>About Us</h3>
               <p>
-                Without a doubt, Venue Fix is the best way to find & discover the greatest places in the city.
+                Without a doubt,
+                Venue Fix is the best way to find & discover the greatest places in the city.
               </p>
-              <StyLink to='/about-us' className={cx('btn', 'bg-light')}>
+              <StyLink to='/about-us' className='btn bg-light'>
                 See More <FaChevronRight />
               </StyLink>
             </StyCol>
@@ -135,9 +135,15 @@ class Footer extends React.Component {
                 <ListItem><FaEnvelope /> venuefix@gmail.com</ListItem>
                 <ListItem><FaPhone /> +8801xxxxxxxxx</ListItem>
               </List>
+
+              <StyLink to='/contact-us' className='btn bg-light my-2'>
+                See More <FaChevronRight />
+              </StyLink>
             </StyCol>
           </StyRow>
-          <StyHr />
+        </StyContainer>
+        <StyHr />
+        <StyContainer>
           <SocialRow>
             <StyCol>
               nothing

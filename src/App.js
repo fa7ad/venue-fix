@@ -4,6 +4,7 @@ import pathEx from 'path-to-regexp'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 import Navigation from './common/Navigation'
+import Footer from './common/Footer'
 import Home from './Home/'
 import Tips from './Tips/'
 import TipsModal from './Tips/Modal'
@@ -14,13 +15,62 @@ import AdminNav from './Admin/Nav'
 import FourOhFour from './FourOhFour/'
 import AboutUs from './AboutUs/'
 
+import ScrollTrigger from 'react-scroll-trigger'
 import { Provider } from 'mobx-react'
 import { IconContext } from 'react-icons'
+import { injectGlobal } from 'styled-components'
+
 import UiStore from './uiStore'
 
-import './App.css'
+import img from './images/img.jpg'
 import 'rodal/lib/rodal.css'
-import { lifecycle } from 'recompose'
+
+injectGlobal`
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  display: flex;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+#root {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page {
+  flex-basis: 100%;
+}
+
+.page.home {
+  background: url(${img});
+  background-size: 100% 60vmax;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.page.E404 {
+  display: flex;
+}
+
+.page.event, .page.tips, .page.admin, .page.about-us, .page.contact-us {
+  display: flex;
+  flex-direction: column;
+}
+
+.rdw-image-modal {
+  left: auto !important;
+  right: 5px;
+}
+
+.rdw-image-modal-upload-option-label {
+  overflow: hidden !important;
+}
+`
 
 // TODO: remove when package fixes bug
 // FIXME
@@ -89,24 +139,20 @@ const App = ({ location, history }) => {
             : <Navigation page={match} history={history} />)}
         <div className='modals' style={{ zIndex: 1080 }}>
           <TipsModal />
-          <Auth />
+          <Auth history={history} />
         </div>
         <Switch>
           {routes.map(props => <Route {...props} />)}
         </Switch>
         <Switch>
-          <Route
-            component={lifecycle({
-              componentDidMount () {
-                uiStore.navbar.toPage(match)
-                if (location.search && match === 'home') {
-                  const { auth } = qs.parse(location.search.slice(1) || '')
-                  if (auth) uiStore.auth.showModal()
-                }
-              }
-            })(p => <div data-what='navbar-color-fix' />)}
-          />
+          <Route component={genNavbarFix(location, match, uiStore)} />
         </Switch>
+        {!/E404|admin/.test(match) &&
+          <ScrollTrigger
+            onEnter={uiStore.navbar.toDark}
+            onExit={uiStore.navbar.toNone}
+            children={<Footer />}
+          />}
       </div>
     </Provider>
   )
@@ -115,6 +161,22 @@ const App = ({ location, history }) => {
 App.propTypes = {
   location: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
+}
+
+function genNavbarFix (location, match, ui) {
+  class NavbarFix extends React.Component {
+    render () {
+      return <div data-what='navbar-color-fix' />
+    }
+    componentDidMount () {
+      ui.navbar.toPage(match)
+      if (location.search && match === 'home') {
+        const { auth } = qs.parse(location.search.slice(1) || '')
+        if (auth) ui.auth.showModal()
+      }
+    }
+  }
+  return NavbarFix
 }
 
 export { routes }

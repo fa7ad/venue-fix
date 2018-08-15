@@ -21,6 +21,7 @@ class Register extends React.Component {
             id='name'
             placeholder='Name'
             required
+            value={this.state.name}
             onChange={this.valChange('name')}
           />
         </FormGroup>
@@ -32,6 +33,7 @@ class Register extends React.Component {
             id='phone'
             placeholder='Phone'
             required
+            value={this.state.phone}
             onChange={this.valChange('phone')}
           />
         </FormGroup>
@@ -42,6 +44,7 @@ class Register extends React.Component {
             name='address'
             id='address'
             placeholder='Address'
+            value={this.state.address}
             onChange={this.valChange('address')}
           />
         </FormGroup>
@@ -53,6 +56,7 @@ class Register extends React.Component {
             id='password'
             placeholder='password'
             required
+            value={this.state.password}
             onChange={this.valChange('password')}
           />
         </FormGroup>
@@ -68,10 +72,21 @@ class Register extends React.Component {
 
   createUser = e => {
     e.preventDefault()
-    req.api('/auth').json(this.state).put().json(e => {
-      if (e.success) this.props.history.push('/?auth=signin')
-      console.log(e)
-    })
+    req
+      .url('/auth')
+      .json(this.state)
+      .put()
+      .error(409, e =>
+        this.setState({
+          name: '',
+          phone: '',
+          address: '',
+          password: ''
+        })
+      )
+      .json(e => {
+        if (e.success) this.props.history.push('/?auth=signin')
+      })
   }
 
   static propTypes = {

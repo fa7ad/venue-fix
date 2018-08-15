@@ -1,6 +1,8 @@
 import 'isomorphic-fetch'
 import wretch from 'wretch'
 
-const f = wretch().options({ credentials: 'include', mode: 'cors' })
+const f = wretch()
+  .errorType('json')
+  .options({ credentials: 'include', mode: 'cors' })
 
 export default f

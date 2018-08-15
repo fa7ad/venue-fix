@@ -1,12 +1,12 @@
 import { Container } from 'reactstrap'
 
-import Footer from '../common/Footer'
-
 const Root = styled.div`
-  margin-top: 64px;
-  .content {
-    min-height: 584px;
-  }
+  margin-top: 10vh;
+
+  flex-basis: 100%
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 const AboutUs = p => (
@@ -49,7 +49,6 @@ const AboutUs = p => (
         Cheers to that!
       </p>
     </Container>
-    <Footer />
   </Root>
 )
 

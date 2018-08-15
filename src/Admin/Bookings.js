@@ -5,7 +5,7 @@ const b64 = !global.btoa ? str => Buffer.from(str).toString('base64') : window.b
 
 const lists = [
   {
-    date: new Date('2018.07.16'),
+    date: '2018.07.16',
     venue: 'dhaka',
     duration: '5hr',
     cateringItem: 'yes',
@@ -14,7 +14,7 @@ const lists = [
     address: 'comilla'
   },
   {
-    date: new Date('2018.07.16'),
+    date: '2018.07.16',
     venue: 'dhaka',
     duration: '5hr',
     cateringItem: 'yes',
@@ -23,7 +23,7 @@ const lists = [
     address: 'comilla'
   },
   {
-    date: new Date('2018.07.16'),
+    date: '2018.07.16',
     venue: 'dhaka',
     duration: '5hr',
     cateringItem: 'yes',
@@ -32,7 +32,7 @@ const lists = [
     address: 'comilla'
   },
   {
-    date: new Date('2018.07.16'),
+    date: '2018.07.16',
     venue: 'dhaka',
     duration: '5hr',
     cateringItem: 'yes',
@@ -59,8 +59,8 @@ const Bookings = p => (
       </thead>
       <tbody>
         {lists.map((el, idx) => (
-          <tr key={b64(+el.date + '__' + idx)}>
-            <td>{DateTime.fromJSDate(el.date).toISODate()}</td>
+          <tr key={b64(el.date + '__' + idx)}>
+            <td>{DateTime.fromString(el.date, 'yyyy.mm.dd').toISODate()}</td>
             <td>{el.venue}</td>
             <td>{el.duration}</td>
             <td>{el.cateringItem}</td>
