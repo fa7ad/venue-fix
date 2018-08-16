@@ -6,6 +6,7 @@ import ManageTips from './Tips'
 import Bookings from './Bookings'
 import Profile from './Profile'
 import Categories from './Categories'
+import Venues from './Venues'
 
 import Center from './Center'
 
@@ -68,6 +69,7 @@ class AdminPage extends React.Component {
             </Route>
             <Route path='/admin/profile'><Profile /></Route>
             <Route path='/admin/tags'><Categories /></Route>
+            <Route path='/admin/venues'><Venues /></Route>
           </Switch>
           <Switch>
             <Route path='/admin/:page' component={uiObserver(NavHack)} />

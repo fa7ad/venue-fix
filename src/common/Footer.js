@@ -58,6 +58,9 @@ const StyCol = styled(Col).attrs({
   svg {
     margin: auto 5px;
   }
+  h1, h2, h3 {
+    margin-top: 1.5em;
+  }
 `
 
 const StyLink = styled(Link)`

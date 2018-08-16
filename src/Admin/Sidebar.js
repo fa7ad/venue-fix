@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { Nav, NavItem as NavItm } from 'reactstrap'
 
 import { FaChartLine } from 'react-icons/fa'
-import { FiHome, FiList, FiInfo, FiUser } from 'react-icons/fi'
+import { FiHome, FiList, FiInfo, FiUser, FiMapPin } from 'react-icons/fi'
 import { TiTags } from 'react-icons/ti'
 
 import { injObser } from '../uiStore'
@@ -58,6 +58,12 @@ const itemsList = [
     caption: 'Categories',
     key: 'tags',
     icon: <TiTags />
+  },
+  {
+    href: '/admin/venues',
+    caption: 'Venues',
+    key: 'venues',
+    icon: <FiMapPin />
   },
   {
     href: '/admin/bookings',
