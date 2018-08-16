@@ -6,6 +6,8 @@ import { Row, Container } from 'reactstrap'
 import EventForm from './EventForm'
 import VenueCard from './Venues'
 
+import req from '../request'
+
 import image1 from '../images/hotel.jpg'
 import image2 from '../images/hotel2.jpg'
 import { uiObserver } from '../uiStore'
@@ -43,7 +45,8 @@ const testData = [
 
 class Event extends React.Component {
   state = {
-    form: {}
+    form: {},
+    tags: []
   }
 
   render () {
@@ -55,6 +58,7 @@ class Event extends React.Component {
           onChange={form => {
             ui.form.set(form)
           }}
+          tags={this.state.tags}
         />
         <Container>
           <Row style={{ minHeight: '50vh' }}>
@@ -88,6 +92,14 @@ class Event extends React.Component {
         v.tags.map(x => x.toLowerCase()).indexOf(event) !== -1 &&
         guests <= v.capacity
     )
+  }
+
+  componentDidMount () {
+    req
+      .url('/tags')
+      .get()
+      .json(({ categories: tags }) => this.setState({ tags }))
+      .catch(e => console.error(e))
   }
 
   static propTypes = {

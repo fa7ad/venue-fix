@@ -7,6 +7,8 @@ import 'flatpickr/dist/themes/material_blue.css'
 
 import Option from '../common/LowerOption'
 
+import req from '../request'
+
 const RootContainer = styled(Container)`
   min-height: 50vh;
   display: flex;
@@ -31,30 +33,23 @@ const Input = styled(Inp).attrs({
 
 class SearchSection extends React.Component {
   state = {
-    date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate()
+    date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
+    categories: []
   }
 
   render () {
     return (
       <RootContainer>
         <Form className={'justify-content-between row'} action='/event'>
-          <Input
-            name='location'
-            type='select'
-            placeholder='City'
-          >
+          <Input name='location' type='select' placeholder='City'>
             <Option>Dhaka</Option>
             <Option>Comilla</Option>
             <Option>Chittagong</Option>
           </Input>
-          <Input
-            name='event'
-            type='select'
-            placeholder='Type Of Event'
-          >
-            <Option>Wedding</Option>
-            <Option>Conference</Option>
-            <Option>Meeting</Option>
+          <Input name='event' type='select' placeholder='Category'>
+            {this.state.categories.map(e => (
+              <Option key={e._id}>{e.name}</Option>
+            ))}
           </Input>
           <Flatpickr
             data-enable-time
@@ -70,10 +65,7 @@ class SearchSection extends React.Component {
             }}
           />
           <input type='hidden' name='date' value={Number(this.state.date)} />
-          <Input
-            name='guests'
-            placeholder='Guests'
-          />
+          <Input name='guests' placeholder='Guests' />
           <Button color='primary' className='col-sm-2'>
             Search
           </Button>
@@ -81,5 +73,14 @@ class SearchSection extends React.Component {
       </RootContainer>
     )
   }
+
+  componentDidMount () {
+    req
+      .url('/tags')
+      .get()
+      .json(({ categories }) => this.setState({ categories }))
+      .catch(e => console.error(e))
+  }
 }
+
 export default SearchSection

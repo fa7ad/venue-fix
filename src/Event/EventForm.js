@@ -45,11 +45,8 @@ class EventForm extends React.Component {
 
   stateSet = state =>
     this.setState(prev => {
-      // expecting functional setState or just an Object
       const next = state instanceof Function ? state(prev) : state
-      // merge next state to previous and call onChange
       this.props.onChange(Object.assign(prev, next))
-      // return the next state for react to merge
       return next
     })
 
@@ -88,7 +85,7 @@ class EventForm extends React.Component {
               />
             </Col>
             <Col>
-              <Label for='event'>Event Type</Label>
+              <Label for='event'>Category</Label>
               <Input
                 type='select'
                 id='event'
@@ -96,9 +93,9 @@ class EventForm extends React.Component {
                 value={this.state.event}
                 onChange={valChange('event')}
               >
-                <Option>Conference</Option>
-                <Option>Wedding</Option>
-                <Option>Meeting</Option>
+                {this.props.tags.map(e => (
+                  <Option key={e._id}>{e.name}</Option>
+                ))}
               </Input>
             </Col>
             <Col>
@@ -153,7 +150,8 @@ class EventForm extends React.Component {
 
   static propTypes = {
     initialData: PropTypes.object,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    tags: PropTypes.arrayOf(PropTypes.object)
   }
 }
 export default EventForm

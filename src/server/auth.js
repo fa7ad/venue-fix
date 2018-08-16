@@ -60,7 +60,7 @@ export default function (app, usersDB) {
           .then(hash => ({ _id, password: hash, name, address, admin }))
           .then(user => usersDB.put(user))
           .then(_ => res.status(500).json({ success: true }))
-          .catch(e => res.status(409).json({ success: false }))
+          .catch(_ => res.status(409).json({ success: false }))
       } catch (e) {
         res.status(400).json({ success: false })
       }

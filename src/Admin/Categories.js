@@ -107,8 +107,8 @@ class Categories extends React.Component {
     req
       .url('/tags')
       .get()
-      .unauthorized(_ => this.props.ui.auth.showModal())
       .json(({ categories }) => this.setState({ categories }))
+      .catch(_ => this.props.ui.auth.showModal())
   }
 
   addCategory = name =>
