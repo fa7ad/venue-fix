@@ -11,19 +11,20 @@ const ImageUp = styled(ImgUp)`
   }
 `
 
-function getBase64 (file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => resolve(reader.result)
-    reader.onerror = error => reject(error)
-  })
-}
+// function getBase64 (file) {
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader()
+//     reader.readAsDataURL(file)
+//     reader.onload = () => resolve(reader.result)
+//     reader.onerror = error => reject(error)
+//   })
+// }
 
 class VenuesView extends React.Component {
   state = {
     image: [],
-    title: ''
+    title: '',
+    capacity: 0
   }
 
   render () {
@@ -49,6 +50,16 @@ class VenuesView extends React.Component {
                 name='title'
                 onChange={this.valChange('title')}
                 value={this.state.title}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor='capacity'>Capacity</Label>
+              <Input
+                id='capacity'
+                name='capacity'
+                type='number'
+                onChange={this.valChange('capacity')}
+                value={this.state.capacity}
               />
             </FormGroup>
           </Col>
