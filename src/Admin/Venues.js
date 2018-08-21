@@ -30,7 +30,7 @@ class VenuesView extends React.Component {
   render () {
     return (
       <Container fluid>
-        <h1 className='my-2'>Venues</h1>
+        <h1 className='my-4'>Venues</h1>
         <Jumbotron>
           <Col sm='6'>
             <h1>Add Venue</h1>

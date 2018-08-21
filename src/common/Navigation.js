@@ -13,7 +13,7 @@ import {
 } from 'reactstrap'
 
 import NavItem from './NavItem'
-import { uiObserver } from '../uiStore'
+import {inObser} from '../store/utils'
 import req from '../request'
 
 import logo from './logo.svg'
@@ -139,4 +139,4 @@ class Navigation extends React.Component {
   }
 }
 
-export default uiObserver(Navigation)
+export default inObser(['ui'], Navigation)

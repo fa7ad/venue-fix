@@ -7,10 +7,10 @@ import EventForm from './EventForm'
 import VenueCard from './Venues'
 
 import req from '../request'
+import { inObser } from '../store/utils'
 
 import image1 from '../images/hotel.jpg'
 import image2 from '../images/hotel2.jpg'
-import { uiObserver } from '../uiStore'
 
 const Root = styled.div.attrs({
   className: p => cx('root', p.className)
@@ -107,4 +107,4 @@ class Event extends React.Component {
     ui: PropTypes.object
   }
 }
-export default uiObserver(Event)
+export default inObser(['ui'], Event)

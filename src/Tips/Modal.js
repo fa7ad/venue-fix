@@ -3,7 +3,7 @@ import renderHTML from 'react-render-html'
 import { Badge } from 'reactstrap'
 import { DateTime } from 'luxon'
 
-import { uiObserver } from '../uiStore'
+import {inObser} from '../store/utils'
 
 const StyRodal = styled(Rodal)`
   display: flex;
@@ -44,4 +44,4 @@ TipsModal.propTypes = {
   ui: PropTypes.object.isRequired
 }
 
-export default uiObserver(TipsModal)
+export default inObser(['ui'], TipsModal)

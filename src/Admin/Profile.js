@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 
 import Center from './Center'
 
-import { uiObserver } from '../uiStore'
+import { inObser } from '../store/utils'
 import req from '../request'
 
 class ProfileFormDumb extends React.Component {
@@ -86,7 +86,7 @@ class ProfileFormDumb extends React.Component {
   }
 }
 
-const ProfileForm = uiObserver(ProfileFormDumb)
+const ProfileForm = inObser(['ui'], ProfileFormDumb)
 
 class Profile extends React.Component {
   state = {
@@ -113,4 +113,4 @@ class Profile extends React.Component {
   }
 }
 
-export default uiObserver(Profile)
+export default inObser(['ui'], Profile)

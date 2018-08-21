@@ -10,7 +10,7 @@ import Venues from './Venues'
 
 import Center from './Center'
 
-import { uiObserver } from '../uiStore'
+import { inObser } from '../store/utils'
 import req from '../request'
 
 import ReactLoading from 'react-loading'
@@ -60,7 +60,7 @@ class AdminPage extends React.Component {
         <Sidebar active={dash.activePage} />
         <Col md='10' className='px-0'>
           <Switch>
-            <Route path='/admin/' exact component={uiObserver(TempDash)} />
+            <Route path='/admin/' exact component={inObser(['ui'], TempDash)} />
             <Route path='/admin/tips'>
               <ManageTips />
             </Route>
@@ -72,7 +72,7 @@ class AdminPage extends React.Component {
             <Route path='/admin/venues'><Venues /></Route>
           </Switch>
           <Switch>
-            <Route path='/admin/:page' component={uiObserver(NavHack)} />
+            <Route path='/admin/:page' component={inObser(['ui'], NavHack)} />
           </Switch>
         </Col>
       </FluidRoot>
@@ -99,4 +99,4 @@ class AdminPage extends React.Component {
   }
 }
 
-export default uiObserver(AdminPage)
+export default inObser(['ui'], AdminPage)

@@ -1,7 +1,6 @@
 import { Table } from 'reactstrap'
-import { DateTime } from 'luxon'
 
-const b64 = !global.btoa ? str => Buffer.from(str).toString('base64') : window.btoa
+const b64 = global.btoa || (str => Buffer.from(str).toString('base64'))
 
 const lists = [
   {
@@ -42,6 +41,25 @@ const lists = [
   }
 ]
 
+const Booking = ({ date, venue, cateringItem, phone, address }) => (
+  <tr>
+    <td>{date}</td>
+    <td>{venue}</td>
+    <td>{cateringItem}</td>
+    <td>{name}</td>
+    <td>{phone}</td>
+    <td>{address}</td>
+  </tr>
+)
+
+Booking.propTypes = {
+  date: PropTypes.string,
+  venue: PropTypes.string,
+  cateringItem: PropTypes.string,
+  phone: PropTypes.string,
+  address: PropTypes.string
+}
+
 const Bookings = p => (
   <div className='px-2'>
     <h2 className='py-2 border-bottom'>Bookings</h2>
@@ -50,7 +68,6 @@ const Bookings = p => (
         <tr>
           <th scope='col'>Date</th>
           <th scope='col'>Venue</th>
-          <th scope='col'>Duration</th>
           <th scope='col'>Catering?</th>
           <th scope='col'>Name</th>
           <th scope='col'>Phone</th>
@@ -59,15 +76,7 @@ const Bookings = p => (
       </thead>
       <tbody>
         {lists.map((el, idx) => (
-          <tr key={b64(el.date + '__' + idx)}>
-            <td>{DateTime.fromString(el.date, 'yyyy.mm.dd').toISODate()}</td>
-            <td>{el.venue}</td>
-            <td>{el.duration}</td>
-            <td>{el.cateringItem}</td>
-            <td>{el.name}</td>
-            <td>{el.phone}</td>
-            <td>{el.address}</td>
-          </tr>
+          <Booking key={b64(el.date.concat(idx, idx))} {...el} />
         ))}
       </tbody>
     </Table>

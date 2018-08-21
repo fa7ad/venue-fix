@@ -13,7 +13,7 @@ import ReactLoading from 'react-loading'
 
 import Center from './Center'
 import req from '../request'
-import { uiObserver } from '../uiStore'
+import { inObser } from '../store/utils'
 
 const Section = styled.section`
   margin: 2em 0;
@@ -29,7 +29,7 @@ class CategoriesView extends React.Component {
         <h1 className='my-4'>Categories</h1>
         <Jumbotron className='form'>
           <Col sm='6'>
-            <h3>Add a new category</h3>
+            <h1>Add a new category</h1>
             <FormGroup>
               <Label for='cat'>Category name:</Label>
               <Input
@@ -123,4 +123,4 @@ class Categories extends React.Component {
   }
 }
 
-export default uiObserver(Categories)
+export default inObser(['ui'], Categories)

@@ -12,7 +12,7 @@ import {
   Button
 } from 'reactstrap'
 
-import { uiObserver } from '../uiStore'
+import {inObser} from '../store/utils'
 
 const toText = function (html) {
   const text = striptags(html)
@@ -126,4 +126,4 @@ hello <b>World</b>
 const { tips } = TipsPage
 export { tips, isTip, TipCard }
 
-export default uiObserver(TipsPage)
+export default inObser(['ui'], TipsPage)

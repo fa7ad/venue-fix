@@ -3,7 +3,7 @@ import Rodal from 'rodal'
 import Login from './Login'
 import Register from './Register'
 
-import { uiObserver } from '../uiStore'
+import { inObser } from '../store/utils'
 
 const StyRodal = styled(Rodal)`
   display: flex;
@@ -36,4 +36,4 @@ Auth.propTypes = {
   history: PropTypes.object
 }
 
-export default uiObserver(Auth)
+export default inObser(['ui'], Auth)

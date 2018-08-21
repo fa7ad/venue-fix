@@ -1,7 +1,9 @@
 import qs from 'qs'
 import cx from 'classnames'
 import pathEx from 'path-to-regexp'
+import { Provider } from 'mobx-react'
 import { Route, Switch, withRouter } from 'react-router-dom'
+import ScrollTrigger from 'react-scroll-trigger'
 
 import Navigation from './common/Navigation'
 import Footer from './common/Footer'
@@ -16,68 +18,11 @@ import FourOhFour from './FourOhFour/'
 import AboutUs from './AboutUs/'
 import ContactUs from './ContactUs/'
 
-import ScrollTrigger from 'react-scroll-trigger'
-import { Provider } from 'mobx-react'
-import { IconContext } from 'react-icons'
-import { injectGlobal } from 'styled-components'
+import { UI } from './store/'
+import loadStyles from './styles'
+loadStyles()
 
-import UiStore from './uiStore'
-
-import img from './images/img.jpg'
-import 'rodal/lib/rodal.css'
-
-injectGlobal`
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  display: flex;
-  min-height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
-}
-
-#root {
-  flex-basis: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.page {
-  flex-basis: 100%;
-}
-
-.page.home {
-  background: url(${img});
-  background-size: 100% 60vmax;
-  background-position: center top;
-  background-repeat: no-repeat;
-}
-
-.page.E404 {
-  display: flex;
-}
-
-.page.event, .page.tips, .page.admin, .page.about-us, .page.contact-us {
-  display: flex;
-  flex-direction: column;
-}
-
-.rdw-image-modal {
-  left: auto !important;
-  right: 5px;
-}
-
-.rdw-image-modal-upload-option-label {
-  overflow: hidden !important;
-}
-`
-
-// TODO: remove when package fixes bug
-// FIXME
-global.IconContext = IconContext
-
-const uiStore = UiStore.create({
+const uiStore = UI.create({
   navbar: {},
   auth: {},
   dash: { profile: {} },
@@ -131,6 +76,12 @@ const routes = [
   }
 ]
 
+const Modals = styled.div`
+&&& {
+  z-index: 1080;
+}
+`
+
 const App = ({ location, history }) => {
   const [{ key: match }] = routes.filter(r =>
     pathEx(r.path || /.*/, []).test(location.pathname)
@@ -139,14 +90,18 @@ const App = ({ location, history }) => {
   return (
     <Provider ui={uiStore}>
       <div className={cx('page', match)}>
-        {match !== 'E404' &&
-          (match === 'admin'
-            ? <AdminNav history={history} />
-            : <Navigation page={match} history={history} />)}
-        <div className='modals' style={{ zIndex: 1080 }}>
+        <Switch>
+          <Route path='/admin/:page?'>
+            <AdminNav history={history} />
+          </Route>
+          <Route>
+            {match !== 'E404' && <Navigation page={match} history={history} />}
+          </Route>
+        </Switch>
+        <Modals>
           <TipsModal />
           <Auth history={history} />
-        </div>
+        </Modals>
         <Switch>
           {routes.map(props => <Route {...props} />)}
         </Switch>

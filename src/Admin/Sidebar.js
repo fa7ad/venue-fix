@@ -8,14 +8,13 @@ import { FaChartLine } from 'react-icons/fa'
 import { FiHome, FiList, FiInfo, FiUser, FiMapPin } from 'react-icons/fi'
 import { TiTags } from 'react-icons/ti'
 
-import { injObser } from '../uiStore'
+import { inObser } from '../store/utils'
 
 const NavItem = styled(NavItm).attrs({
   className: p =>
     cx(
-      { 'text-dark': !p.active },
-      { 'text-light': p.active },
-      'btn',
+      `text-${p.active ? 'light' : 'dark'}`,
+      { 'bg-dark': p.active },
       p.className
     )
 })`
@@ -23,14 +22,15 @@ const NavItem = styled(NavItm).attrs({
   align-items: center;
   padding: 1em .5em;
   width: calc(100% + 1em);
+
   svg {
     margin-right: 1em;
     width: 1.5em;
     height: 1.5em;
   }
 
-  &.active {
-    background-color: #32383e;
+  &, &:hover, &:active {
+    text-decoration: none;
   }
 `
 
@@ -102,4 +102,4 @@ Sidebar.propTypes = {
   active: PropTypes.string
 }
 
-export default injObser('ui')(Sidebar)
+export default inObser(['ui'], Sidebar)

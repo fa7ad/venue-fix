@@ -1,6 +1,6 @@
 import SearchSection from './SearchSection'
 import Category from './Category'
-import { uiObserver } from '../uiStore'
+import { inObser } from '../store/utils'
 
 const Home = ({ history, ...p }) => (
   <div className='root'>
@@ -13,4 +13,4 @@ Home.propTypes = {
   history: PropTypes.object
 }
 
-export default uiObserver(Home)
+export default inObser(['ui'], Home)
