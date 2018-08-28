@@ -1,8 +1,8 @@
 import { types } from 'mobx-state-tree'
-const { model, optional, string, array, boolean, number } = types
+const { model, optional, string, array, boolean, number, Date: DateX } = types
 
 const Form = model('EventForm', {
-  date: optional(Date, new Date()),
+  date: optional(DateX, new Date()),
   location: optional(string, ''),
   guests: optional(string, '0'),
   event: optional(string, ''),

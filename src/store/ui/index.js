@@ -8,7 +8,7 @@ import Dashboard from './dash/'
 const { model, late } = types
 
 const UI = function (data) {
-  model('UI', {
+  return model('UI', {
     navbar: Navbar,
     auth: Auth,
     dash: Dashboard,

@@ -1,10 +1,10 @@
 import { types } from 'mobx-state-tree'
 
-const { model, optional, string, Date } = types
+const { model, optional, string, Date: DateX } = types
 
 const Tip = model('Tip', {
   heading: optional(string, ''),
-  time: optional(Date, new Date()),
+  time: optional(DateX, new Date()),
   body: optional(string, '')
 }).actions(self => ({
   set (tip) {

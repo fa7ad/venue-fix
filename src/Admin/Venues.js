@@ -40,7 +40,7 @@ class VenuesView extends React.Component {
               buttonText='Choose image'
               onChange={this.onImgDrop}
               imgExtension={['.jpg']}
-              maxFileSize={2097152}
+              maxFileSize={2.1 * 1024 ** 2}
               label='Max file size: 2mb, accepted: jpg'
             />
             <FormGroup>
