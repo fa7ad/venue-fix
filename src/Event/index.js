@@ -21,7 +21,7 @@ const Root = styled.div.attrs({
 const testData = [
   {
     name: 'BICC',
-    tags: ['Conference'],
+    tags: ['Conference Halls'],
     image: image1,
     details: 'this is a really crap venue',
     key: 'bicc-venue-001',

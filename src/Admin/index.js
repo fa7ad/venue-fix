@@ -69,7 +69,7 @@ class AdminPage extends React.Component {
             </Route>
             <Route path='/admin/profile'><Profile /></Route>
             <Route path='/admin/tags'><Categories /></Route>
-            <Route path='/admin/venues'><Venues /></Route>
+            <Route path='/admin/venues'><Venues ui={ui} /></Route>
           </Switch>
           <Switch>
             <Route path='/admin/:page' component={inObser(['ui'], NavHack)} />
@@ -90,7 +90,7 @@ class AdminPage extends React.Component {
         })
         .json(data => data.admin)
     checkLogin().then(show => this.setState({ show }))
-    const poll = setInterval(checkLogin, 2500)
+    const poll = setInterval(checkLogin, 3.3e3)
   }
 
   static propTypes = {
