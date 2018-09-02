@@ -37,7 +37,8 @@ class CategoriesView extends React.Component {
                 id='cat'
                 value={this.state.catName}
                 onChange={e =>
-                  this.setState({ catName: e.currentTarget.value })}
+                  this.setState({ catName: e.currentTarget.value })
+                }
               />
             </FormGroup>
             <Button
@@ -47,8 +48,7 @@ class CategoriesView extends React.Component {
                   this.props.onAdd(p.catName)
                   return { catName: '' }
                 })
-              }}
-            >
+              }}>
               Add
             </Button>
           </Col>
@@ -59,8 +59,7 @@ class CategoriesView extends React.Component {
             {this.props.tags.map(t => (
               <ListGroupItem
                 key={t._id}
-                className='d-flex justify-content-between align-items-center'
-              >
+                className='d-flex justify-content-between align-items-center'>
                 <span>{t.name}</span>
                 <Button color='danger' onClick={this.props.deleteRecord(t._id)}>
                   Delete
@@ -90,13 +89,17 @@ class Categories extends React.Component {
   }
 
   render () {
-    return this.state.categories
-      ? <CategoriesView
+    return this.state.categories ? (
+      <CategoriesView
         tags={[].concat(this.state.categories)}
         onAdd={this.addCategory}
         deleteRecord={this.deleteById}
       />
-      : <Center><ReactLoading type='spin' color='#373a3c' /></Center>
+    ) : (
+      <Center>
+        <ReactLoading type='spin' color='#373a3c' />
+      </Center>
+    )
   }
 
   componentDidMount () {
@@ -112,10 +115,18 @@ class Categories extends React.Component {
   }
 
   addCategory = name =>
-    req.url('/tags').json({ name }).post().json(res => this.updateData())
+    req
+      .url('/tags')
+      .json({ name })
+      .post()
+      .json(res => this.updateData())
 
   deleteById = id => e => {
-    req.url('/tags').json({ id }).delete().json(res => this.updateData())
+    req
+      .url('/tags')
+      .json({ id })
+      .delete()
+      .json(res => this.updateData())
   }
 
   static propTypes = {

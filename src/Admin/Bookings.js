@@ -1,51 +1,51 @@
-import { Table } from 'reactstrap'
+import { Table, Container } from 'reactstrap'
 
 const b64 = global.btoa || (str => Buffer.from(str).toString('base64'))
 
 const lists = [
   {
     date: '2018.07.16',
-    venue: 'dhaka',
+    venue: 'venue-awesome',
     duration: '5hr',
-    cateringItem: 'yes',
+    catering: 'yes',
     name: 'fahad',
     phone: '10255',
     address: 'comilla'
   },
   {
     date: '2018.07.16',
-    venue: 'dhaka',
+    venue: 'venue-awesome',
     duration: '5hr',
-    cateringItem: 'yes',
+    catering: 'yes',
     name: 'fahad',
     phone: '10255',
     address: 'comilla'
   },
   {
     date: '2018.07.16',
-    venue: 'dhaka',
+    venue: 'venue-awesome',
     duration: '5hr',
-    cateringItem: 'yes',
+    catering: 'yes',
     name: 'fahad',
     phone: '10255',
     address: 'comilla'
   },
   {
     date: '2018.07.16',
-    venue: 'dhaka',
+    venue: 'venue-awesome',
     duration: '5hr',
-    cateringItem: 'yes',
+    catering: 'yes',
     name: 'fahad',
     phone: '10255',
     address: 'comilla'
   }
 ]
 
-const Booking = ({ date, venue, cateringItem, phone, address }) => (
+const Booking = ({ date, venue, catering, phone, address, name }) => (
   <tr>
     <td>{date}</td>
     <td>{venue}</td>
-    <td>{cateringItem}</td>
+    <td>{catering}</td>
     <td>{name}</td>
     <td>{phone}</td>
     <td>{address}</td>
@@ -55,14 +55,15 @@ const Booking = ({ date, venue, cateringItem, phone, address }) => (
 Booking.propTypes = {
   date: PropTypes.string,
   venue: PropTypes.string,
-  cateringItem: PropTypes.string,
+  name: PropTypes.string,
+  catering: PropTypes.string,
   phone: PropTypes.string,
   address: PropTypes.string
 }
 
 const Bookings = p => (
-  <div className='px-2'>
-    <h2 className='py-2 border-bottom'>Bookings</h2>
+  <Container fluid>
+    <h1 className='my-4'>Bookings</h1>
     <Table striped dark responsive>
       <thead>
         <tr>
@@ -76,10 +77,10 @@ const Bookings = p => (
       </thead>
       <tbody>
         {lists.map((el, idx) => (
-          <Booking key={b64(el.date.concat(idx, idx))} {...el} />
+          <Booking key={b64(el.date.concat(idx))} {...el} />
         ))}
       </tbody>
     </Table>
-  </div>
+  </Container>
 )
 export default Bookings

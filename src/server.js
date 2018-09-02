@@ -36,10 +36,11 @@ app.use(bodyParser.json())
 app.use(
   session({
     secret: 'venue is fixed',
-    resave: false,
     saveUninitialized: false,
+    resave: true,
+    rolling: true,
     cookie: {
-      maxAge: 6e5
+      maxAge: 30e3
     },
     store: new PouchSession(PouchDB)
   })

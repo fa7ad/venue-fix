@@ -12,7 +12,7 @@ import {
   Button
 } from 'reactstrap'
 
-import {inObser} from '../store/utils'
+import { inObser } from '../store/utils'
 
 const toText = function (html) {
   const text = striptags(html)

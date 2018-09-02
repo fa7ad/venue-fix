@@ -1,6 +1,5 @@
 let bs4 =
-  '<link href="//cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/cosmo/bootstrap.min.css" rel="stylesheet" />'
-bs4 = ''
+  '<link href="https://bootswatch.com/4/cosmo/bootstrap.min.css" rel="stylesheet" />'
 
 function render (prodEnv = false, { assets, styleTags, markup }) {
   return `
@@ -13,8 +12,14 @@ function render (prodEnv = false, { assets, styleTags, markup }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   ${bs4}
 
-  ${assets.client.css ? `<link rel="stylesheet" href="${assets.client.css}">` : ''}
-  <script src="${assets.client.js}" defer ${prodEnv ? 'crossorigin' : ''}></script>
+${
+  assets.client.css
+    ? `<link rel="stylesheet" href="${assets.client.css}">`
+    : ''
+}
+  <script src="${assets.client.js}" defer ${
+  prodEnv ? 'crossorigin' : ''
+}></script>
   ${styleTags}
 </head>
 <body>

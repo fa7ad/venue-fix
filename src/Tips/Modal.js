@@ -3,7 +3,7 @@ import renderHTML from 'react-render-html'
 import { Badge } from 'reactstrap'
 import { DateTime } from 'luxon'
 
-import {inObser} from '../store/utils'
+import { inObser } from '../store/utils'
 
 const StyRodal = styled(Rodal)`
   display: flex;

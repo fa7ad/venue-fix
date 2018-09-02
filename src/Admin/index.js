@@ -1,5 +1,8 @@
-import { Col } from 'reactstrap'
+import { Col, Container } from 'reactstrap'
 import { Switch, Route } from 'react-router-dom'
+import ReactLoading from 'react-loading'
+// import cx from 'classnames'
+import { spring, AnimatedSwitch } from 'react-router-transition'
 
 import Sidebar from './Sidebar'
 import ManageTips from './Tips'
@@ -13,7 +16,36 @@ import Center from './Center'
 import { inObser } from '../store/utils'
 import req from '../request'
 
-import ReactLoading from 'react-loading'
+const mapStyles = ({ opacity, scale, ...css }) => ({
+  ...css,
+  opacity: opacity,
+  transform: `scale(${scale})`,
+  flexBasis: '100%'
+})
+
+const bounce = val =>
+  spring(val, {
+    stiffness: 300,
+    damping: 20
+  })
+
+const bounceTransition = {
+  atEnter: {
+    opacity: 0,
+    scale: 1.2,
+    order: 1
+  },
+  atLeave: {
+    opacity: bounce(0),
+    scale: bounce(0.8),
+    order: 3
+  },
+  atActive: {
+    opacity: bounce(1),
+    scale: bounce(1),
+    order: 2
+  }
+}
 
 const FluidRoot = styled.div`
   @media (min-width: 768px) {
@@ -23,13 +55,13 @@ const FluidRoot = styled.div`
 
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  overflow: hidden;
 `
 
 const TempDash = p => (
-  <div>
-    <h2 className='d-flex border-bottom py-2'>Dashboard</h2>
-  </div>
+  <Container fluid>
+    <h1 className='my-4'>Dashboard</h1>
+  </Container>
 )
 
 class NavHack extends React.Component {
@@ -49,34 +81,48 @@ class NavHack extends React.Component {
 
 class AdminPage extends React.Component {
   state = {
-    show: false
+    show: false,
+    tips: false
   }
 
   render () {
     const { ui } = this.props
     const { dash } = ui
-    return this.state.show
-      ? <FluidRoot>
+    return this.state.show ? (
+      <FluidRoot>
         <Sidebar active={dash.activePage} />
         <Col md='10' className='px-0'>
-          <Switch>
+          <AnimatedSwitch
+            {...bounceTransition}
+            mapStyles={mapStyles}
+            className='d-flex flex-column'>
             <Route path='/admin/' exact component={inObser(['ui'], TempDash)} />
-            <Route path='/admin/tips'>
-              <ManageTips />
-            </Route>
             <Route path='/admin/bookings'>
               <Bookings />
             </Route>
-            <Route path='/admin/profile'><Profile /></Route>
-            <Route path='/admin/tags'><Categories /></Route>
-            <Route path='/admin/venues'><Venues ui={ui} /></Route>
-          </Switch>
+            <Route path='/admin/profile'>
+              <Profile />
+            </Route>
+            <Route path='/admin/tags'>
+              <Categories />
+            </Route>
+            <Route path='/admin/venues'>
+              <Venues ui={ui} />
+            </Route>
+            <Route path='/admin/tips'>
+              <ManageTips routeCtx={this} />
+            </Route>
+          </AnimatedSwitch>
           <Switch>
             <Route path='/admin/:page' component={inObser(['ui'], NavHack)} />
           </Switch>
         </Col>
       </FluidRoot>
-      : <Center><ReactLoading type='spin' color='#373a3c' /></Center>
+    ) : (
+      <Center>
+        <ReactLoading type='spin' color='#373a3c' />
+      </Center>
+    )
   }
 
   componentDidMount () {

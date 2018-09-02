@@ -13,7 +13,7 @@ import {
 } from 'reactstrap'
 
 import NavItem from './NavItem'
-import {inObser} from '../store/utils'
+import { inObser } from '../store/utils'
 import req from '../request'
 
 import logo from './logo.svg'

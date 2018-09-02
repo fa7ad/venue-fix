@@ -1,5 +1,5 @@
 import Rodal from 'rodal'
-import { Button, Row, Container, Input } from 'reactstrap'
+import { Button, Container, Input, ListGroup, ListGroupItem } from 'reactstrap'
 import { EditorState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import { convertFromHTML, convertToHTML } from 'draft-convert'
@@ -45,7 +45,7 @@ const TipsEditor = ({
       onChange={onHeadingChange}
       value={heading}
     />
-    {visible &&
+    {visible && (
       <Editor
         editorState={state}
         wrapperClassName='bg-white'
@@ -63,15 +63,19 @@ const TipsEditor = ({
               })
           }
         }}
-      />}
+      />
+    )}
     <div className='py-2'>
       <Button
         color={updating ? 'warning' : 'danger'}
         onClick={e =>
-          p[updating ? 'onUpdate' : 'onDone'](updating).then(onClose)}
+          p[updating ? 'onUpdate' : 'onDone'](updating).then(onClose)
+        }
         children={updating ? 'Update' : 'Add'}
       />
-      <Button color='primary' onClick={onClose}>Close</Button>
+      <Button color='primary' onClick={onClose}>
+        Close
+      </Button>
     </div>
   </StyRodal>
 )
@@ -102,10 +106,11 @@ class ManageTips extends React.Component {
 
   render () {
     return (
-      <div className='px-2'>
-        <h2 className='py-2 border-bottom'>Tips</h2>
+      <Container fluid>
+        <h1 className='my-4'>Tips</h1>
         <Button onClick={e => this.setState({ editor: true })}>
-          <IoMdCreate />&nbsp;New Tip
+          <IoMdCreate />
+          &nbsp;New Tip
         </Button>
         <TipsEditor
           state={this.state.editorState}
@@ -114,33 +119,47 @@ class ManageTips extends React.Component {
           onEdit={this.editorChange}
           heading={this.state.heading}
           onDone={async e =>
-            console.log(this.state.heading, this.editorToHTML())}
-          onUpdate={async id => console.log(this.state.heading, this.editorToHTML())}
+            console.log(this.state.heading, this.editorToHTML())
+          }
+          onUpdate={async id =>
+            console.log(this.state.heading, this.editorToHTML())
+          }
           updating={this.state.updating}
-          onHeadingChange={e => this.setState({heading: e.currentTarget.value})}
+          onHeadingChange={e =>
+            this.setState({ heading: e.currentTarget.value })
+          }
         />
-        <Container fluid>
-          {tips.map((data, idx) => (
-            <Row key={idx}>
-              <strong>{data.time.toLocaleString()}</strong>
-              {data.heading}
-              <Button
-                onClick={e =>
-                  this.markupToEditor(data.body).then(e =>
-                    this.setState({
-                      editor: true,
-                      updating: 'item_' + idx,
-                      heading: data.heading
-                    })
-                  )}
-              >
-                Edit
-              </Button>
-              <Button>Delete</Button>
-            </Row>
+        <ListGroup>
+          {tips.map((t, idx) => (
+            <ListGroupItem
+              key={idx}
+              className='d-flex justify-content-between align-items-center'>
+              <div>
+                <span className='text-primary'>
+                  {t.time.toLocaleDateString()}
+                </span>
+                <br />
+                {t.heading}
+              </div>
+              <div>
+                <Button
+                  onClick={e =>
+                    this.markupToEditor(t.body).then(e =>
+                      this.setState({
+                        editor: true,
+                        updating: 'item_' + idx,
+                        heading: t.heading
+                      })
+                    )
+                  }>
+                  Edit
+                </Button>
+                <Button color='danger'>Delete</Button>
+              </div>
+            </ListGroupItem>
           ))}
-        </Container>
-      </div>
+        </ListGroup>
+      </Container>
     )
   }
 

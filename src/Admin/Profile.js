@@ -1,11 +1,24 @@
+import {
+  Alert,
+  Input,
+  Label as Lbl,
+  FormGroup,
+  Button,
+  Container,
+  Jumbotron
+} from 'reactstrap'
 import ReactLoading from 'react-loading'
-import { Alert, Input, Label, FormGroup, Button } from 'reactstrap'
 import bcrypt from 'bcryptjs'
+import cx from 'classnames'
 
 import Center from './Center'
 
 import { inObser } from '../store/utils'
 import req from '../request'
+
+const Label = styled(Lbl).attrs({
+  className: p => cx(p.className, 'col-sm-6', 'px-0')
+})``
 
 class ProfileFormDumb extends React.Component {
   state = {
@@ -24,57 +37,64 @@ class ProfileFormDumb extends React.Component {
       })
     }
     return (
-      <div className='form p-2'>
-        <h1 className='border-bottom py-2'>Update Your Profile</h1>
-        <div className='container-fluid'>
+      <Container fluid className='form'>
+        <h1 className='my-4'>Profile</h1>
+        <Jumbotron>
+          <h1>Update Your Profile</h1>
           <Alert
             color='success'
             isOpen={this.props.ui.dash.profile.formSuccess}
-            toggle={this.props.ui.dash.profile.toggleSuccess}
-          >
+            toggle={this.props.ui.dash.profile.toggleSuccess}>
             Profile updated successfully!
           </Alert>
-        </div>
-        <FormGroup>
-          <Label className='col-sm-8'>
-            Name:
-            <Input value={this.state.name} onChange={valChange('name')} />
-          </Label>
-        </FormGroup>
-        <FormGroup>
-          <Label className='col-sm-4'>
-            Phone:
-            <Input value={this.state.phone} onChange={valChange('phone')} />
-          </Label>
-        </FormGroup>
-        <FormGroup>
-          <Label className='col-sm-4'>
-            Password:
-            <Input
-              type='password'
-              defaultValue='falsehood'
-              onChange={onPasswordChange}
-            />
-          </Label>
-        </FormGroup>
-        <FormGroup>
-          <Label className='col-sm-4'>
-            Address:
-            <Input value={this.state.address} onChange={valChange('address')} />
-          </Label>
-        </FormGroup>
-        <FormGroup className='container-fluid'>
-          <Button onClick={this.updateProfile}>Update Profile</Button>
-        </FormGroup>
-      </div>
+          <FormGroup>
+            <Label>
+              Name:
+              <Input value={this.state.name} onChange={valChange('name')} />
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              Phone:
+              <Input value={this.state.phone} onChange={valChange('phone')} />
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              New Password:
+              <Input
+                type='password'
+                defaultValue={this.props.password}
+                onChange={onPasswordChange}
+              />
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Label>
+              Address:
+              <Input
+                value={this.state.address}
+                onChange={valChange('address')}
+              />
+            </Label>
+          </FormGroup>
+          <FormGroup>
+            <Button onClick={this.updateProfile}>Update Profile</Button>
+          </FormGroup>
+        </Jumbotron>
+      </Container>
     )
   }
 
   updateProfile = e => {
     e.preventDefault()
-    req.url('/user').json(this.state).post().json(rep => {
-      if (rep.success) this.props.ui.dash.profile.showSuccess()
-    })
+    req
+      .url('/user')
+      .json(this.state)
+      .post()
+      .json(rep => {
+        if (rep.success) this.props.ui.dash.profile.showSuccess()
+      })
   }
 
   static propTypes = {
@@ -94,9 +114,13 @@ class Profile extends React.Component {
   }
 
   render () {
-    return this.state.profile
-      ? <ProfileForm {...this.state.profile} />
-      : <Center><ReactLoading type='spin' color='#373a3c' /></Center>
+    return this.state.profile ? (
+      <ProfileForm {...this.state.profile} />
+    ) : (
+      <Center>
+        <ReactLoading type='spin' color='#373a3c' />
+      </Center>
+    )
   }
 
   componentDidMount () {

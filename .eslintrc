@@ -12,15 +12,5 @@
     "React": true,
     "PropTypes": true,
     "styled": true
-  },
-  "settings": {
-    "react": {
-      "createClass": "createReactClass",
-      "pragma": "React",
-      "version": "16.4.0"
-    },
-    "propWrapperFunctions": [
-      "forbidExtraProps"
-    ]
   }
 }

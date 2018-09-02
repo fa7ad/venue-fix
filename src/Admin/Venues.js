@@ -1,14 +1,29 @@
 import ImgUp from 'react-images-upload'
 import ReactLoading from 'react-loading'
 import Select from 'react-select'
-import { Container, Jumbotron, FormGroup, Input, Label, Col, Button } from 'reactstrap'
+import {
+  Container,
+  Jumbotron,
+  FormGroup,
+  Input,
+  Label,
+  Col,
+  Button,
+  ListGroup,
+  ListGroupItem
+} from 'reactstrap'
 
 import Center from './Center'
 import req from '../request'
 
+const Section = styled.section`
+  margin: 2em 0;
+`
+
 const ImageUp = styled(ImgUp)`
   .fileContainer {
-    &, .chooseFileButton{
+    &,
+    .chooseFileButton {
       border-radius: 0;
     }
   }
@@ -25,7 +40,9 @@ function getBase64 (file) {
 
 const FormInput = ({ type, name, label, ctx, required, ...p }) => (
   <FormGroup>
-    <Label htmlFor={name}>{label} <span className='text-danger'>*</span></Label>
+    <Label htmlFor={name}>
+      {label} <span className='text-danger'>*</span>
+    </Label>
     <Input
       {...p}
       id={name}
@@ -70,7 +87,8 @@ class VenuesView extends React.Component {
     capacity: 100,
     description: '',
     catering: false,
-    categories: []
+    categories: [],
+    rent: 2000
   }
 
   render () {
@@ -101,7 +119,6 @@ class VenuesView extends React.Component {
               name='capacity'
               label='Capacity'
               type='number'
-              min='100'
               ctx={this}
               required
             />
@@ -113,7 +130,9 @@ class VenuesView extends React.Component {
               required
             />
             <FormGroup>
-              <Label>Catergories <span className='text-danger'>*</span></Label>
+              <Label>
+                Catergories <span className='text-danger'>*</span>
+              </Label>
               <Select
                 defaultValue={this.state.categories}
                 isMulti
@@ -127,9 +146,54 @@ class VenuesView extends React.Component {
                 }}
               />
             </FormGroup>
-            <Button color='danger' onClick={this.submitForm}>Add</Button>
+            <FormInput
+              name='rent'
+              label='Rent Amount'
+              type='number'
+              min={2000}
+              step={500}
+              ctx={this}
+              required
+            />
+            <Button color='danger' onClick={this.submitForm}>
+              Add
+            </Button>
           </Col>
         </Jumbotron>
+        <Section>
+          <h3>Existing Venues</h3>
+          <ListGroup>
+            {this.props.venues.map(v => (
+              <ListGroupItem
+                key={v._id}
+                className='d-flex justify-content-between align-items-center'>
+                <div className='d-flex justify-content-between'>
+                  <img
+                    src={v.image}
+                    alt={'Picture of' + v.title}
+                    height={24}
+                    width={24}
+                  />
+                  <div>
+                    <strong>{v.title}</strong>
+                    <br />
+                    <em>{v.rent}</em>
+                  </div>
+                  <span className='text-muted'>{v.description}</span>
+                  <span className='text-info'>Catering: {v.catering}</span>
+                  <span className='text-info'>{v.categories.join(', ')}</span>
+                </div>
+                <Button color='danger' onClick={this.props.deleteRecord(v._id)}>
+                  Delete
+                </Button>
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+          <p className='text-muted'>
+            {this.props.venues.length < 1 &&
+              'No existing venues, please add some!'}
+          </p>
+        </Section>
       </Container>
     )
   }
@@ -140,17 +204,17 @@ class VenuesView extends React.Component {
 
   submitForm = e => {
     e.preventDefault()
-
-    const formData = Object.assign({}, this.state)
-    getBase64(formData.image[0]).then(encoded => {
-      formData.image = encoded
-    })
-
-    console.log(formData)
+    const [image] = this.state.image
+    if (!image) return
+    getBase64(image)
+      .then(image => Object.assign({}, this.state, { image }))
+      .then(formData => console.log(formData))
   }
 
   static propTypes = {
-    categories: PropTypes.arrayOf(PropTypes.object)
+    categories: PropTypes.arrayOf(PropTypes.object),
+    venues: PropTypes.arrayOf(PropTypes.object),
+    deleteRecord: PropTypes.func
   }
 }
 
@@ -161,9 +225,13 @@ class VenuesPage extends React.Component {
   }
 
   render () {
-    return this.state.venues
-      ? <VenuesView {...this.state} />
-      : <Center><ReactLoading color='#373a3c' type='spin' /></Center>
+    return this.state.venues ? (
+      <VenuesView {...this.state} />
+    ) : (
+      <Center>
+        <ReactLoading color='#373a3c' type='spin' />
+      </Center>
+    )
   }
 
   componentDidMount () {
