@@ -1,6 +1,8 @@
 import qs from 'qs'
 import cx from 'classnames'
 
+import { map, toLower } from 'ramda'
+
 import { Row, Container } from 'reactstrap'
 
 import EventForm from './EventForm'
@@ -9,45 +11,18 @@ import VenueCard from './Venues'
 import req from '../request'
 import { inObser } from '../store/utils'
 
-import image1 from '../images/hotel.jpg'
-import image2 from '../images/hotel2.jpg'
-
 const Root = styled.div.attrs({
   className: p => cx('root', p.className)
 })`
   margin-top: 64px;
 `
 
-const testData = [
-  {
-    name: 'BICC',
-    tags: ['Conference Halls'],
-    image: image1,
-    details: 'this is a really crap venue',
-    key: 'bicc-venue-001',
-    price: 20000,
-    location: 'dhaka',
-    catering: true,
-    capacity: 10000
-  },
-  {
-    name: 'BBCC',
-    tags: ['Meeting'],
-    image: image2,
-    details: 'this is a really good venue',
-    key: 'bbcc-venue-002',
-    price: 100000,
-    location: 'chittagong',
-    catering: false,
-    capacity: 1000
-  }
-]
-
 class Event extends React.Component {
   state = {
     form: {},
     tags: [],
-    locations: []
+    locations: [],
+    venues: []
   }
 
   render () {
@@ -62,16 +37,15 @@ class Event extends React.Component {
         />
         <Container>
           <Row style={{ minHeight: '50vh' }}>
-            {this.filterWithForm(ui.form, testData).map(ven => (
+            {this.filterWithForm(ui.form, this.state.venues).map(ven => (
               <VenueCard
                 bgImg={ven.image}
-                tags={ven.tags}
-                key={ven.key}
-                price={ven.price}
+                tags={ven.categories}
+                key={ven._id}
+                price={ven.rent}
                 location={ven.location}
                 catering={ven.catering}
-                capacity={ven.capacity}
-              >
+                capacity={ven.capacity}>
                 {ven.details}
               </VenueCard>
             ))}
@@ -83,15 +57,20 @@ class Event extends React.Component {
 
   filterWithForm = (form, data) => {
     const { location, guests, category, catering, budget } = form
-    return data.filter(
-      v =>
+    console.log(category)
+    return [].concat(data).filter(x => {
+      const v = map(y => (typeof y === 'string' ? toLower(y) : y), x)
+      v.categories = map(toLower, v.categories)
+
+      return (
         location === v.location &&
         v.rent <= budget[1] &&
         v.rent >= budget[0] &&
         (catering ? v.catering === true : true) &&
-        v.tags.map(x => x.toLowerCase()).indexOf(category) !== -1 &&
+        v.categories.indexOf(category.trim()) !== -1 &&
         guests <= v.capacity
-    )
+      )
+    })
   }
 
   componentDidMount () {
@@ -104,6 +83,11 @@ class Event extends React.Component {
       .url('/locations')
       .get()
       .json(({ locations }) => this.setState({ locations }))
+      .catch(e => console.error(e))
+    req
+      .url('/venues')
+      .get()
+      .json(({ venues }) => this.setState({ venues }))
       .catch(e => console.error(e))
   }
 
