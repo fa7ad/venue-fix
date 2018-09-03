@@ -46,7 +46,8 @@ const testData = [
 class Event extends React.Component {
   state = {
     form: {},
-    tags: []
+    tags: [],
+    locations: []
   }
 
   render () {
@@ -55,10 +56,9 @@ class Event extends React.Component {
       <Root>
         <EventForm
           initialData={qs.parse(location.search.slice(1) || '')}
-          onChange={form => {
-            ui.form.set(form)
-          }}
+          onChange={ui.form.set}
           tags={this.state.tags}
+          locations={this.state.locations}
         />
         <Container>
           <Row style={{ minHeight: '50vh' }}>
@@ -82,14 +82,14 @@ class Event extends React.Component {
   }
 
   filterWithForm = (form, data) => {
-    const { location, guests, event, catering, budget } = form
+    const { location, guests, category, catering, budget } = form
     return data.filter(
       v =>
         location === v.location &&
-        v.price <= budget[1] &&
-        v.price >= budget[0] &&
+        v.rent <= budget[1] &&
+        v.rent >= budget[0] &&
         (catering ? v.catering === true : true) &&
-        v.tags.map(x => x.toLowerCase()).indexOf(event) !== -1 &&
+        v.tags.map(x => x.toLowerCase()).indexOf(category) !== -1 &&
         guests <= v.capacity
     )
   }
@@ -99,6 +99,11 @@ class Event extends React.Component {
       .url('/tags')
       .get()
       .json(({ categories: tags }) => this.setState({ tags }))
+      .catch(e => console.error(e))
+    req
+      .url('/locations')
+      .get()
+      .json(({ locations }) => this.setState({ locations }))
       .catch(e => console.error(e))
   }
 

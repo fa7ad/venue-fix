@@ -88,6 +88,7 @@ class VenuesView extends React.Component {
     description: '',
     catering: false,
     categories: [],
+    location: '',
     rent: 2000
   }
 
@@ -112,6 +113,13 @@ class VenuesView extends React.Component {
               name='description'
               label='Description'
               type='textarea'
+              ctx={this}
+              required
+            />
+            <FormInput
+              name='location'
+              label='Location'
+              type='text'
               ctx={this}
               required
             />
@@ -167,21 +175,25 @@ class VenuesView extends React.Component {
               <ListGroupItem
                 key={v._id}
                 className='d-flex justify-content-between align-items-center'>
-                <div className='d-flex justify-content-between'>
+                <div className='d-flex justify-content-between align-items-start'>
                   <img
                     src={v.image}
                     alt={'Picture of' + v.title}
                     height={24}
                     width={24}
+                    className='mx-1'
                   />
-                  <div>
+                  <div className='mx-1'>
                     <strong>{v.title}</strong>
                     <br />
-                    <em>{v.rent}</em>
+                    <span className='text-muted'>{v.location}</span>{' '}
+                    <em>BDT {v.rent}</em>
                   </div>
-                  <span className='text-muted'>{v.description}</span>
-                  <span className='text-info'>Catering: {v.catering}</span>
-                  <span className='text-info'>{v.categories.join(', ')}</span>
+                  <span className='text-muted mx-1'>{v.description}</span>
+                  <span className='text-info mx-1'>
+                    <div>Catering: {'' + v.catering}</div>
+                    <div>{v.categories.join(', ')}</div>
+                  </span>
                 </div>
                 <Button color='danger' onClick={this.props.deleteRecord(v._id)}>
                   Delete
@@ -208,13 +220,26 @@ class VenuesView extends React.Component {
     if (!image) return
     getBase64(image)
       .then(image => Object.assign({}, this.state, { image }))
-      .then(formData => console.log(formData))
+      .then(formData => this.props.submitRecord(formData))
+      .then(_ => {
+        this.setState({
+          image: [],
+          title: '',
+          capacity: 100,
+          description: '',
+          location: '',
+          catering: false,
+          categories: [],
+          rent: 2000
+        })
+      })
   }
 
   static propTypes = {
     categories: PropTypes.arrayOf(PropTypes.object),
     venues: PropTypes.arrayOf(PropTypes.object),
-    deleteRecord: PropTypes.func
+    deleteRecord: PropTypes.func,
+    submitRecord: PropTypes.func
   }
 }
 
@@ -226,7 +251,11 @@ class VenuesPage extends React.Component {
 
   render () {
     return this.state.venues ? (
-      <VenuesView {...this.state} />
+      <VenuesView
+        {...this.state}
+        submitRecord={this.submitRecord}
+        deleteRecord={this.deleteRecord}
+      />
     ) : (
       <Center>
         <ReactLoading color='#373a3c' type='spin' />
@@ -243,6 +272,36 @@ class VenuesPage extends React.Component {
       )
       .then(categories => this.setState({ categories }))
       .catch(_ => this.props.ui.auth.showModal())
+    this.updateVenues()
+  }
+
+  updateVenues = () =>
+    req
+      .url('/venues')
+      .get()
+      .json(({ venues }) => this.setState({ venues }))
+      .catch(_ => this.props.ui.auth.showModal())
+
+  submitRecord = record => {
+    req
+      .url('/venues')
+      .json(record)
+      .post()
+      .json(({ success }) => {
+        console.log('success', success)
+        this.updateVenues()
+      })
+  }
+
+  deleteRecord = id => e => {
+    req
+      .url('/venues')
+      .json({ id })
+      .delete()
+      .json(({ success }) => {
+        console.log('delete', success)
+        this.updateVenues()
+      })
   }
 
   static propTypes = {

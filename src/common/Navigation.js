@@ -18,14 +18,16 @@ import req from '../request'
 
 import logo from './logo.svg'
 
-const category = [
-  'Community/Party center',
-  'Conventun Hall',
-  'Catering Service'
-]
+// const category = [
+//   'Community/Party center',
+//   'Conventun Hall',
+//   'Catering Service'
+// ]
 
 const StyBrand = styled(NavbarBrand)`
-  &, &:hover, &:link {
+  &,
+  &:hover,
+  &:link {
     &&& {
       color: #fff;
     }
@@ -72,7 +74,7 @@ class Navigation extends React.Component {
           <Collapse isOpen={ui.navbar.isOpen} navbar>
             <StyNav className='nav-container ml-auto' navbar>
               <NavItem to='/'>Home</NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              {/* <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Category
                 </DropdownToggle>
@@ -83,7 +85,7 @@ class Navigation extends React.Component {
                     </DropdownItem>
                   ))}
                 </DropdownMenu>
-              </UncontrolledDropdown>
+              </UncontrolledDropdown> */}
               <NavItem to='/tips'>Tips</NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -102,11 +104,14 @@ class Navigation extends React.Component {
                 onClick={ui.navbar.loggedIn ? this.logOut : ui.auth.showModal}
                 children={ui.navbar.loggedIn ? 'Log out' : 'Login / Register'}
               />
-              {ui.navbar.isAdmin &&
+              {ui.navbar.isAdmin && (
                 <NavItem to='/admin' button='primary' className='mr-2'>
                   Dashboard
-                </NavItem>}
-              <NavItem to='/event' button='danger'>Create Event</NavItem>
+                </NavItem>
+              )}
+              <NavItem to='/event' button='danger'>
+                Create Event
+              </NavItem>
             </StyNav>
           </Collapse>
         </Container>

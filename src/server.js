@@ -2,6 +2,7 @@ import path from 'path'
 import Express from 'express'
 
 import Pouch from 'pouchdb'
+import { pickAll } from 'ramda'
 
 import bcrypt from 'bcryptjs'
 import logger from 'morgan'
@@ -26,13 +27,14 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
 const usersDB = createPouchDB('users')
 const categoriesDB = createPouchDB('tags')
+const venuesDB = createPouchDB('venues')
 
 const app = Express()
 app.disable('x-powered-by')
 app.use(Express.static(process.env.RAZZLE_PUBLIC_DIR, { index: false }))
 app.use(logger('dev'))
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ limit: '5mb', extended: true }))
+app.use(bodyParser.json({ limit: '5mb', extended: true }))
 app.use(
   session({
     secret: 'venue is fixed',
@@ -102,6 +104,52 @@ app
       .then(_ => res.json({ success: true }))
       .catch(_ => res.redirect('/404'))
   })
+
+app
+  .route('/venues')
+  .get((req, res) => {
+    venuesDB
+      .allDocs({ include_docs: true })
+      .then(data => data.rows.map(row => row.doc))
+      .then(venues => res.json({ success: true, venues }))
+      .catch(_ => res.redirect('/404'))
+  })
+  .post(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    const data = pickAll(
+      [
+        'image',
+        'title',
+        'capacity',
+        'description',
+        'location',
+        'catering',
+        'categories',
+        'rent'
+      ],
+      req.body
+    )
+    venuesDB
+      .post(data)
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/500'))
+  })
+  .delete(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    venuesDB
+      .get(req.body.id)
+      .then(res => venuesDB.remove(res))
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/404'))
+  })
+
+app.get('/locations', (req, res) => {
+  venuesDB
+    .allDocs({ include_docs: true })
+    .then(data => data.rows.map(r => r.doc.location || 'N/A'))
+    .then(locations => [...new Set(locations)])
+    .then(locations => res.json({ locations, success: true }))
+})
 
 app.get('/:code', (req, res, next) => {
   const { code } = req.params

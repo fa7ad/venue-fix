@@ -16,7 +16,8 @@ const StyContainer = styled(Container)`
 `
 
 const DatePicker = styled(Flatpickr)`
-  &, &:read-only {
+  &,
+  &:read-only {
     background-color: #fff;
   }
 `
@@ -26,9 +27,12 @@ const Range = Slider.createSliderWithTooltip(Slider.Range)
 class EventForm extends React.Component {
   state = Object.assign(
     {
-      date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
+      date: DateTime.local()
+        .plus({ day: 1 })
+        .startOf('day')
+        .toJSDate(),
       budget: [0, 50000],
-      location: 'dhaka',
+      location: this.props.locations[0],
       guests: '0',
       event: 'conference',
       catering: false
@@ -64,11 +68,10 @@ class EventForm extends React.Component {
                 placeholder='City'
                 id='location'
                 value={this.state.location}
-                onChange={valChange('location')}
-              >
-                <Option>Dhaka</Option>
-                <Option>Comilla</Option>
-                <Option>Chittagong</Option>
+                onChange={valChange('location')}>
+                {this.props.locations.map((e, i) => (
+                  <Option key={i}>{e}</Option>
+                ))}
               </Input>
             </Col>
             <Col>
@@ -91,8 +94,7 @@ class EventForm extends React.Component {
                 id='event'
                 placeholder='Event'
                 value={this.state.event}
-                onChange={valChange('event')}
-              >
+                onChange={valChange('event')}>
                 {this.props.tags.map(e => (
                   <Option key={e._id}>{e.name}</Option>
                 ))}
@@ -109,7 +111,9 @@ class EventForm extends React.Component {
                 options={{
                   minuteIncrement: 30,
                   dateFormat: 'Y.m.d h:i K',
-                  minDate: DateTime.local().endOf('day').toJSDate()
+                  minDate: DateTime.local()
+                    .endOf('day')
+                    .toJSDate()
                 }}
               />
             </Col>
@@ -120,8 +124,7 @@ class EventForm extends React.Component {
                 id='catering'
                 className='d-block'
                 outline={!this.state.catering}
-                onClick={e => this.stateSet(p => ({ catering: !p.catering }))}
-              >
+                onClick={e => this.stateSet(p => ({ catering: !p.catering }))}>
                 {this.state.catering ? 'Required' : 'Not required'}
               </Button>
             </Col>
@@ -151,7 +154,8 @@ class EventForm extends React.Component {
   static propTypes = {
     initialData: PropTypes.object,
     onChange: PropTypes.func,
-    tags: PropTypes.arrayOf(PropTypes.object)
+    tags: PropTypes.arrayOf(PropTypes.object),
+    locations: PropTypes.arrayOf(PropTypes.string)
   }
 }
 export default EventForm

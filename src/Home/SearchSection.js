@@ -13,11 +13,13 @@ const RootContainer = styled(Container)`
   min-height: 50vh;
   display: flex;
   flex-direction: column;
-  justify-content: center
+  justify-content: center;
 `
 
 const Flatpickr = styled(Pickr)`
-  &, &:disabled, &[readonly] {
+  &,
+  &:disabled,
+  &[readonly] {
     background-color: #fff;
   }
 `
@@ -33,20 +35,24 @@ const Input = styled(Inp).attrs({
 
 class SearchSection extends React.Component {
   state = {
-    date: DateTime.local().plus({ day: 1 }).startOf('day').toJSDate(),
-    categories: []
+    date: DateTime.local()
+      .plus({ day: 1 })
+      .startOf('day')
+      .toJSDate(),
+    categories: [],
+    locations: []
   }
 
   render () {
     return (
       <RootContainer>
         <Form className={'justify-content-between row'} action='/event'>
-          <Input name='location' type='select' placeholder='City'>
-            <Option>Dhaka</Option>
-            <Option>Comilla</Option>
-            <Option>Chittagong</Option>
+          <Input name='location' type='select' placeholder='Location'>
+            {this.state.locations.map((e, idx) => (
+              <Option key={idx}>{e}</Option>
+            ))}
           </Input>
-          <Input name='event' type='select' placeholder='Category'>
+          <Input name='category' type='select' placeholder='Category'>
             {this.state.categories.map(e => (
               <Option key={e._id}>{e.name}</Option>
             ))}
@@ -61,7 +67,9 @@ class SearchSection extends React.Component {
             options={{
               minuteIncrement: 30,
               dateFormat: 'Y.m.d h:i K',
-              minDate: DateTime.local().endOf('day').toJSDate()
+              minDate: DateTime.local()
+                .endOf('day')
+                .toJSDate()
             }}
           />
           <input type='hidden' name='date' value={Number(this.state.date)} />
@@ -79,6 +87,11 @@ class SearchSection extends React.Component {
       .url('/tags')
       .get()
       .json(({ categories }) => this.setState({ categories }))
+      .catch(e => console.error(e))
+    req
+      .url('/locations')
+      .get()
+      .json(({ locations }) => this.setState({ locations }))
       .catch(e => console.error(e))
   }
 }
