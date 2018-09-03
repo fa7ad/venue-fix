@@ -57,7 +57,6 @@ class Event extends React.Component {
 
   filterWithForm = (form, data) => {
     const { location, guests, category, catering, budget } = form
-    console.log(category)
     return [].concat(data).filter(x => {
       const v = map(y => (typeof y === 'string' ? toLower(y) : y), x)
       v.categories = map(toLower, v.categories)
