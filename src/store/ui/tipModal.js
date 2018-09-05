@@ -13,8 +13,9 @@ const TipModal = function (Tip) {
     hide () {
       self.visible = false
     },
-    activate (tip) {
+    async activate (tip) {
       self.activeTip.set(tip)
+      return true
     }
   }))
 }

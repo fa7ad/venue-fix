@@ -3,42 +3,42 @@ import { Table, Container } from 'reactstrap'
 const b64 = global.btoa || (str => Buffer.from(str).toString('base64'))
 
 const lists = [
-  {
-    date: '2018.07.16',
-    venue: 'venue-awesome',
-    duration: '5hr',
-    catering: 'yes',
-    name: 'fahad',
-    phone: '10255',
-    address: 'comilla'
-  },
-  {
-    date: '2018.07.16',
-    venue: 'venue-awesome',
-    duration: '5hr',
-    catering: 'yes',
-    name: 'fahad',
-    phone: '10255',
-    address: 'comilla'
-  },
-  {
-    date: '2018.07.16',
-    venue: 'venue-awesome',
-    duration: '5hr',
-    catering: 'yes',
-    name: 'fahad',
-    phone: '10255',
-    address: 'comilla'
-  },
-  {
-    date: '2018.07.16',
-    venue: 'venue-awesome',
-    duration: '5hr',
-    catering: 'yes',
-    name: 'fahad',
-    phone: '10255',
-    address: 'comilla'
-  }
+  // {
+  //   date: '2018.07.16',
+  //   venue: 'venue-awesome',
+  //   duration: '5hr',
+  //   catering: 'yes',
+  //   name: 'fahad',
+  //   phone: '10255',
+  //   address: 'comilla'
+  // },
+  // {
+  //   date: '2018.07.16',
+  //   venue: 'venue-awesome',
+  //   duration: '5hr',
+  //   catering: 'yes',
+  //   name: 'fahad',
+  //   phone: '10255',
+  //   address: 'comilla'
+  // },
+  // {
+  //   date: '2018.07.16',
+  //   venue: 'venue-awesome',
+  //   duration: '5hr',
+  //   catering: 'yes',
+  //   name: 'fahad',
+  //   phone: '10255',
+  //   address: 'comilla'
+  // },
+  // {
+  //   date: '2018.07.16',
+  //   venue: 'venue-awesome',
+  //   duration: '5hr',
+  //   catering: 'yes',
+  //   name: 'fahad',
+  //   phone: '10255',
+  //   address: 'comilla'
+  // }
 ]
 
 const Booking = ({ date, venue, catering, phone, address, name }) => (

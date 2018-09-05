@@ -1,7 +1,6 @@
 import Rodal from 'rodal'
 import renderHTML from 'react-render-html'
 import { Badge } from 'reactstrap'
-import { DateTime } from 'luxon'
 
 import { inObser } from '../store/utils'
 
@@ -29,9 +28,7 @@ const TipsModal = ({ ui, ...props }) => (
   <StyRodal animation='fade' visible={ui.tip.visible} onClose={ui.tip.hide}>
     <h1 className='text-primary'>{ui.tip.activeTip.heading}</h1>
     <Badge color='primary'>
-      {DateTime.fromJSDate(ui.tip.activeTip.time).toLocaleString(
-        DateTime.DATE_MED
-      )}
+      {ui.tip.activeTip.time}
     </Badge>
     <hr />
     <TextContent>

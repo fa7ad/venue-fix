@@ -86,13 +86,13 @@ class Register extends React.Component {
         })
       )
       .json(e => {
-        if (e.success) this.props.history.push('/?auth=signin')
+        console.log(e)
+        this.props.onLog()
       })
   }
 
   static propTypes = {
-    onLog: PropTypes.func,
-    history: PropTypes.object
+    onLog: PropTypes.func
   }
 }
 

@@ -288,7 +288,6 @@ class VenuesPage extends React.Component {
       .json(record)
       .post()
       .json(({ success }) => {
-        console.log('success', success)
         this.updateVenues()
       })
   }
@@ -299,7 +298,6 @@ class VenuesPage extends React.Component {
       .json({ id })
       .delete()
       .json(({ success }) => {
-        console.log('delete', success)
         this.updateVenues()
       })
   }

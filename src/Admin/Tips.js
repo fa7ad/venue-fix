@@ -1,11 +1,13 @@
 import Rodal from 'rodal'
 import { Button, Container, Input, ListGroup, ListGroupItem } from 'reactstrap'
-import { EditorState } from 'draft-js'
+import { EditorState, convertToRaw } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import { convertFromHTML, convertToHTML } from 'draft-convert'
+import { convertFromHTML } from 'draft-convert'
 import { IoMdCreate } from 'react-icons/io'
+import { DateTime } from 'luxon'
+import draftToHtml from 'draftjs-to-html'
 
-import { tips } from '../Tips/index'
+import req from '../request'
 
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
@@ -18,7 +20,7 @@ const StyRodal = styled(Rodal)`
   .rodal-dialog {
     left: auto;
     right: auto;
-    width: 90vw !important;
+    width: 90% !important;
     height: auto !important;
     z-index: 1081;
     margin: 5px auto;
@@ -89,19 +91,16 @@ TipsEditor.propTypes = {
   onHeadingChange: PropTypes.func.isRequired,
   state: PropTypes.object,
   heading: PropTypes.string,
-  updating: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.bool
-  ])
+  updating: PropTypes.string
 }
 
 class ManageTips extends React.Component {
   state = {
     editorState: EditorState.createEmpty(),
     editor: false,
-    updating: false,
-    heading: 'New Tip'
+    updating: undefined,
+    heading: 'New Tip',
+    tips: []
   }
 
   render () {
@@ -118,26 +117,20 @@ class ManageTips extends React.Component {
           onClose={this.editorClose}
           onEdit={this.editorChange}
           heading={this.state.heading}
-          onDone={async e =>
-            console.log(this.state.heading, this.editorToHTML())
-          }
-          onUpdate={async id =>
-            console.log(this.state.heading, this.editorToHTML())
-          }
+          onDone={this.addTip}
+          onUpdate={this.updateTip}
           updating={this.state.updating}
           onHeadingChange={e =>
             this.setState({ heading: e.currentTarget.value })
           }
         />
         <ListGroup>
-          {tips.map((t, idx) => (
+          {this.state.tips.map(t => (
             <ListGroupItem
-              key={idx}
+              key={t._id}
               className='d-flex justify-content-between align-items-center'>
               <div>
-                <span className='text-primary'>
-                  {t.time.toLocaleDateString()}
-                </span>
+                <span className='text-primary'>{t.time}</span>
                 <br />
                 {t.heading}
               </div>
@@ -147,14 +140,16 @@ class ManageTips extends React.Component {
                     this.markupToEditor(t.body).then(e =>
                       this.setState({
                         editor: true,
-                        updating: 'item_' + idx,
+                        updating: t._id,
                         heading: t.heading
                       })
                     )
                   }>
                   Edit
                 </Button>
-                <Button color='danger'>Delete</Button>
+                <Button color='danger' onClick={e => this.deleteTip(t._id)}>
+                  Delete
+                </Button>
               </div>
             </ListGroupItem>
           ))}
@@ -163,25 +158,80 @@ class ManageTips extends React.Component {
     )
   }
 
-  editorChange = editorState => this.setState({ editorState })
+  editorChange = editorState => {
+    this.setState({ editorState })
+  }
 
   editorClose = e =>
     this.setState({
       editor: false,
-      updating: false,
+      updating: undefined,
       editorState: EditorState.createEmpty()
     })
 
   editorToHTML = () => {
     const { editorState } = this.state
 
-    return editorState && convertToHTML(editorState.getCurrentContent())
+    return editorState
+      ? draftToHtml(convertToRaw(editorState.getCurrentContent()))
+      : ''
   }
 
   markupToEditor = async html => {
     this.setState({
       editorState: EditorState.createWithContent(convertFromHTML(html))
     })
+  }
+
+  updateTipsList = () => {
+    req
+      .url('/stips')
+      .get()
+      .json(r => this.setState({ tips: r.tips }))
+  }
+
+  componentDidMount () {
+    this.updateTipsList()
+  }
+
+  addTip = _ =>
+    new Promise((resolve, reject) => {
+      req
+        .url('/stips')
+        .json({
+          heading: this.state.heading,
+          body: this.editorToHTML(),
+          time: DateTime.local().toFormat('dd LLL yyyy')
+        })
+        .post()
+        .json(_ => this.updateTipsList())
+        .then(resolve)
+        .catch(reject)
+    })
+
+  updateTip = id =>
+    new Promise((resolve, reject) => {
+      req
+        .url('/stips')
+        .json({
+          id,
+          heading: this.state.heading,
+          body: this.editorToHTML(),
+          time: DateTime.local().toFormat('dd LLL yyyy')
+        })
+        .put()
+        .json(_ => this.updateTipsList())
+        .then(resolve)
+        .catch(reject)
+    })
+
+  deleteTip = id => {
+    req
+      .url('/stips')
+      .json({ id })
+      .delete()
+      .json(_ => this.updateTipsList())
+      .catch(console.error)
   }
 }
 

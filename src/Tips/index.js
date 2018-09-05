@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon'
 import striptags from 'striptags'
 import { struct } from 'superstruct'
 import {
@@ -13,10 +12,14 @@ import {
 } from 'reactstrap'
 
 import { inObser } from '../store/utils'
+import req from '../request'
 
 const toText = function (html) {
   const text = striptags(html)
-  return text.split(' ').slice(0, 25).join(' ')
+  return text
+    .split(' ')
+    .slice(0, 25)
+    .join(' ')
 }
 
 const Root = styled.div`
@@ -34,9 +37,8 @@ const Root = styled.div`
 `
 
 const isTip = struct({
-  img: 'string?',
   heading: 'string',
-  time: 'date',
+  time: 'string',
   body: 'string'
 })
 
@@ -46,12 +48,10 @@ const Tip = ({ img, heading, time, body, onActivate, ...p }) => (
     <CardBody>
       <CardTitle>{heading}</CardTitle>
       <CardSubtitle>
-        {DateTime.fromJSDate(time).toLocaleString(DateTime.DATE_MED)}
+        {time}
       </CardSubtitle>
-      <CardText className='text-muted'>
-        {toText(body)}
-      </CardText>
-      <Button onClick={e => onActivate({ img, heading, time, body })}>
+      <CardText className='text-muted'>{toText(body)}</CardText>
+      <Button onClick={e => onActivate({ heading, time, body })}>
         See more
       </Button>
     </CardBody>
@@ -61,7 +61,7 @@ const Tip = ({ img, heading, time, body, onActivate, ...p }) => (
 Tip.propTypes = {
   img: PropTypes.string,
   heading: PropTypes.string.isRequired,
-  time: PropTypes.instanceOf(Date).isRequired,
+  time: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   onActivate: PropTypes.func
 }
@@ -76,39 +76,28 @@ const TipCard = styled(Tip)`
 `
 
 class TipsPage extends React.Component {
-  // sample data
-  static tips = [
-    {
-      heading: 'Hello World',
-      time: new Date(),
-      body: `
-hello <b>World</b>
-![](https://woothosting.com/assets/images/logo.png)
-`
-    },
-    {
-      heading: 'Hello React',
-      time: new Date('7/12/2018 12:15 AM'),
-      body: `
-<h1>hello react</h1>
-<h2>hi, vue</h2>
-<h3>bye, angular</h3>
-`
-    }
-  ]
+  state = {
+    tips: []
+  }
 
   render () {
     return (
       <Root>
         <Container>
-          {TipsPage.tips
-            .filter(isTip.test)
-            .map((data, idx) => (
-              <TipCard key={idx} {...data} onActivate={this.activateModal} />
-            ))}
+          {this.state.tips.map((data, idx) => (
+            <TipCard key={idx} {...data} onActivate={this.activateModal} />
+          ))}
         </Container>
       </Root>
     )
+  }
+
+  componentDidMount () {
+    req
+      .url('/stips')
+      .get()
+      .json(({ tips }) => this.setState({ tips }))
+      .catch(console.error)
   }
 
   activateModal = tip => {
@@ -123,7 +112,6 @@ hello <b>World</b>
   }
 }
 
-const { tips } = TipsPage
-export { tips, isTip, TipCard }
+export { isTip, TipCard }
 
 export default inObser(['ui'], TipsPage)

@@ -91,11 +91,11 @@ class AdminPage extends React.Component {
     return this.state.show ? (
       <FluidRoot>
         <Sidebar active={dash.activePage} />
-        <Col md='10' className='px-0'>
+        <Col md='10' className='px-0 d-flex'>
           <AnimatedSwitch
             {...bounceTransition}
             mapStyles={mapStyles}
-            className='d-flex flex-column'>
+            className='d-flex flex-column w-100'>
             <Route path='/admin/' exact component={inObser(['ui'], TempDash)} />
             <Route path='/admin/bookings'>
               <Bookings />

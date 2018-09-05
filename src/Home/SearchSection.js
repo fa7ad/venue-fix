@@ -72,7 +72,11 @@ class SearchSection extends React.Component {
                 .toJSDate()
             }}
           />
-          <input type='hidden' name='date' value={Number(this.state.date)} />
+          <input
+            type='hidden'
+            name='date'
+            value={DateTime.fromJSDate(this.state.date).toMillis()}
+          />
           <Input name='guests' placeholder='Guests' />
           <Button color='primary' className='col-sm-2'>
             Search

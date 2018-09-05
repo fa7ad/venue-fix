@@ -32,14 +32,14 @@ class EventForm extends React.Component {
         .startOf('day')
         .toJSDate(),
       budget: [0, 50000],
-      location: this.props.locations[0],
+      location: this.props.locations[0].toLowerCase(),
       guests: '0',
-      event: 'conference',
+      category: 'conference halls',
       catering: false
     },
     this.props.initialData,
     this.props.initialData.date && {
-      date: new Date(+this.props.initialData.date)
+      date: DateTime.fromMillis(+this.props.initialData.date).toJSDate()
     }
   )
 
@@ -50,7 +50,7 @@ class EventForm extends React.Component {
   stateSet = state =>
     this.setState(prev => {
       const next = state instanceof Function ? state(prev) : state
-      this.props.onChange(Object.assign(prev, next))
+      this.props.onChange(Object.assign({}, prev, next))
       return next
     })
 
@@ -78,9 +78,9 @@ class EventForm extends React.Component {
               <Label for='guests'>Guests</Label>
               <Input
                 type='number'
-                step='5'
-                min='0'
-                max='50000'
+                step={5}
+                min={0}
+                max={50000}
                 id='guests'
                 placeholder='Guest Count'
                 value={this.state.guests}
@@ -103,14 +103,13 @@ class EventForm extends React.Component {
             <Col>
               <Label for='date'>Date & Time</Label>
               <DatePicker
-                data-enable-time
                 id='date'
                 value={this.state.date}
                 onChange={([date]) => this.stateSet({ date })}
                 className='form-control'
                 options={{
                   minuteIncrement: 30,
-                  dateFormat: 'Y.m.d h:i K',
+                  dateFormat: 'd M Y',
                   minDate: DateTime.local()
                     .endOf('day')
                     .toJSDate()

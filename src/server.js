@@ -28,6 +28,7 @@ const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 const usersDB = createPouchDB('users')
 const categoriesDB = createPouchDB('tags')
 const venuesDB = createPouchDB('venues')
+const tipsDB = createPouchDB('tips')
 
 const app = Express()
 app.disable('x-powered-by')
@@ -150,6 +151,41 @@ app.get('/locations', (req, res) => {
     .then(locations => [...new Set(locations)])
     .then(locations => res.json({ locations, success: true }))
 })
+
+app
+  .route('/stips')
+  .get((req, res) => {
+    tipsDB
+      .allDocs({ include_docs: true })
+      .then(data => data.rows.map(r => r.doc))
+      .then(tips => res.json({ success: true, tips }))
+      .catch(_ => res.redirect('/404'))
+  })
+  .post(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    const data = pickAll(['time', 'heading', 'body'], req.body)
+    tipsDB
+      .post(data)
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/500'))
+  })
+  .put(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    const data = pickAll(['time', 'heading', 'body', 'id'], req.body)
+    tipsDB
+      .get(data.id)
+      .then(tip => tipsDB.put(Object.assign(tip, data)))
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/500'))
+  })
+  .delete(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    tipsDB
+      .get(req.body.id)
+      .then(res => tipsDB.remove(res))
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/404'))
+  })
 
 app.get('/:code', (req, res, next) => {
   const { code } = req.params

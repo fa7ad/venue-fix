@@ -5,7 +5,7 @@ const Form = model('EventForm', {
   date: optional(DateX, new Date()),
   location: optional(string, ''),
   guests: optional(string, '0'),
-  event: optional(string, ''),
+  category: optional(string, ''),
   catering: optional(boolean, false),
   budget: optional(array(number), [0, 50000])
 }).actions(self => ({

@@ -41,7 +41,7 @@ class Category extends React.Component {
               bgImg={image1}
               size='6'
               caption='Meetings'
-              onActivate={this.goTo('/event?event=meeting')}
+              onActivate={this.goTo('/event?category=meeting+rooms')}
             >
               Book a room
             </PictureCard>
@@ -50,7 +50,7 @@ class Category extends React.Component {
               size='3'
               caption='Conferences'
               btn='danger'
-              onActivate={this.goTo('/event?event=conference')}
+              onActivate={this.goTo('/event?category=conference+halls')}
             >
               Book a hall
             </PictureCard>
@@ -58,7 +58,7 @@ class Category extends React.Component {
               bgImg={image3}
               size='3'
               caption='Weddings'
-              onActivate={this.goTo('/event?event=wedding')}
+              onActivate={this.goTo('/event?category=conference+halls')}
             >
               Book a venue
             </PictureCard>
