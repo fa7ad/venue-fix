@@ -3,7 +3,7 @@ import cx from 'classnames'
 import pathEx from 'path-to-regexp'
 import { Provider } from 'mobx-react'
 import { Route, Switch, withRouter } from 'react-router-dom'
-import ScrollTrigger from 'react-scroll-trigger'
+import Waypoint from 'react-waypoint'
 
 import Navigation from './common/Navigation'
 import Footer from './common/Footer'
@@ -19,8 +19,7 @@ import AboutUs from './AboutUs/'
 import ContactUs from './ContactUs/'
 
 import { UI } from './store/'
-import loadStyles from './styles'
-loadStyles()
+import GlobalStyles from './styles'
 
 const uiStore = UI.create({
   navbar: {},
@@ -77,9 +76,9 @@ const routes = [
 ]
 
 const Modals = styled.div`
-&&& {
-  z-index: 1080;
-}
+  &&& {
+    z-index: 1080;
+  }
 `
 
 const App = ({ location, history }) => {
@@ -90,6 +89,7 @@ const App = ({ location, history }) => {
   return (
     <Provider ui={uiStore}>
       <div className={cx('page', match)}>
+        <GlobalStyles />
         <Switch>
           <Route path='/admin/:page?'>
             <AdminNav history={history} />
@@ -103,17 +103,22 @@ const App = ({ location, history }) => {
           <Auth history={history} />
         </Modals>
         <Switch>
-          {routes.map(props => <Route {...props} />)}
+          {routes.map(props => (
+            <Route {...props} />
+          ))}
         </Switch>
         <Switch>
           <Route component={genNavbarFix(location, match, uiStore)} />
         </Switch>
-        {!/E404|admin/.test(match) &&
-          <ScrollTrigger
+        {!/E404|admin/.test(match) && (
+          <Waypoint
             onEnter={uiStore.navbar.toDark}
-            onExit={uiStore.navbar.toNone}
-            children={<Footer />}
-          />}
+            onLeave={uiStore.navbar.toNone}>
+            <div>
+              <Footer />
+            </div>
+          </Waypoint>
+        )}
       </div>
     </Provider>
   )

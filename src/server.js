@@ -29,6 +29,7 @@ const usersDB = createPouchDB('users')
 const categoriesDB = createPouchDB('tags')
 const venuesDB = createPouchDB('venues')
 const tipsDB = createPouchDB('tips')
+const bookingsDB = createPouchDB('bookings')
 
 const app = Express()
 app.disable('x-powered-by')
@@ -142,6 +143,68 @@ app
       .then(res => venuesDB.remove(res))
       .then(_ => res.json({ success: true }))
       .catch(_ => res.redirect('/404'))
+  })
+
+app.get('/venues/:id', (req, res) => {
+  venuesDB
+    .get(req.params.id)
+    .then(venue => res.json({ success: true, venue }))
+    .catch(_ => res.redirect('/404'))
+})
+
+app
+  .route('/bookings')
+  .get(ensureLoggedIn('/401'), async (req, res) => {
+    if (!req.user.admin) return res.redirect('/403')
+    try {
+      const rawbook = await bookingsDB.allDocs({ include_docs: true })
+      const bookings = rawbook.rows.map(r => r.doc)
+      const bookingsFlat = await Promise.all(
+        bookings.map(async b => {
+          const [venue, user] = await Promise.all([
+            venuesDB.get(b.venueid),
+            usersDB.get(b.userid)
+          ])
+          return { date: b.date, venue, user }
+        })
+      )
+      res.json({ success: true, bookings: bookingsFlat })
+    } catch (e) {
+      res.redirect('/404')
+    }
+  })
+  .post(ensureLoggedIn('/401'), (req, res) => {
+    if (!req.body) return res.redirect('/400')
+    const { catering, venueid, message, date } = req.body
+    const userid = req.body.userid || req.user._id
+
+    bookingsDB
+      .post({
+        date,
+        userid,
+        venueid,
+        catering,
+        message
+      })
+      .then(_ => res.json({ success: true }))
+      .catch(_ => res.redirect('/500'))
+  })
+  .put(ensureLoggedIn('/401'), async (req, res) => {
+    if (!req.body) return res.redirect('/400')
+    try {
+      const bookingid = req.body.booking
+      const booking = await bookingsDB.get(bookingid)
+      const venue = await venuesDB.get(booking.venueid)
+
+      venuesDB
+        .put({ ...venue, bookings: [].concat(venue.bookings, booking.date) })
+        .then(_ =>
+          res.json({ success: true, message: `${bookingid} confirmed` })
+        )
+        .catch(_ => res.redirect('/500'))
+    } catch (e) {
+      res.redirect('/500')
+    }
   })
 
 app.get('/locations', (req, res) => {

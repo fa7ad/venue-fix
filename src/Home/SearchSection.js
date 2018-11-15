@@ -66,7 +66,7 @@ class SearchSection extends React.Component {
             className='col-sm-3 form-control'
             options={{
               minuteIncrement: 30,
-              dateFormat: 'Y.m.d h:i K',
+              dateFormat: 'd M Y',
               minDate: DateTime.local()
                 .endOf('day')
                 .toJSDate()
@@ -77,7 +77,7 @@ class SearchSection extends React.Component {
             name='date'
             value={DateTime.fromJSDate(this.state.date).toMillis()}
           />
-          <Input name='guests' placeholder='Guests' />
+          <Input name='guests' placeholder='Guests' defaultValue='100' />
           <Button color='primary' className='col-sm-2'>
             Search
           </Button>

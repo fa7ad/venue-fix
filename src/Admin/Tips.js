@@ -1,11 +1,11 @@
 import Rodal from 'rodal'
 import { Button, Container, Input, ListGroup, ListGroupItem } from 'reactstrap'
-import { EditorState, convertToRaw } from 'draft-js'
+import { EditorState, convertToRaw, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import { convertFromHTML } from 'draft-convert'
 import { IoMdCreate } from 'react-icons/io'
 import { DateTime } from 'luxon'
 import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 
 import req from '../request'
 
@@ -178,8 +178,14 @@ class ManageTips extends React.Component {
   }
 
   markupToEditor = async html => {
+    const { contentBlocks, entityMap } = htmlToDraft(html)
+    const contentState = ContentState.createFromBlockArray(
+      contentBlocks,
+      entityMap
+    )
+
     this.setState({
-      editorState: EditorState.createWithContent(convertFromHTML(html))
+      editorState: EditorState.createWithContent(contentState)
     })
   }
 

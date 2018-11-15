@@ -1,10 +1,9 @@
 import './common/bootstrap.min.css'
 import 'rodal/lib/rodal.css'
 import img from './images/img.jpg'
-import { injectGlobal } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
-export default function () {
-  injectGlobal`
+export default createGlobalStyle`
   body, html {
     margin: 0;
     padding: 0;
@@ -26,7 +25,7 @@ export default function () {
   }
   
   .page.home {
-    background: url(${img});
+    background-image: url(${img});
     background-size: 100% 60vmax;
     background-position: center top;
     background-repeat: no-repeat;
@@ -50,4 +49,3 @@ export default function () {
     overflow: hidden !important;
   }
   `
-}

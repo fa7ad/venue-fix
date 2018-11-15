@@ -136,7 +136,7 @@ class AdminPage extends React.Component {
         })
         .json(data => data.admin)
     checkLogin().then(show => this.setState({ show }))
-    const poll = setInterval(checkLogin, 3.3e3)
+    const poll = setInterval(checkLogin, 15e3)
   }
 
   static propTypes = {

@@ -31,7 +31,10 @@ export default function (app, usersDB) {
   })
 
   passport.deserializeUser(function (id, cb) {
-    usersDB.get(id).catch(err => cb(err)).then(user => cb(null, user))
+    usersDB
+      .get(id)
+      .catch(err => cb(err))
+      .then(user => cb(null, user))
   })
 
   app.use(passport.initialize())
@@ -73,5 +76,10 @@ export default function (app, usersDB) {
 
   app.get('/loggedIn', ensureLoggedIn('/401'), (req, res) => {
     res.json({ success: true, admin: req.user.admin })
+  })
+
+  app.get('/whoami', ensureLoggedIn('/401'), (req, res) => {
+    const { name, _id: id } = req.user
+    res.json({ name, id })
   })
 }
