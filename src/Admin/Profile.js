@@ -16,9 +16,9 @@ import Center from './Center'
 import { inObser } from '../store/utils'
 import req from '../request'
 
-const Label = styled(Lbl).attrs({
-  className: p => cx(p.className, 'col-sm-6', 'px-0')
-})``
+const Label = styled(Lbl).attrs(p => ({
+  className: cx(p.className, 'col-sm-6', 'px-0')
+}))``
 
 class ProfileFormDumb extends React.Component {
   state = {

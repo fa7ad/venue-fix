@@ -1,6 +1,6 @@
 import qs from 'qs'
 import cx from 'classnames'
-import { map, filter, toLower } from 'ramda'
+import { map, toLower } from 'ramda'
 import { renameKeys, isArray, isString } from 'ramda-adjunct'
 
 import { Row, Container } from 'reactstrap'
@@ -10,11 +10,11 @@ import EventForm from './EventForm'
 import VenueCard from './Venues'
 
 import req from '../request'
-import { inObser } from '../store/utils'
+import { inject, observer } from 'mobx-react'
 
-const Root = styled.div.attrs({
-  className: p => cx('root', p.className)
-})`
+const Root = styled.div.attrs(p => ({
+  className: cx('root', p.className)
+}))`
   margin-top: 64px;
 `
 
@@ -27,8 +27,7 @@ const venueCardProps = {
 }
 
 const safeLower = val => (isString(val) ? toLower(val) : val)
-const mapLower = data =>
-  map(el => (isArray(el) ? mapLower(el) : safeLower(el)), data)
+const mapLower = map(el => (isArray(el) ? mapLower(el) : safeLower(el)))
 
 class Event extends React.Component {
   state = {
@@ -41,6 +40,7 @@ class Event extends React.Component {
   render () {
     const { location, ui } = this.props
     const { tags, locations, venues } = this.state
+
     return tags && locations && venues ? (
       <Root>
         <EventForm
@@ -51,7 +51,7 @@ class Event extends React.Component {
         />
         <Container>
           <Row style={{ minHeight: '50vh' }}>
-            {this.filterWithForm(ui.form, venues).map(venue => (
+            {this.filterWithForm(ui.form.get(), venues).map(venue => (
               <VenueCard
                 {...renameKeys(venueCardProps, venue)}
                 key={venue._id}
@@ -68,7 +68,7 @@ class Event extends React.Component {
 
   filterWithForm = (form, data) => {
     const { location, guests, category, catering, budget } = form
-    return filter(x => {
+    return [...data].filter(function (x) {
       const v = mapLower(x)
       return (
         location === v.location &&
@@ -78,7 +78,7 @@ class Event extends React.Component {
         v.categories.indexOf(category.trim()) !== -1 &&
         guests <= v.capacity
       )
-    })([].concat(data))
+    })
   }
 
   componentDidMount () {
@@ -95,7 +95,7 @@ class Event extends React.Component {
     req
       .url('/venues')
       .get()
-      .json(({ venues }) => this.setState({ venues }))
+      .json(({ venues }) => this.setState({ venues: [].concat(venues) }))
       .catch(e => console.error(e))
   }
 
@@ -108,4 +108,5 @@ class Event extends React.Component {
     ui: PropTypes.object
   }
 }
-export default inObser(['ui'], Event)
+
+export default inject('ui')(observer(Event))

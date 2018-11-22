@@ -39,12 +39,12 @@ const Logo = styled.img`
   max-height: 2em;
 `
 
-const NavigationBar = styled(Navbar).attrs({
+const NavigationBar = styled(Navbar).attrs(p => ({
   fixed: 'top',
   dark: true,
   expand: 'md',
-  className: p => cx(p.className, 'px-0 py-2')
-})`
+  className: cx(p.className, 'px-0 py-2')
+}))`
   transition: background-color 500ms ease;
 `
 

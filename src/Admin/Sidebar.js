@@ -10,17 +10,16 @@ import { TiTags } from 'react-icons/ti'
 
 import { inObser } from '../store/utils'
 
-const NavItem = styled(NavItm).attrs({
-  className: p =>
-    cx(
-      `text-${p.active ? 'light' : 'dark'}`,
-      { 'bg-dark': p.active },
-      p.className
-    )
-})`
+const NavItem = styled(NavItm).attrs(p => ({
+  className: cx(
+    `text-${p.active ? 'light' : 'dark'}`,
+    { 'bg-dark': p.active },
+    p.className
+  )
+}))`
   display: inline-flex;
   align-items: center;
-  padding: 1em .5em;
+  padding: 1em 0.5em;
   width: calc(100% + 1em);
 
   svg {
@@ -29,7 +28,9 @@ const NavItem = styled(NavItm).attrs({
     height: 1.5em;
   }
 
-  &, &:hover, &:active {
+  &,
+  &:hover,
+  &:active {
     text-decoration: none;
   }
 `
@@ -88,8 +89,7 @@ const Sidebar = ({ ui: { dash }, active }) => (
         tag={defaultProps({ to: it.href })(Link)}
         onClick={e => {
           dash.activate(it.key)
-        }}
-      >
+        }}>
         {it.icon}
         {it.caption}
       </NavItem>

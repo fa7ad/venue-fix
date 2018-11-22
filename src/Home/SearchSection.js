@@ -24,9 +24,9 @@ const Flatpickr = styled(Pickr)`
   }
 `
 
-const Input = styled(Inp).attrs({
-  className: p => cx('col-sm-2', p.className)
-})`
+const Input = styled(Inp).attrs(p => ({
+  className: cx('col-sm-2', p.className)
+}))`
   @media (min-width: 576px) {
     flex-basis: 17%;
     max-width: 17%;

@@ -15,7 +15,7 @@ import {
 
 const Root = styled.div`
   color: #fff;
-  background-color:#1f1f1f;
+  background-color: #1f1f1f;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,14 +51,16 @@ const StyHr = styled.hr`
   }
 `
 
-const StyCol = styled(Col).attrs({
-  sm: p => p.sm || 3
-})`
+const StyCol = styled(Col).attrs(p => ({
+  sm: p.sm || 3
+}))`
   text-align: justify;
   svg {
     margin: auto 5px;
   }
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     margin-top: 1.5em;
   }
 `
@@ -104,8 +106,8 @@ class Footer extends React.Component {
             <StyCol>
               <h3>About Us</h3>
               <p>
-                Without a doubt,
-                Venue Fix is the best way to find & discover the greatest places in the city.
+                Without a doubt, Venue Fix is the best way to find & discover
+                the greatest places in the city.
               </p>
               <StyLink to='/about-us' className='btn bg-light'>
                 See More <FaChevronRight />
@@ -122,8 +124,7 @@ class Footer extends React.Component {
                   defaultZoom={15}
                   bootstrapURLKeys={{
                     key: '***REMOVED***'
-                  }}
-                >
+                  }}>
                   <MapMarker lat={23.762301} lng={90.378749}>
                     Bangladesh <br />
                     Parliament
@@ -134,9 +135,15 @@ class Footer extends React.Component {
             <StyCol>
               <h3>Contact Us</h3>
               <List>
-                <ListItem><FaEnvelope /> venuefix@gmail.com</ListItem>
-                <ListItem><FaEnvelope /> venuefix@gmail.com</ListItem>
-                <ListItem><FaPhone /> +8801xxxxxxxxx</ListItem>
+                <ListItem>
+                  <FaEnvelope /> venuefix@gmail.com
+                </ListItem>
+                <ListItem>
+                  <FaEnvelope /> venuefix@gmail.com
+                </ListItem>
+                <ListItem>
+                  <FaPhone /> +8801xxxxxxxxx
+                </ListItem>
               </List>
 
               <StyLink to='/contact-us' className='btn bg-light my-2'>
@@ -148,9 +155,7 @@ class Footer extends React.Component {
         <StyHr />
         <StyContainer>
           <SocialRow>
-            <StyCol>
-              nothing
-            </StyCol>
+            <StyCol>nothing</StyCol>
             <StyCol sm='6' className='text-center'>
               <FaFacebook />
               <FaTwitter />
