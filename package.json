@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env RAZZLE_HOME=. razzle start",
-    "build": "cross-env RAZZLE_HOME=. razzle build",
+    "build": "cross-env RAZZLE_HOME=/home/node-www/vfx razzle build",
     "test": "cross-env RAZZLE_HOME=. razzle test --env=jsdom",
     "start:prod": "cross-env NODE_ENV=production node build/server.js"
   },
