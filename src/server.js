@@ -2,7 +2,7 @@ import path from 'path'
 import Express from 'express'
 
 import Pouch from 'pouchdb'
-import { pickAll } from 'ramda'
+import { pickAll, merge } from 'ramda'
 
 import bcrypt from 'bcryptjs'
 import logger from 'morgan'
@@ -64,7 +64,7 @@ app
     usersDB
       .get(req.user._id)
       .then(({ password, _rev, admin }) => {
-        const { name, phone, address, password: pwd } = Object.assign(
+        const { name, phone, address, password: pwd } = merge(
           {},
           req.user,
           req.body
@@ -165,7 +165,19 @@ app
             venuesDB.get(b.venueid),
             usersDB.get(b.userid)
           ])
-          return { date: b.date, venue, user }
+          const { _id, date, catering, message, confirm } = b
+          return {
+            id: _id,
+            _id,
+            date,
+            catering,
+            message,
+            confirm,
+            venue: venue.title,
+            name: user.name,
+            phone: user._id,
+            address: user.address
+          }
         })
       )
       res.json({ success: true, bookings: bookingsFlat })
@@ -184,7 +196,8 @@ app
         userid,
         venueid,
         catering,
-        message
+        message: message || '',
+        confirm: false
       })
       .then(_ => res.json({ success: true }))
       .catch(_ => res.redirect('/500'))
@@ -198,6 +211,9 @@ app
 
       venuesDB
         .put({ ...venue, bookings: [].concat(venue.bookings, booking.date) })
+        .then(_ => bookingsDB.get(bookingid))
+        .then(doc => merge(doc, { confirm: true }))
+        .then(doc => bookingsDB.put(doc))
         .then(_ =>
           res.json({ success: true, message: `${bookingid} confirmed` })
         )

@@ -1,7 +1,9 @@
+import { createGlobalStyle } from 'styled-components'
+
+import img from './images/img.jpg'
+
 import './common/bootstrap.min.css'
 import 'rodal/lib/rodal.css'
-import img from './images/img.jpg'
-import { createGlobalStyle } from 'styled-components'
 
 export default createGlobalStyle`
   body, html {
