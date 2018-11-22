@@ -87,6 +87,7 @@ class Register extends React.Component {
       )
       .json(e => {
         console.log(e)
+        // FIXME
         this.props.onLog()
       })
   }

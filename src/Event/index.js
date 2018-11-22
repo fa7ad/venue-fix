@@ -101,6 +101,7 @@ class Event extends React.Component {
 
   bookVenue = id => {
     console.log(id)
+    // FIXME
   }
 
   static propTypes = {
