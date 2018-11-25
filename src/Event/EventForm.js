@@ -1,5 +1,6 @@
 import Slider from 'rc-slider'
 import { DateTime } from 'luxon'
+import { toLower } from 'ramda'
 import Flatpickr from 'react-flatpickr'
 import { Form, Label, Input, Button, Container, Row, Col } from 'reactstrap'
 
@@ -32,7 +33,7 @@ class EventForm extends React.Component {
         .startOf('day')
         .toJSDate(),
       budget: [0, 50000],
-      location: this.props.locations[0].toLowerCase(),
+      location: toLower('' + this.props.locations[0]),
       guests: '0',
       category: 'conference halls',
       catering: false
