@@ -120,11 +120,17 @@ class Event extends React.Component {
     const { location, guests, category, catering, budget } = form
     return [...data].filter(function (x) {
       const v = mapLower(x)
+      console.log(location === v.location,
+        v.rent <= budget[1],
+        v.rent >= budget[0],
+        (catering ? v.catering : true),
+        v.categories.indexOf(category.trim()) !== -1,
+        guests <= v.capacity)
       return (
         location === v.location &&
         v.rent <= budget[1] &&
         v.rent >= budget[0] &&
-        (catering ? v.catering === true : true) &&
+        (catering ? v.catering : true) &&
         v.categories.indexOf(category.trim()) !== -1 &&
         guests <= v.capacity
       )
