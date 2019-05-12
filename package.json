@@ -34,7 +34,7 @@
     "pouchdb": "^7.0.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.2",
-    "ramda": "0.25.0",
+    "ramda": "0.26.1",
     "ramda-adjunct": "^2.11.0",
     "razzle": "^2.2.0",
     "rc-slider": "^8.6.3",
