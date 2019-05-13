@@ -51,7 +51,7 @@
     "react-scroll-trigger": "^0.5.1",
     "react-select": "^2.1.2",
     "react-waypoint": "^8.1.0",
-    "reactstrap": "^6.5.0",
+    "reactstrap": "^8.0.0",
     "recompose": "^0.30.0",
     "rodal": "^1.6.3",
     "sanitize-html": "^1.19.1",
