@@ -30,7 +30,7 @@
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "path-to-regexp": "^2.4.0",
+    "path-to-regexp": "^3.0.0",
     "pouchdb": "^7.0.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.2",
