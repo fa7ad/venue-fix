@@ -50,7 +50,7 @@
     "react-router-transition": "^1.2.1",
     "react-scroll-trigger": "^0.5.1",
     "react-select": "^2.1.2",
-    "react-waypoint": "^8.1.0",
+    "react-waypoint": "^9.0.0",
     "reactstrap": "^8.0.0",
     "recompose": "^0.30.0",
     "rodal": "^1.6.3",
