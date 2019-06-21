@@ -42,7 +42,7 @@
     "react-dom": "^16.6.3",
     "react-draft-wysiwyg": "^1.12.13",
     "react-flatpickr": "^3.6.4",
-    "react-icons": "^3.2.2",
+    "react-icons": "^3.7.0",
     "react-images-upload": "^1.2.3",
     "react-loading": "^2.0.3",
     "react-render-html": "^0.6.0",
