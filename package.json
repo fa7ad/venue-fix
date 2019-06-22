@@ -33,7 +33,7 @@
     "path-to-regexp": "^3.0.0",
     "pouchdb": "^7.1.1",
     "prop-types": "^15.6.1",
-    "qs": "^6.5.2",
+    "qs": "^6.7.0",
     "ramda": "0.26.1",
     "ramda-adjunct": "^2.11.0",
     "razzle": "^3.0.0",
