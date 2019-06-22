@@ -18,7 +18,7 @@
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "express": "^4.16.4",
-    "express-session": "^1.15.6",
+    "express-session": "^1.16.2",
     "flatpickr": "^4.6.1",
     "google-map-react": "^1.1.1",
     "html-to-draftjs": "^1.4.0",
