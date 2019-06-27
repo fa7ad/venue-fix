@@ -37,7 +37,7 @@
     "ramda": "0.26.1",
     "ramda-adjunct": "^2.11.0",
     "razzle": "^3.0.0",
-    "rc-slider": "^8.6.3",
+    "rc-slider": "^8.6.13",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-draft-wysiwyg": "^1.12.13",
