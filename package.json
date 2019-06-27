@@ -57,7 +57,7 @@
     "sanitize-html": "^1.19.1",
     "session-pouchdb-store": "^0.3.0",
     "striptags": "^3.1.1",
-    "styled-components": "^4.1.1",
+    "styled-components": "^4.3.2",
     "superstruct": "^0.6.0",
     "wretch": "^1.4.2",
     "yarn": "^1.12.3"
