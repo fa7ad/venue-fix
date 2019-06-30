@@ -9006,10 +9006,10 @@ react-scroll-trigger@^0.5.1:
     lodash.throttle "^4.1.1"
     prop-types "^15.6.2"
 
-react-select@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/react-select/-/react-select-3.0.0.tgz#596869e670103a0876382115be35df1b875ed2ee"
-  integrity sha512-IIsI11sb5DKuTVf914BQSM2NzXYxUJv4cW3R8W1wTPPMopai4IGT9L5dGYXtL3SZsd8WWilsInK4hmQ5+E0I8g==
+react-select@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-3.0.4.tgz#16bde37c24fd4f6444914d4681e78f15ffbc86d3"
+  integrity sha512-fbVISKa/lSUlLsltuatfUiKcWCNvdLXxFFyrzVQCBUsjxJZH/m7UMPdw/ywmRixAmwXAP++MdbNNZypOsiDEfA==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@emotion/cache" "^10.0.9"
