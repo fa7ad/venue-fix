@@ -40,7 +40,7 @@
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-draft-wysiwyg": "^1.12.13",
+    "react-draft-wysiwyg": "^1.13.2",
     "react-flatpickr": "^3.6.4",
     "react-icons": "^3.7.0",
     "react-images-upload": "^1.2.3",
