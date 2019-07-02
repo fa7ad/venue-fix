@@ -8979,10 +8979,10 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-scroll-trigger@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/react-scroll-trigger/-/react-scroll-trigger-0.5.1.tgz#8a5c5f7ffe28ceaa5e583f3dde11bbf735a6cabf"
-  integrity sha512-1hrivfpdjndYNrvB/FxUUnSXWiZDbi9GeVzJeVV0xXkUhf/fwc4GyKiwp+JO+1NFUKZgLneudicoew3pI6rLug==
+react-scroll-trigger@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/react-scroll-trigger/-/react-scroll-trigger-0.5.3.tgz#eb4bbdf080f7d666ab4e5152782e12451712f016"
+  integrity sha512-YisiNMt1L7VWo0rz7upLMbjbCerLvBs43zblowFWVnWes5MPjXPqG4AIMQdF/xcPvDJLUxHfWxV1fzCWeHBmSQ==
   dependencies:
     clean-react-props "^0.2.9"
     lodash.throttle "^4.1.1"

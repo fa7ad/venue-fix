@@ -48,7 +48,7 @@
     "react-render-html": "^0.6.0",
     "react-router-dom": "^5.0.1",
     "react-router-transition": "^1.2.1",
-    "react-scroll-trigger": "^0.5.1",
+    "react-scroll-trigger": "^0.5.3",
     "react-select": "^3.0.4",
     "react-waypoint": "^9.0.0",
     "reactstrap": "^8.0.0",
