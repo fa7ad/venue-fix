@@ -24,7 +24,7 @@
     "html-to-draftjs": "^1.4.0",
     "isomorphic-fetch": "^2.2.1",
     "luxon": "^1.16.0",
-    "mobx": "^5.10.1",
+    "mobx": "^5.11.0",
     "mobx-react": "^6.1.1",
     "mobx-state-tree": "^3.9.0",
     "morgan": "^1.9.1",
