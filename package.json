@@ -19,7 +19,7 @@
     "draftjs-to-html": "^0.8.4",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
-    "flatpickr": "^4.6.1",
+    "flatpickr": "^4.6.2",
     "google-map-react": "^1.1.4",
     "html-to-draftjs": "^1.4.0",
     "isomorphic-fetch": "^2.2.1",
