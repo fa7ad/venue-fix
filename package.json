@@ -35,7 +35,7 @@
     "prop-types": "^15.6.1",
     "qs": "^6.7.0",
     "ramda": "0.26.1",
-    "ramda-adjunct": "^2.18.0",
+    "ramda-adjunct": "^2.19.0",
     "razzle": "^3.0.0",
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
