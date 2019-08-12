@@ -864,10 +864,30 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.10.tgz#4fa76e6598b7de3f0cb6ec3abacc4f59e5b3a2ce"
   integrity sha512-8xZEYckCbUVgK8Eg7lf5Iy4COKJ5uXlnIOnePN0WUwSQggy9tolM+tDJf7wMOnT/JT/W9xDYIaYggt3mRV2O5w==
 
+"@types/prop-types@*":
+  version "15.7.1"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.1.tgz#f1a11e7babb0c3cad68100be381d1e064c68f1f6"
+  integrity sha512-CFzn9idOEpHrgdw8JsoTkaDDyRWk1jrzIV8djzcgpq0y9tG4B4lFT+Nxh52DVpDXV+n4+NPNv7M1Dj5uMp6XFg==
+
 "@types/q@^1.5.1":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
+
+"@types/react-dom@^16.8.4":
+  version "16.8.5"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.5.tgz#3e3f4d99199391a7fb40aa3a155c8dd99b899cbd"
+  integrity sha512-idCEjROZ2cqh29+trmTmZhsBAUNQuYrF92JHKzZ5+aiFM1mlSk3bb23CK7HhYuOY75Apgap5y2jTyHzaM2AJGA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.8.14":
+  version "16.9.1"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.1.tgz#862c83b4c9d5cd116e42fd9a4f3694843cd2c051"
+  integrity sha512-jGM2x8F7m7/r+81N/BOaUKVwbC5Cdw6ExlWEUpr77XPwVeNvAppnPEnMMLMfxRDYL8FPEX8MHjwtD2NQMJ0yyQ==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^2.2.0"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -2212,10 +2232,10 @@ classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
 
-clean-react-props@^0.2.9:
-  version "0.2.11"
-  resolved "https://registry.yarnpkg.com/clean-react-props/-/clean-react-props-0.2.11.tgz#59e967d871cc9c2dcc3e4cbe6bbeaaba9ccea6c7"
-  integrity sha512-OajTkXRs4hp9v8FAYq5jjGER8JS4WPawJY5fzxMrM5mThTx0ZypRIY3Wknu/JcOYOH59rJWI7m9KeT2sD3pvBQ==
+clean-react-props@^0.3.0:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/clean-react-props/-/clean-react-props-0.3.3.tgz#bc9ca37bb6b42e1c2dd04ecef6bde1b51db1a3af"
+  integrity sha512-ap2qWuJEvdQibVV4e8mfPQRtZ5c9GXW+ExOJ9V1jXFPuFEU+rdyl9iZL8KhdJQqYQ7ww8rha9l3926+41YC3vA==
 
 cli-cursor@^2.1.0:
   version "2.1.0"
@@ -2860,6 +2880,11 @@ cssstyle@^1.0.0:
   integrity sha512-364AI1l/M5TYcFH83JnOH/pSqgaNnKmYgKrm0didZMGKWjQB60dymwWy1rKUgL3J1ffdq9xVi2yGLHdSjjSNog==
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.6.6.tgz#c34f8226a94bbb10c32cc0d714afdf942291fc41"
+  integrity sha512-RpFbQGUE74iyPgvr46U9t1xoQBM8T4BL8SxrN66Le2xYAPSaDJJKeztV3awugusb3g3G9iL8StmkBBXhcbbXhg==
 
 csstype@^2.5.7:
   version "2.6.4"
@@ -8995,14 +9020,16 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-scroll-trigger@^0.5.3:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/react-scroll-trigger/-/react-scroll-trigger-0.5.3.tgz#eb4bbdf080f7d666ab4e5152782e12451712f016"
-  integrity sha512-YisiNMt1L7VWo0rz7upLMbjbCerLvBs43zblowFWVnWes5MPjXPqG4AIMQdF/xcPvDJLUxHfWxV1fzCWeHBmSQ==
+react-scroll-trigger@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-scroll-trigger/-/react-scroll-trigger-0.6.0.tgz#55796e7bec8a008f3f00a4b0bfe890a0e1140302"
+  integrity sha512-Gr6H0a1TQBsPCxm7FngoceAH8/pnJw3o7fp4uekAFUj9JpP/lJQqJbSF1Ris0HSTTNTM4/bKMQszTigrE0LsMQ==
   dependencies:
-    clean-react-props "^0.2.9"
+    "@types/react" "^16.8.14"
+    "@types/react-dom" "^16.8.4"
+    clean-react-props "^0.3.0"
     lodash.throttle "^4.1.1"
-    prop-types "^15.6.2"
+    prop-types "^15.7.2"
 
 react-select@^3.0.4:
   version "3.0.4"
