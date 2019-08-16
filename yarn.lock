@@ -8853,10 +8853,10 @@ react-error-overlay@^5.0.4, react-error-overlay@^5.1.0:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
 
-react-flatpickr@^3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.9.0.tgz#25f3b1ad5f86915bed74f62a71cfe4b57f8b74df"
-  integrity sha512-9dWAg0zxBQa4lDnUx6nANZXRWCWgFjeMXI+Y3Itn907B/Kj0GHdSr7dP/XK9nQELL+Lz4Zk5Qq7rnpTEV+gQ1w==
+react-flatpickr@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.9.1.tgz#2fcee71a2664df9c9290ea3550cb40fe06c99305"
+  integrity sha512-g3FdnrYfFWOj/cWuPwHhYigpchu8GwAJvUzxUrba20dhrAdW1+dwAQxE+3aGe6eFYhYlTosVYTP8XAefnn5kxg==
   dependencies:
     flatpickr "^4.5.7"
     prop-types "^15.5.10"
