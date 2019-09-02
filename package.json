@@ -58,7 +58,7 @@
     "session-pouchdb-store": "^0.3.0",
     "striptags": "^3.1.1",
     "styled-components": "^4.3.2",
-    "superstruct": "^0.6.1",
+    "superstruct": "^0.6.2",
     "wretch": "^1.5.4",
     "yarn": "^1.17.3"
   },
