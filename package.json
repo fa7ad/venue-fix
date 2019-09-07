@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
-    "cross-env": "^5.1.5",
+    "cross-env": "^5.2.1",
     "eslint": "^6.3.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-config-standard-react": "^9.2.0",
