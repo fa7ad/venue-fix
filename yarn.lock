@@ -10278,10 +10278,10 @@ sublevel-pouchdb@6.4.3:
     ltgt "2.2.0"
     readable-stream "1.0.33"
 
-superstruct@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.6.2.tgz#c5eb034806a17ff98d036674169ef85e4c7f6a1c"
-  integrity sha512-lvA97MFAJng3rfjcafT/zGTSWm6Tbpk++DP6It4Qg7oNaeM+2tdJMuVgGje21/bIpBEs6iQql1PJH6dKTjl4Ig==
+superstruct@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/superstruct/-/superstruct-0.7.0.tgz#0bb8fd19173271ee86d5ef71d9e5af5eda1ae93d"
+  integrity sha512-dtqeKdBjiri64K1mPtc5yFSUcUEnK4r6I6GX9DXSb00aZ08Md7c8UvNRMCtXbi1P9t59KbmVwVrYLt1wUyNv9Q==
   dependencies:
     clone-deep "^2.0.1"
     kind-of "^6.0.1"
